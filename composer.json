@@ -1,5 +1,21 @@
 {
   "name": "oro/upgrade-toolkit",
+  "description": "The Oro Source Code Upgrade Toolkit",
+  "homepage": "https://github.com/oroinc/upgrade",
+  "license": "MIT",
+  "keywords": [
+    "OroPlatform",
+    "OroCommerce",
+    "OroCRM",
+    "upgrade",
+    "update"
+  ],
+  "authors": [
+    {
+      "name": "Oro, Inc",
+      "homepage": "http://www.oroinc.com"
+    }
+  ],
   "require": {
     "rector/rector": "^0.16.0",
     "oro/platform": "~5.1.0"

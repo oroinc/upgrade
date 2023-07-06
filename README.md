@@ -6,7 +6,7 @@ Installation
 ------------
 
 ```bash
-composer require oro/upgrade-toolkit:dev-main --dev
+composer require oro/upgrade-toolkit:dev-master --dev
 ```
 
 Usage
