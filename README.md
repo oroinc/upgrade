@@ -13,7 +13,7 @@ Usage
 -----
 
 ```bash
-bin/rector process src --config vendor/oro/upgrade-toolkit/config/set/oro-51.php
+bin/rector process src --config vendor/oro/upgrade-toolkit/sets/oro-51.php
 ```
 
 (Replace src with the path to your source directory, if not src/.)
