@@ -36,7 +36,6 @@ final class ExtendedEntityUpdateRectorTest extends AbstractRectorTestCase
 
         $this->doTestFile(__DIR__ . '/Fixture/fixture.php.inc');
 
-
         $isFileRemoved = $this->removedAndAddedFilesCollector->isFileRemoved(
             __DIR__ . '/Fixture/model.php'
         );
