@@ -18,7 +18,7 @@
   ],
   "require": {
     "rector/rector": "^0.16.0",
-    "oro/platform": "~5.1.0"
+    "oro/platform": "~6.0.0"
   },
   "autoload": {
     "psr-4": {
