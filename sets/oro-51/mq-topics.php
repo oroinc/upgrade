@@ -1,8 +1,8 @@
 <?php
 
-use Oro\Rector\ClassConstantToStaticMethodCallRector;
-use Oro\Rector\GenerateTopicClassesRector;
-use Oro\Rector\TopicClassConstantUsageToTopicNameRector;
+use Oro\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector;
+use Oro\Rector\Rules\Oro51\GenerateTopicClassesRector;
+use Oro\Rector\Rules\Oro51\TopicClassConstantUsageToTopicNameRector;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {

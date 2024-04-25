@@ -1,6 +1,9 @@
 # The Oro Source Code Upgrade Toolkit
 
-A command line helper to upgrade the Oro application's source code from v5.0 to v5.1.
+A command line helper that facilitates upgrading the source code of the Oro application:
+ * From version 5.0 to 5.1
+ * From version 5.1 to 6.0
+ * From version 5.0 to 6.0
 
 Installation
 ------------
@@ -16,28 +19,17 @@ Usage
 bin/rector process src --config vendor/oro/upgrade-toolkit/sets/oro-51.php
 ```
 
-(Replace src with the path to your source directory, if not src/.)
+Replace src with the path to your source directory, if not src/, and oro-51.php with the desired upgrade set (oro-51.php or oro-60.php).
 
 You can add --dry-run to the bin/rector command to verify the results without actually making any changes.
 
-Advanced Configuration
-----------------------
-To include additional Rector rules, or customize which files/directories should be processed,  give your project a rector.php file.
+Testing
+-------
 
-The following example runs the Oro 5.1 rule set:
+To run tests
 
-```php
-<?php
-
-use Oro\Rector\OroSetList;
-use Rector\Config\RectorConfig;
-
-return static function(RectorConfig $rectorConfig): void {
-    // Import the Oro 5.1 upgrade rule set
-    $rectorConfig->sets([
-        OroSetList::ORO_51
-    ]);
-};
+```bash
+php bin/phpunit --testsuite upgrade-toolkit --configuration vendor/oro/upgrade-toolkit/phpunit.xml.dist
 ```
 
 License

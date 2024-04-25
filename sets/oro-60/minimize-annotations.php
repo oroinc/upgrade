@@ -1,6 +1,6 @@
 <?php
 
-use Oro\Rector\Annotation\MinimizeAnnotationRector;
+use Oro\Rector\Rules\Oro60\Annotation\MinimizeAnnotationRector;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {

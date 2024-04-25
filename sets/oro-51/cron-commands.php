@@ -1,6 +1,6 @@
 <?php
 
-use Oro\Rector\ImplementCronCommandScheduleDefinitionInterfaceRector;
+use Oro\Rector\Rules\Oro51\ImplementCronCommandScheduleDefinitionInterfaceRector;
 use Rector\Config\RectorConfig;
 use Rector\Transform\Rector\Class_\MergeInterfacesRector;
 

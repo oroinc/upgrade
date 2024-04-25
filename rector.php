@@ -23,7 +23,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
-        SetList::PSR_4,
         SetList::TYPE_DECLARATION,
     ]);
     $rectorConfig->rule(DeclareStrictTypesRector::class);

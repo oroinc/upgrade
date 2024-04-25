@@ -1,9 +1,9 @@
 <?php
 
+use Oro\Rector\Rules\Namespace\RenameNamespaceRector;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
-use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 
 return static function (RectorConfig $rectorConfig): void {
     // Transform custom annotations to attributes

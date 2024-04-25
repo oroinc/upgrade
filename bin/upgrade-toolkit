@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+@ini_set('memory_limit', '-1');
+
+if ($GLOBALS['_composer_autoload_path']) {
+    require $GLOBALS['_composer_autoload_path'];
+}
+
+use Oro\Rector\Console\Command\SignatureGeneratorCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$command = new SignatureGeneratorCommand();
+$application->add($command);
+
+$application->run();

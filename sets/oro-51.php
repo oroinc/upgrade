@@ -1,21 +1,33 @@
 <?php
 
+use Oro\Rector\Rules\Namespace\RenameNamespaceRector;
+use Oro\Rector\Signature\SignatureConfigurator;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\Visibility;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
+use Rector\ValueObject\Visibility;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/oro-51/*');
+    // Bind custom Process Command class instead of default
+    // to inject custom file processors into the Rector`s flow
+    $rectorConfig->bind(
+        \Rector\Console\Command\ProcessCommand::class,
+        \Oro\Rector\Console\Command\ProcessCommand::class
+    );
+
+    $rectorConfig->import(__DIR__ . '/skip-list.php');
+    $rectorConfig->import(__DIR__ . '/oro-51/api.php');
+    $rectorConfig->import(__DIR__ . '/oro-51/cron-commands.php');
+    $rectorConfig->import(__DIR__ . '/oro-51/entity-extend.php');
+    $rectorConfig->import(__DIR__ . '/oro-51/mq-topics.php');
 
     $rectorConfig->ruleWithConfiguration(RenameNamespaceRector::class, [
         // Moved all ORM relates mocks and test cases to Testing component.
@@ -61,4 +73,7 @@ return static function (RectorConfig $rectorConfig): void {
             'setResultFieldValue'
         )
     ]);
+
+    // Apply property/method signatures rules
+//    SignatureConfigurator::configure($rectorConfig);
 };
