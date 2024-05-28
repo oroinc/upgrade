@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Rules\Oro51;
+namespace Oro\UpgradeToolkit\Rector\Rules\Oro51;
 
 use Oro\Bundle\ApiBundle\Util\ValueNormalizerUtil;
 use PhpParser\Node;

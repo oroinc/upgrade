@@ -12,9 +12,54 @@ Installation
 composer require oro/upgrade-toolkit:dev-master --dev
 ```
 
+Suggested workflow
+------------------
+
+1. Analyze your code with and review suggested changes:
+
+```bash
+php bin/upgrade-toolkit --dry-run
+```
+
+2. Apply suggested changes:
+
+```bash
+php bin/upgrade-toolkit --clear-cache
+```
+
+3. Fix Code Style. Use IDE build-in solutions (E.G.: “Code > Reformat Code” in PhpStorm)
+
+    or run Php-CS-Fixer
+   
+```bash
+php bin/php-cs-fixer fix src --verbose --config=vendor/oro/platform/build/.php-cs-fixer.php
+```
+
+and PHP_CodeSniffer
+
+```bash
+php bin/phpcbf src/ -p --encoding=utf-8 --extensions=php --standard=vendor/oro/platform/build/Oro/phpcs.xml
+```
+
+4. Run required [automated  tests](https://doc.oroinc.com/backend/automated-tests/) to ensure that the upgraded code still works properly.
+
+
 Usage
 -----
 
+Run:
+```bash
+php bin/upgrade-toolkit
+```
+In most cases, the command can be used without any options.
+
+If additional adjustments are needed - run the command with the `--help` option to get details
+
+```bash
+php bin/upgrade-toolkit --help
+```
+-------
+Rector rule sets are still available to run separately:
 ```bash
 bin/rector process src --config vendor/oro/upgrade-toolkit/sets/oro-51.php
 ```

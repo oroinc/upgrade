@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Rector\Application;
+namespace Oro\UpgradeToolkit\Rector\Application;
 
 use Nette\Utils\FileSystem;
 use Rector\Console\Style\RectorStyle;
@@ -8,7 +8,7 @@ use Rector\ValueObject\Configuration;
 
 /**
  * Adds listed files
- * @see \Oro\Rector\Application\ApplicationFileProcessor
+ * @see \Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor
  */
 class AddedFilesProcessor extends AbstractFilesProcessor
 {

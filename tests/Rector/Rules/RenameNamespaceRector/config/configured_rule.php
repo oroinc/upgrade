@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Oro\Rector\Rules\Namespace\RenameNamespaceRector;
+use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {

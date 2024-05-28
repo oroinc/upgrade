@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Tests\Rector\ExtendedEntityUpdateRector\Fixture\Bundle\Model;
+namespace Oro\UpgradeToolkit\Tests\Rector\ExtendedEntityUpdateRector\Fixture\Bundle\Model;
 
 class ExtendFoo
 {

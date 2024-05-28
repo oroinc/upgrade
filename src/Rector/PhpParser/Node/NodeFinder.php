@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Rector\PhpParser\Node;
+namespace Oro\UpgradeToolkit\Rector\PhpParser\Node;
 
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike;

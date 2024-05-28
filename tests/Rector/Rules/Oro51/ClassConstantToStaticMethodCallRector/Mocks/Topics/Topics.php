@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics;
 
 /**
  * Copy of https://github.com/oroinc/platform/tree/4.2.0/src/Oro/Bundle/EmailBundle/Async/Topics.php#L8

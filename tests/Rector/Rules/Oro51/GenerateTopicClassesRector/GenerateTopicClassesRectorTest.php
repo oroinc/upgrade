@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Oro\Tests\Rector\Rules\Oro51\GenerateTopicClassesRector;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\GenerateTopicClassesRector;
 
 use Nette\Utils\FileSystem;
-use Oro\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Oro\UpgradeToolkit\Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
 final class GenerateTopicClassesRectorTest extends AbstractRectorTestCase
 {

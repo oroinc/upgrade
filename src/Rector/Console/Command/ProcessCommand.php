@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Console\Command;
+namespace Oro\UpgradeToolkit\Rector\Console\Command;
 
-use Oro\Rector\Application\ApplicationFileProcessor;
+use Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor;
 use Rector\Autoloading\AdditionalAutoloader;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;

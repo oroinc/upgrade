@@ -2,7 +2,7 @@
 
 use Oro\Bundle\EntityExtendBundle\EntityPropertyInfo;
 use Oro\Bundle\EntityExtendBundle\PropertyAccess;
-use Oro\Rector\Rules\Oro51\ExtendedEntityUpdateRector;
+use Oro\UpgradeToolkit\Rector\Rules\Oro51\ExtendedEntityUpdateRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Oro\Tests\Rector\Rules\Oro51\ExtendedEntityUpdateRector;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\ExtendedEntityUpdateRector;
 
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
-use Oro\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Oro\UpgradeToolkit\Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
 final class ExtendedEntityUpdateRectorTest extends AbstractRectorTestCase
 {

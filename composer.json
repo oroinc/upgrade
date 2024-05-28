@@ -25,12 +25,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Oro\\": "src/"
+      "Oro\\UpgradeToolkit\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Oro\\Tests\\": "tests/"
+      "Oro\\UpgradeToolkit\\Tests\\": "tests/"
     }
   },
   "require-dev": {

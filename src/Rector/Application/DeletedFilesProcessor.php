@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Rector\Application;
+namespace Oro\UpgradeToolkit\Rector\Application;
 
 use Nette\Utils\FileSystem;
 use Rector\Console\Style\RectorStyle;
@@ -9,7 +9,7 @@ use RectorPrefix202403\Webmozart\Assert\Assert;
 
 /**
  * Removes listed files
- * @see \Oro\Rector\Application\ApplicationFileProcessor
+ * @see \Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor
  */
 class DeletedFilesProcessor extends AbstractFilesProcessor
 {

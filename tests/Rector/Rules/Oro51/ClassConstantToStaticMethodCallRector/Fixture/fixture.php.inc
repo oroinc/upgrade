@@ -1,9 +1,9 @@
 <?php
 
-$this->send(Oro\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::SEND_AUTO_RESPONSE, []);
-$this->receive(Oro\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::SEND_AUTO_RESPONSES, []);
-$this->send(Oro\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::SEND_EMAIL_TEMPLATE, []);
-$this->send(Oro\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::ADD_ASSOCIATION_TO_EMAIL, []);
+$this->send(Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::SEND_AUTO_RESPONSE, []);
+$this->receive(Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::SEND_AUTO_RESPONSES, []);
+$this->send(Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::SEND_EMAIL_TEMPLATE, []);
+$this->send(Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\ClassConstantToStaticMethodCallRector\Mocks\Topics\Topics::ADD_ASSOCIATION_TO_EMAIL, []);
 
 ?>
 -----

@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Rector\Signature;
+namespace Oro\UpgradeToolkit\Configuration;
 
 /**
  * Contains all needed data to generate signature listings

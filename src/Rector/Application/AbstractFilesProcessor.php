@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Rector\Application;
+namespace Oro\UpgradeToolkit\Rector\Application;
 
 use Nette\Utils\FileSystem;
 

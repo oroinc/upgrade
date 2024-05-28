@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Rules\Oro60\Annotation;
+namespace Oro\UpgradeToolkit\Rector\Rules\Oro60\Annotation;
 
 use PhpParser\Comment\Doc;
 use PhpParser\Node;

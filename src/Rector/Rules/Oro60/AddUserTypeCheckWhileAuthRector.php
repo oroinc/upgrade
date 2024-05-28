@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Rules\Oro60;
+namespace Oro\UpgradeToolkit\Rector\Rules\Oro60;
 
 use Oro\Bundle\UserBundle\Entity\AbstractUser;
 use PhpParser\Node;

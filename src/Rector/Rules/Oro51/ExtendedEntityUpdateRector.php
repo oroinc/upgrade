@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Rules\Oro51;
+namespace Oro\UpgradeToolkit\Rector\Rules\Oro51;
 
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
-use Oro\Rector\Application\DeletedFilesProcessor;
-use Oro\Rector\NodeManipulator\ClassInsertManipulator;
+use Oro\UpgradeToolkit\Rector\Application\DeletedFilesProcessor;
+use Oro\UpgradeToolkit\Rector\NodeManipulator\ClassInsertManipulator;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;

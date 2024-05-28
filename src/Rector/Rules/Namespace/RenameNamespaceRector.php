@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Rules\Namespace;
+namespace Oro\UpgradeToolkit\Rector\Rules\Namespace;
 
-use Oro\Rector\Namespace\NamespaceMatcher;
-use Oro\Rector\Namespace\PhpDoc\NodeAnalyzer\DocBlockNamespaceRenamer;
-use Oro\Rector\Namespace\ValueObject\RenamedNamespace;
+use Oro\UpgradeToolkit\Rector\Namespace\NamespaceMatcher;
+use Oro\UpgradeToolkit\Rector\Namespace\PhpDoc\NodeAnalyzer\DocBlockNamespaceRenamer;
+use Oro\UpgradeToolkit\Rector\Namespace\ValueObject\RenamedNamespace;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;

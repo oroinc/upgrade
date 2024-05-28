@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Namespace\Validation;
+namespace Oro\UpgradeToolkit\Rector\Namespace\Validation;
 
 use Rector\Util\StringUtils;
 use RectorPrefix202403\Webmozart\Assert\InvalidArgumentException;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Oro\Rector\Namespace\ValueObject;
+namespace Oro\UpgradeToolkit\Rector\Namespace\ValueObject;
 
-use Oro\Rector\Namespace\Validation\NamespaceRectorAssert;
+use Oro\UpgradeToolkit\Rector\Namespace\Validation\NamespaceRectorAssert;
 
 /**
  * Modified copy of \Rector\Renaming\ValueObject\RenamedNamespace, Rector v0.16.0

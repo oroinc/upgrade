@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\TopicClass;
+namespace Oro\UpgradeToolkit\Rector\TopicClass;
 
 use Oro\Component\MessageQueue\Topic\AbstractTopic;
 use PhpParser\Comment\Doc;

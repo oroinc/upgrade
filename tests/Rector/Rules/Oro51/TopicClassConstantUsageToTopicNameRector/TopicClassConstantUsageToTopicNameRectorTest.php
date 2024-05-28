@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Tests\Rector\Rules\Oro51\TopicClassConstantUsageToTopicNameRector;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\TopicClassConstantUsageToTopicNameRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 

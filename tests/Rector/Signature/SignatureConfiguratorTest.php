@@ -1,9 +1,9 @@
 <?php
 
-namespace Oro\Tests\Rector\Signature;
+namespace Oro\UpgradeToolkit\Tests\Rector\Signature;
 
 use Nette\Utils\FileSystem;
-use Oro\Rector\Signature\SignatureConfig;
+use Oro\UpgradeToolkit\Configuration\SignatureConfig;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 

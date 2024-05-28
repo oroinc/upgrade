@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Tests\Rector\Rules\Oro60\AddUserTypeCheckWhileAuthRector\Fixture;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro60\AddUserTypeCheckWhileAuthRector\Fixture;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -28,7 +28,7 @@ class MyController extends AbstractController
 -----
 <?php
 
-namespace Oro\Tests\Rector\Rules\Oro60\AddUserTypeCheckWhileAuthRector\Fixture;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro60\AddUserTypeCheckWhileAuthRector\Fixture;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 

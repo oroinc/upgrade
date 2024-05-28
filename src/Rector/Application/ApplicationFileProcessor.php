@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Application;
+namespace Oro\UpgradeToolkit\Rector\Application;
 
 use Rector\Application\FileProcessor;
 use Rector\Caching\Detector\ChangedFilesDetector;

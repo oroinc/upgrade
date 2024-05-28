@@ -1,8 +1,8 @@
 <?php
 
-namespace Oro\Rector\Namespace;
+namespace Oro\UpgradeToolkit\Rector\Namespace;
 
-use Oro\Rector\Namespace\ValueObject\RenamedNamespace;
+use Oro\UpgradeToolkit\Rector\Namespace\ValueObject\RenamedNamespace;
 
 /**
  * Modified copy of \Rector\Naming\NamespaceMatcher, Rector v0.16.0

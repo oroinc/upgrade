@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\TopicClass;
+namespace Oro\UpgradeToolkit\Rector\TopicClass;
 
 class TopicClassNameGenerator
 {

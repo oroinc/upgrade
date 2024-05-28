@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Tests\Rector\TopicClassConstantUsageToTopicNameRector\Mocks\Async\Topic;
+namespace Oro\UpgradeToolkit\Tests\Rector\TopicClassConstantUsageToTopicNameRector\Mocks\Async\Topic;
 
 class GenerateDirectUrlForEntitiesTopic
 {

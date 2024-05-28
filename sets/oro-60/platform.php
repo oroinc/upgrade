@@ -1,6 +1,6 @@
 <?php
 
-use Oro\Rector\Rules\Oro60\AddUserTypeCheckWhileAuthRector;
+use Oro\UpgradeToolkit\Rector\Rules\Oro60\AddUserTypeCheckWhileAuthRector;
 use Rector\Arguments\Rector\MethodCall\RemoveMethodCallParamRector;
 use Rector\Arguments\ValueObject\RemoveMethodCallParam;
 use Rector\Config\RectorConfig;

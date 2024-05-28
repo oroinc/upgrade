@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oro\Tests\Rector\Rules\Oro51\RenameValueNormalizerUtilMethodIfTrowsExceptionRector;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro51\RenameValueNormalizerUtilMethodIfTrowsExceptionRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 

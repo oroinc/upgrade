@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Tests\Rector\Rules\Oro60\Annotation\MinimizeAnnotationRector\Fixture;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro60\Annotation\MinimizeAnnotationRector\Fixture;
 
 /**
  * Represents some test class.
@@ -38,7 +38,7 @@ class SomeTestClass
 -----
 <?php
 
-namespace Oro\Tests\Rector\Rules\Oro60\Annotation\MinimizeAnnotationRector\Fixture;
+namespace Oro\UpgradeToolkit\Tests\Rector\Rules\Oro60\Annotation\MinimizeAnnotationRector\Fixture;
 
 /**
  * Represents some test class.

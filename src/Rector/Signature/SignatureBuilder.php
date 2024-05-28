@@ -1,7 +1,8 @@
 <?php
 
-namespace Oro\Rector\Signature;
+namespace Oro\UpgradeToolkit\Rector\Signature;
 
+use Oro\UpgradeToolkit\Configuration\SignatureConfig;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;

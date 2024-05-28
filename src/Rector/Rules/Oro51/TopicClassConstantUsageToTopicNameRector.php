@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Rules\Oro51;
+namespace Oro\UpgradeToolkit\Rector\Rules\Oro51;
 
-use Oro\Rector\TopicClass\TopicClassNameGenerator;
+use Oro\UpgradeToolkit\Rector\TopicClass\TopicClassNameGenerator;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Analyser\Scope;

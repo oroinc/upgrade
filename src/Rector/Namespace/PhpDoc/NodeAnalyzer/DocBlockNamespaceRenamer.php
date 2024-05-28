@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Namespace\PhpDoc\NodeAnalyzer;
+namespace Oro\UpgradeToolkit\Rector\Namespace\PhpDoc\NodeAnalyzer;
 
-use Oro\Rector\Namespace\NamespaceMatcher;
-use Oro\Rector\Namespace\ValueObject\RenamedNamespace;
+use Oro\UpgradeToolkit\Rector\Namespace\NamespaceMatcher;
+use Oro\UpgradeToolkit\Rector\Namespace\ValueObject\RenamedNamespace;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Node as DocNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;

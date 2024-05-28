@@ -1,7 +1,6 @@
 <?php
 
-use Oro\Rector\Rules\Namespace\RenameNamespaceRector;
-use Oro\Rector\Signature\SignatureConfigurator;
+use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
@@ -20,7 +19,7 @@ return static function (RectorConfig $rectorConfig): void {
     // to inject custom file processors into the Rector`s flow
     $rectorConfig->bind(
         \Rector\Console\Command\ProcessCommand::class,
-        \Oro\Rector\Console\Command\ProcessCommand::class
+        \Oro\UpgradeToolkit\Rector\Console\Command\ProcessCommand::class
     );
 
     $rectorConfig->import(__DIR__ . '/skip-list.php');
@@ -73,7 +72,4 @@ return static function (RectorConfig $rectorConfig): void {
             'setResultFieldValue'
         )
     ]);
-
-    // Apply property/method signatures rules
-//    SignatureConfigurator::configure($rectorConfig);
 };

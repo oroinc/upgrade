@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace  Oro\Rector\NodeManipulator;
+namespace  Oro\UpgradeToolkit\Rector\NodeManipulator;
 
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt;

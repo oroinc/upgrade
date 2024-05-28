@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Oro\Rector\Rules\Oro60\Annotation\MinimizeAnnotationRector;
+use Oro\UpgradeToolkit\Rector\Rules\Oro60\Annotation\MinimizeAnnotationRector;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {

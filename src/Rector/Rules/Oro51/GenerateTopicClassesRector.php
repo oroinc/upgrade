@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Rules\Oro51;
+namespace Oro\UpgradeToolkit\Rector\Rules\Oro51;
 
-use Oro\Rector\Application\DeletedFilesProcessor;
-use Oro\Rector\Printer\NeighbourClassLikePrinter;
-use Oro\Rector\TopicClass\TopicClassFactory;
-use Oro\Rector\TopicClass\TopicClassNameGenerator;
+use Oro\UpgradeToolkit\Rector\Application\DeletedFilesProcessor;
+use Oro\UpgradeToolkit\Rector\Printer\NeighbourClassLikePrinter;
+use Oro\UpgradeToolkit\Rector\TopicClass\TopicClassFactory;
+use Oro\UpgradeToolkit\Rector\TopicClass\TopicClassNameGenerator;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Signature;
+namespace Oro\UpgradeToolkit\Rector\Signature;
 
+use Oro\UpgradeToolkit\Configuration\SignatureConfig;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;

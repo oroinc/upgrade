@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Printer;
+namespace Oro\UpgradeToolkit\Rector\Printer;
 
-use Oro\Rector\Application\AddedFilesProcessor;
-use Oro\Rector\PhpParser\Node\NodeFinder;
+use Oro\UpgradeToolkit\Rector\Application\AddedFilesProcessor;
+use Oro\UpgradeToolkit\Rector\PhpParser\Node\NodeFinder;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Declare_;
 use Rector\PhpParser\Node\CustomNode\FileWithoutNamespace;

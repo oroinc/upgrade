@@ -1,6 +1,6 @@
 <?php
 
-use Oro\Rector\Rules\Oro51\RenameValueNormalizerUtilMethodIfTrowsExceptionRector;
+use Oro\UpgradeToolkit\Rector\Rules\Oro51\RenameValueNormalizerUtilMethodIfTrowsExceptionRector;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {

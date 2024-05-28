@@ -1,5 +1,6 @@
 <?php
 
+use Oro\UpgradeToolkit\Rector\Signature\SignatureConfigurator;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -51,5 +52,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/oro-60/platform.php');
 
     // Apply property/method signatures rules
-//    SignatureConfigurator::configure($rectorConfig);
+    SignatureConfigurator::configure($rectorConfig);
 };

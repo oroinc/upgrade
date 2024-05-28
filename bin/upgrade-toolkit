@@ -7,12 +7,14 @@ if ($GLOBALS['_composer_autoload_path']) {
     require $GLOBALS['_composer_autoload_path'];
 }
 
-use Oro\Rector\Console\Command\SignatureGeneratorCommand;
+use Oro\UpgradeToolkit\Rector\Console\Command\UpgradeCommand;
 use Symfony\Component\Console\Application;
 
-$application = new Application();
+$application = new Application('Upgrade Toolkit');
 
-$command = new SignatureGeneratorCommand();
-$application->add($command);
+$upgradeCommand = new UpgradeCommand();
+$application->add($upgradeCommand);
+
+$application->setDefaultCommand($upgradeCommand->getName());
 
 $application->run();

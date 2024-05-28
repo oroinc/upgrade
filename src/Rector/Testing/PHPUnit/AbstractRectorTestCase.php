@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oro\Rector\Testing\PHPUnit;
+namespace Oro\UpgradeToolkit\Rector\Testing\PHPUnit;
 
-use Oro\Rector\Application\ApplicationFileProcessor;
+use Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor;
 use PHPUnit\Framework\ExpectationFailedException;
 use Rector\Configuration\ConfigurationFactory;
 use Rector\Configuration\Option;
