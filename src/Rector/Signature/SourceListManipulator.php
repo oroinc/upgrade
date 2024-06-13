@@ -3,12 +3,15 @@
 namespace Oro\UpgradeToolkit\Rector\Signature;
 
 use Nette\Utils\FileSystem;
+use PHPStan\DependencyInjection\ContainerFactory;
+use PHPStan\Reflection\ReflectionProvider;
 
 /**
  * The class contains methods needed to manipulate the lists of the classes included in the psr-4 root dirs.
  */
 final class SourceListManipulator
 {
+    private ReflectionProvider $reflectionProvider;
     /**
      * $classMap - An array that contains an autoload classmap. E.G.: @see vendor/composer/autoload_classmap.php
      * $basePath - Absolute path to the project root dir. E.G.: '/home/projects/projectName'
@@ -19,6 +22,11 @@ final class SourceListManipulator
         private string $basePath,
         private string $composerConfigFile = 'composer.json'
     ) {
+        $containerFactory = new ContainerFactory('');
+        $tmpDir = sys_get_temp_dir();
+        $container = $containerFactory->create($tmpDir, [], []);
+
+        $this->reflectionProvider = $container->getByType(ReflectionProvider::class);
     }
 
     public function getSourceClassesList(): array
@@ -50,9 +58,6 @@ final class SourceListManipulator
         return $srcClasses;
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function getParentClassesList(): array
     {
         $srcClasses = $this->getSourceClassesList();
@@ -61,11 +66,15 @@ final class SourceListManipulator
         $classes = [];
 
         foreach ($srcClasses as $class) {
-            $reflection = new \ReflectionClass($class);
+            if ($this->reflectionProvider->hasClass($class)) {
+                $reflection = $this->reflectionProvider->getClass($class);
 
-            $parentClass = $reflection->getParentClass() ?: null;
-            if ($parentClass) {
-                $classes[] = $parentClass->getName();
+                $parentClass = $reflection->getParentClass() ?: null;
+                if ($parentClass) {
+                    $classes[] = $parentClass->getName();
+                }
+            } else {
+                echo sprintf('Cannot reflect the class: %s Skipped … ' . PHP_EOL, $class);
             }
         }
 

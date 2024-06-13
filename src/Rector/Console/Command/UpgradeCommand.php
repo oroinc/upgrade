@@ -154,13 +154,8 @@ HELP
             $this->composerConfigFile
         );
 
-        try {
-            $parentClasses = $sourceListManipulator->getParentClassesList();
-        } catch (\ReflectionException $exception) {
-            $this->io->error($exception->getMessage());
+        $parentClasses = $sourceListManipulator->getParentClassesList();
 
-            return Command::FAILURE;
-        }
         // Stage 2: Generate signatures dump to the tmp file
         $this->io->writeln('<info>Generating signatures dump … </info>');
         $signatureBuilder = new SignatureBuilder();

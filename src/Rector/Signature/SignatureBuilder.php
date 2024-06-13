@@ -3,14 +3,8 @@
 namespace Oro\UpgradeToolkit\Rector\Signature;
 
 use Oro\UpgradeToolkit\Configuration\SignatureConfig;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionMethod;
-use ReflectionNamedType;
-use ReflectionProperty;
-use ReflectionType;
-use ReflectionUnionType;
-use UnexpectedValueException;
+use PHPStan\DependencyInjection\ContainerFactory;
+use PHPStan\Reflection\ReflectionProvider;
 
 /**
  * Builds signature listing array from provided array of classes
@@ -19,6 +13,7 @@ use UnexpectedValueException;
 class SignatureBuilder
 {
     private array $signatures;
+    private ReflectionProvider $reflectionProvider;
 
     public function __construct()
     {
@@ -27,21 +22,28 @@ class SignatureBuilder
             SignatureConfig::METHOD_RETURN_TYPES => [],
             SignatureConfig::METHOD_PARAM_TYPES => [],
         ];
+
+        $containerFactory = new ContainerFactory('');
+        $tmpDir = sys_get_temp_dir();
+        $container = $containerFactory->create($tmpDir, [], []);
+
+        $this->reflectionProvider = $container->getByType(ReflectionProvider::class);
     }
 
-    /**
-     * @throws ReflectionException
-     */
     public function build(array $classes): array
     {
         asort($classes);
         foreach ($classes as $class) {
-            $this->analyzeClass(new ReflectionClass($class));
+            if ($this->reflectionProvider->hasClass($class)) {
+                $class = $this->reflectionProvider->getClass($class)->getNativeReflection();
+                $this->analyzeClass($class);
+            }
         }
+
         return $this->signatures;
     }
 
-    private function analyzeClass(ReflectionClass $class): void
+    private function analyzeClass(\ReflectionClass $class): void
     {
         if ($class->isFinal()) {
             echo sprintf('Skipping %s%s', $class->name, PHP_EOL);
@@ -54,11 +56,11 @@ class SignatureBuilder
         echo "✓\n";
     }
 
-    private function analyzeProperties(ReflectionClass $class): void
+    private function analyzeProperties(\ReflectionClass $class): void
     {
         $parentClass = $class->getParentClass() ?: null;
-        $properties = $class->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
-        usort($properties, fn (ReflectionProperty $a, ReflectionProperty$b) => $a->getName() <=> $b->getName());
+        $properties = $class->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED);
+        usort($properties, fn (\ReflectionProperty $a, \ReflectionProperty$b) => $a->getName() <=> $b->getName());
 
         foreach ($properties as $property) {
             $declaringClass = $property->getDeclaringClass();
@@ -82,11 +84,11 @@ class SignatureBuilder
      * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    private function analyzeMethods(ReflectionClass $class): void
+    private function analyzeMethods(\ReflectionClass $class): void
     {
         $parentClass = $class->getParentClass() ?: null;
-        $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED);
-        usort($methods, fn (ReflectionMethod $a, ReflectionMethod $b) => $a->getName() <=> $b->getName());
+        $methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED);
+        usort($methods, fn (\ReflectionMethod $a, \ReflectionMethod $b) => $a->getName() <=> $b->getName());
 
         foreach ($methods as $method) {
             if ($method->name === '__construct' || $method->getDeclaringClass()->name !== $class->name) {
@@ -118,20 +120,20 @@ class SignatureBuilder
         }
     }
 
-    private function serializeType(?ReflectionType $type, string $className): ?string
+    private function serializeType(?\ReflectionType $type, string $className): ?string
     {
         if (null === $type) {
             return null;
         }
 
-        if ($type instanceof ReflectionUnionType) {
-            return implode('|', array_map(function (ReflectionNamedType $type) use ($className) {
+        if ($type instanceof \ReflectionUnionType) {
+            return implode('|', array_map(function (\ReflectionNamedType $type) use ($className) {
                 $name = $type->getName();
                 return $name === 'self' ? $className : $name;
             }, $type->getTypes()));
         }
 
-        if ($type instanceof ReflectionNamedType) {
+        if ($type instanceof \ReflectionNamedType) {
             $name = $type->getName();
             if ($name === 'self') {
                 $name = $className;
@@ -142,6 +144,6 @@ class SignatureBuilder
             return $name;
         }
 
-        throw new UnexpectedValueException(sprintf('Unexpected reflection type: %s', get_class($type)));
+        throw new \UnexpectedValueException(sprintf('Unexpected reflection type: %s', get_class($type)));
     }
 }

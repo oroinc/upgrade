@@ -24,18 +24,6 @@ class SignatureBuilderTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function testBuildException()
-    {
-        $namespace = 'Name\Space\Where\Class\Does\Not\Exist';
-
-        $this->expectException('ReflectionException');
-        $this->expectExceptionMessage(
-            sprintf('Class "%s" does not exist', $namespace)
-        );
-
-        $this->builder->build([$namespace]);
-    }
-
     public function buildDataProvider(): array
     {
         return [
