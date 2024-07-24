@@ -1,5 +1,6 @@
 <?php
 
+use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
 use Oro\UpgradeToolkit\Rector\Signature\SignatureConfigurator;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
@@ -11,8 +12,13 @@ use Rector\Symfony\Set\SymfonySetList;
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/skip-list.php');
     $rectorConfig->import(__DIR__ . '/oro-60/minimize-annotations.php');
-    $rectorConfig->import(__DIR__ . '/oro-60/custom-attributes.php');
-    $rectorConfig->import(__DIR__ . '/oro-60/constraint-annotations-to-attributes.php');
+    $rectorConfig->import(__DIR__ . '/oro-60/oro-attributes.php');
+    $rectorConfig->import(__DIR__ . '/oro-60/oro-constraint-annotations-to-attributes.php');
+
+    /** @see \Symfony\Component\Routing\Annotation\Route */
+    $rectorConfig->ruleWithConfiguration(RenameNamespaceRector::class, [
+        'Symfony\Component\Routing\Annotation' => 'Symfony\Component\Routing\Attribute',
+    ]);
 
     $rectorConfig->sets([
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
@@ -28,18 +34,12 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->sets([
-        SymfonySetList::SYMFONY_51,
-        SymfonySetList::SYMFONY_52,
-        SymfonySetList::SYMFONY_52_VALIDATOR_ATTRIBUTES,
-        SymfonySetList::SYMFONY_53,
-        SymfonySetList::SYMFONY_54,
         SymfonySetList::SYMFONY_60,
         SymfonySetList::SYMFONY_61,
     ]);
     // Customized Symfony62 set
     $rectorConfig->import(__DIR__ . '/oro-60/symfony62.php');
     $rectorConfig->sets([
-        //SymfonySetList::SYMFONY_62,
         SymfonySetList::SYMFONY_63,
         SymfonySetList::SYMFONY_64,
     ]);

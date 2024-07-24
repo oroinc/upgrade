@@ -19,7 +19,7 @@ class RectorRunner
         private string $projectRoot
     ) {
         $this->phpExecutableFinder = new PhpExecutableFinder();
-        $this->binDir = $this->projectRoot . '/bin';
+        $this->binDir = $this->projectRoot . (is_dir($this->projectRoot . '/bin') ? '/bin' : '/vendor/bin');
     }
 
     public function process(array $parameters, SymfonyStyle $io): ?int

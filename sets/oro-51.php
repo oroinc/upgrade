@@ -8,6 +8,7 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use Rector\Symfony\Set\SymfonySetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Rector\ValueObject\Visibility;
@@ -23,10 +24,42 @@ return static function (RectorConfig $rectorConfig): void {
     );
 
     $rectorConfig->import(__DIR__ . '/skip-list.php');
+
+    $rectorConfig->sets([
+        SymfonySetList::SYMFONY_50,
+        SymfonySetList::SYMFONY_50_TYPES,
+        SymfonySetList::SYMFONY_51,
+        SymfonySetList::SYMFONY_52,
+        SymfonySetList::SYMFONY_52_VALIDATOR_ATTRIBUTES,
+        SymfonySetList::SYMFONY_53,
+        SymfonySetList::SYMFONY_54,
+    ]);
+
     $rectorConfig->import(__DIR__ . '/oro-51/api.php');
     $rectorConfig->import(__DIR__ . '/oro-51/cron-commands.php');
     $rectorConfig->import(__DIR__ . '/oro-51/entity-extend.php');
     $rectorConfig->import(__DIR__ . '/oro-51/mq-topics.php');
+
+    // v5.0
+
+    // Oro\Bundle\EntityBundle\Provider\EntityFieldProvider::getFields() was removed,
+    // use Oro\Bundle\EntityBundle\Provider\EntityFieldProvider::getEntityFields() instead.
+    // Oro\Bundle\EntityBundle\Helper\FieldHelper::getFields() was removed,
+    // use Oro\Bundle\EntityBundle\Helper\FieldHelper::getEntityFields() instead.
+    $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
+        new MethodCallRename(
+            'Oro\Bundle\EntityBundle\Provider\EntityFieldProvider',
+            'getFields',
+            'getEntityFields'
+        ),
+        new MethodCallRename(
+            'Oro\Bundle\EntityBundle\Helper\FieldHelper',
+            'getFields',
+            'getEntityFields'
+        ),
+    ]);
+
+    // v5.1
 
     $rectorConfig->ruleWithConfiguration(RenameNamespaceRector::class, [
         // Moved all ORM relates mocks and test cases to Testing component.

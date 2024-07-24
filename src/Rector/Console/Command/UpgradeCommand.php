@@ -42,7 +42,13 @@ class UpgradeCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption(CommandOption::ORO_VERSIONS, null, InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Oro versions list', '51,60')
+            ->addOption(
+                CommandOption::ORO_VERSIONS,
+                null,
+                InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
+                'Oro versions list',
+                '42,51,60'
+            )
             ->addOption(CommandOption::COMPOSER_CONFIG, null, InputArgument::OPTIONAL, 'Composer config filename', 'composer.json')
             ->addOption(CommandOption::SOURCE, null, InputArgument::OPTIONAL, 'Directory to be processed', 'src')
             ->addOption(CommandOption::DRY_RUN, null, InputOption::VALUE_NONE, 'Only see the diff of changes, do not save them to files')
@@ -60,7 +66,7 @@ In most cases, the command can be used without any options.
   <info>php %command.full_name%</info>
 
 The <info>--oro-versions</info> option can be used to specify the oro versions list needed upgrade to:
-By default, inspections related for v5.1 higher will be applied.
+By default, inspections related to v4.2 and higher will be applied.
 
     <info>php %command.full_name% --oro-versions=51</info>
     will apply inspections related to the Oro v5.1

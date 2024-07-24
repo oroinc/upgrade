@@ -1,4 +1,21 @@
 <?php
+/**
+ * Modified copy of symfony62 set, Rector v1.0.3
+ *
+ *  Copyright (c) 2017-present Tomáš Votruba (https://tomasvotruba.cz)
+ *
+ *  Permission is hereby granted, free of charge, to any person
+ *  obtaining a copy of this software and associated documentation
+ *  files (the "Software"), to deal in the Software without
+ *  restriction, including without limitation the rights to use,
+ *  copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following
+ *  conditions:
+ *
+ *  The above copyright notice and this permission notice shall be
+ *  included in all copies or substantial portions of the Software.
+ */
 
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
@@ -35,7 +52,7 @@ return static function (RectorConfig $rectorConfig): void {
         'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Cache' => 'Symfony\\Component\\HttpKernel\\Attribute\\Cache',
         // @see https://github.com/symfony/symfony/pull/46906
         // Disabled because we use the Template annotation without arguments in many places
-//        'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template' => 'Symfony\\Bridge\\Twig\\Attribute\\Template',
+        //          'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template' => 'Symfony\\Bridge\\Twig\\Attribute\\Template',
         // @see https://github.com/symfony/symfony/pull/46714
         'Symfony\\Component\\Mailer\\Bridge\\OhMySmtp\\Transport\\OhMySmtpApiTransport' => 'Symfony\\Component\\Mailer\\Bridge\\MailPace\\Transport\\MailPaceApiTransport',
         'Symfony\\Component\\Mailer\\Bridge\\OhMySmtp\\Transport\\OhMySmtpSmtpTransport' => 'Symfony\\Component\\Mailer\\Bridge\\MailPace\\Transport\\MailPaceSmtpTransport',
@@ -61,7 +78,7 @@ return static function (RectorConfig $rectorConfig): void {
     // @see https://github.com/symfony/symfony/pull/46094
     // @see https://github.com/symfony/symfony/pull/48554
     $rectorConfig->ruleWithConfiguration(RenameClassConstFetchRector::class, [new RenameClassAndConstFetch('Symfony\\Component\\Security\\Core\\Security', 'ACCESS_DENIED_ERROR', 'Symfony\\Component\\Security\\Http\\SecurityRequestAttributes', 'ACCESS_DENIED_ERROR'), new RenameClassAndConstFetch('Symfony\\Component\\Security\\Core\\Security', 'AUTHENTICATION_ERROR', 'Symfony\\Component\\Security\\Http\\SecurityRequestAttributes', 'AUTHENTICATION_ERROR'), new RenameClassAndConstFetch('Symfony\\Component\\Security\\Core\\Security', 'LAST_USERNAME', 'Symfony\\Component\\Security\\Http\\SecurityRequestAttributes', 'LAST_USERNAME'), new RenameClassAndConstFetch('Symfony\\Component\\Security\\Core\\Security', 'MAX_USERNAME_LENGTH', 'Symfony\\Component\\Security\\Http\\Authenticator\\Passport\\Badge\\UserBadge', 'MAX_USERNAME_LENGTH')]);
-    $rectorConfig->rule(ParamConverterAttributeToMapEntityAttributeRector::class);
+    //          $rectorConfig->rule(ParamConverterAttributeToMapEntityAttributeRector::class);
     // @see https://github.com/symfony/symfony/pull/47068
     $rectorConfig->rule(MessageHandlerInterfaceToAttributeRector::class);
     $rectorConfig->rule(MessageSubscriberInterfaceToAttributeRector::class);

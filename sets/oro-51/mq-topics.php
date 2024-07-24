@@ -103,4 +103,74 @@ return static function (RectorConfig $rectorConfig): void {
         'Oro\Bundle\MicrosoftSyncBundle\Async\Topics::SYNC_TASKS_FOR_USER' => 'Oro\Bundle\MicrosoftSyncBundle\Async\Topic\SyncTaskForUserTopic::getName',
         'Oro\Bundle\MicrosoftSyncBundle\Async\Topics::SYNC_TASK' => 'Oro\Bundle\MicrosoftSyncBundle\Async\Topic\SyncTaskTopic::getName',
     ]);
+
+    // Removed Oro\Bundle\CronBundle\Async\Topics,
+    // use getName() of corresponding topic class from Oro\Bundle\CronBundle\Async\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Bundle\CronBundle\Async\Topics::RUN_COMMAND' => 'Oro\Bundle\CronBundle\Async\Topic\RunCommandTopic::getName',
+        'Oro\Bundle\CronBundle\Async\Topics::RUN_COMMAND_DELAYED' => 'Oro\Bundle\CronBundle\Async\Topic\RunCommandDelayedTopic::getName',
+    ]);
+
+    // Removed Oro\Bundle\DataAuditBundle\Async\Topics,
+    // use getName() of corresponding topic class from Oro\Bundle\DataAuditBundle\Async\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Bundle\DataAuditBundle\Async\Topics::ENTITIES_CHANGED' => 'Oro\Bundle\DataAuditBundle\Async\Topic\AuditChangedEntitiesTopic::getName',
+        'Oro\Bundle\DataAuditBundle\Async\Topics::ENTITIES_RELATIONS_CHANGED' => 'Oro\Bundle\DataAuditBundle\Async\Topic\AuditChangedEntitiesRelationsTopic::getName',
+        'Oro\Bundle\DataAuditBundle\Async\Topics::ENTITIES_INVERSED_RELATIONS_CHANGED' => 'Oro\Bundle\DataAuditBundle\Async\Topic\AuditChangedEntitiesInverseRelationsTopic::getName',
+        'Oro\Bundle\DataAuditBundle\Async\Topics::ENTITIES_INVERSED_RELATIONS_CHANGED_COLLECTIONS' => 'Oro\Bundle\DataAuditBundle\Async\Topic\AuditChangedEntitiesInverseCollectionsTopic::getName',
+        'Oro\Bundle\DataAuditBundle\Async\Topics::ENTITIES_INVERSED_RELATIONS_CHANGED_COLLECTIONS_CHUNK' => 'Oro\Bundle\DataAuditBundle\Async\Topic\AuditChangedEntitiesInverseCollectionsChunkTopic::getName',
+    ]);
+
+    // Removed Oro\Bundle\EmailBundle\Async\Topics,
+    // use getName() of corresponding topic class from Oro\Bundle\EmailBundle\Async\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Bundle\EmailBundle\Async\Topics::SEND_AUTO_RESPONSE' => 'Oro\Bundle\EmailBundle\Async\Topic\SendAutoResponseTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::SEND_AUTO_RESPONSES' => 'Oro\Bundle\EmailBundle\Async\Topic\SendAutoResponsesTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::ADD_ASSOCIATION_TO_EMAIL' => 'Oro\Bundle\EmailBundle\Async\Topic\AddEmailAssociationTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::ADD_ASSOCIATION_TO_EMAILS' => 'Oro\Bundle\EmailBundle\Async\Topic\AddEmailAssociationsTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::UPDATE_ASSOCIATIONS_TO_EMAILS' => 'Oro\Bundle\EmailBundle\Async\Topic\UpdateEmailAssociationsTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::UPDATE_EMAIL_OWNER_ASSOCIATION' => 'Oro\Bundle\EmailBundle\Async\Topic\UpdateEmailOwnerAssociationTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::UPDATE_EMAIL_OWNER_ASSOCIATIONS' => 'Oro\Bundle\EmailBundle\Async\Topic\UpdateEmailOwnerAssociationsTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::SYNC_EMAIL_SEEN_FLAG' => 'Oro\Bundle\EmailBundle\Async\Topic\SyncEmailSeenFlagTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::PURGE_EMAIL_ATTACHMENTS' => 'Oro\Bundle\EmailBundle\Async\Topic\PurgeEmailAttachmentsTopic::getName',
+        'Oro\Bundle\EmailBundle\Async\Topics::PURGE_EMAIL_ATTACHMENTS_BY_IDS' => 'Oro\Bundle\EmailBundle\Async\Topic\PurgeEmailAttachmentsByIdsTopic::getName',
+    ]);
+
+    // Removed Oro\Bundle\NotificationBundle\Async\Topics,
+    // use getName() of corresponding topic class from Oro\Bundle\NotificationBundle\Async\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Bundle\NotificationBundle\Async\Topics::SEND_NOTIFICATION_EMAIL' => 'Oro\Bundle\NotificationBundle\Async\Topic\SendEmailNotificationTopic::getName',
+        'Oro\Bundle\NotificationBundle\Async\Topics::SEND_MASS_NOTIFICATION_EMAIL' => 'Oro\Bundle\NotificationBundle\Async\Topic\SendMassEmailNotificationTopic::getName',
+    ]);
+
+    // Removed Oro\Bundle\ImapBundle\Async\Topics,
+    // use getName() of corresponding topic class from Oro\Bundle\ImapBundle\Async\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Bundle\ImapBundle\Async\Topics::CLEAR_INACTIVE_MAILBOX' => 'Oro\Bundle\ImapBundle\Async\Topic\ClearInactiveMailboxTopic::getName',
+        'Oro\Bundle\ImapBundle\Async\Topics::SYNC_EMAIL' => 'Oro\Bundle\ImapBundle\Async\Topic\SyncEmailTopic::getName',
+        'Oro\Bundle\ImapBundle\Async\Topics::SYNC_EMAILS' => 'Oro\Bundle\ImapBundle\Async\Topic\SyncEmailsTopic::getName',
+    ]);
+
+    // Removed Oro\Component\MessageQueue\Job\Topics,
+    // use getName() of corresponding topic class from Oro\Component\MessageQueue\Job\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Component\MessageQueue\Job\Topics::CALCULATE_ROOT_JOB_STATUS' => 'Oro\Component\MessageQueue\Job\Topic\CalculateRootJobStatusTopic::getName',
+        'Oro\Component\MessageQueue\Job\Topics::ROOT_JOB_STOPPED' => 'Oro\Component\MessageQueue\Job\Topic\RootJobStoppedTopic::getName',
+    ]);
+
+    // Removed Oro\Bundle\TranslationBundle\Async\Topics,
+    // use getName() of corresponding topic class from Oro\Bundle\TranslationBundle\Async\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Bundle\TranslationBundle\Async\Topics::JS_TRANSLATIONS_DUMP' => 'Oro\Bundle\TranslationBundle\Async\Topic\DumpJsTranslationsTopic::getName',
+    ]);
+
+    // Removed Oro\Bundle\SearchBundle\Async\Topics,
+    // use getName() of corresponding topic class from Oro\Bundle\SearchBundle\Async\Topic namespace instead.
+    $rectorConfig->ruleWithConfiguration(ClassConstantToStaticMethodCallRector::class, [
+        'Oro\Bundle\SearchBundle\Async\Topics::INDEX_ENTITY' => 'Oro\Bundle\SearchBundle\Async\Topic\IndexEntityTopic::getName',
+        'Oro\Bundle\SearchBundle\Async\Topics::INDEX_ENTITY_TYPE' => 'Oro\Bundle\SearchBundle\Async\Topic\IndexEntitiesByTypeTopic::getName',
+        'Oro\Bundle\SearchBundle\Async\Topics::INDEX_ENTITY_BY_RANGE' => 'Oro\Bundle\SearchBundle\Async\Topic\IndexEntitiesByRangeTopic::getName',
+        'Oro\Bundle\SearchBundle\Async\Topics::INDEX_ENTITIES' => 'Oro\Bundle\SearchBundle\Async\Topic\IndexEntitiesByIdTopic::getName',
+        'Oro\Bundle\SearchBundle\Async\Topics::REINDEX' => 'Oro\Bundle\SearchBundle\Async\Topic\ReindexTopic::getName',
+    ]);
 };

@@ -1,8 +1,10 @@
 # The Oro Source Code Upgrade Toolkit
 
 A command line helper that facilitates upgrading the source code of the Oro application:
+ * From version 4.0 to 4.2
  * From version 5.0 to 5.1
  * From version 5.1 to 6.0
+ * From version 4.0 to 6.0
  * From version 5.0 to 6.0
 
 Installation
