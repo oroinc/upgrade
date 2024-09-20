@@ -19,7 +19,7 @@ return static function (RectorConfig $rectorConfig): void {
         new AnnotationToAttribute('Oro\Bundle\ApiBundle\Validator\Constraints\All'),
         new AnnotationToAttribute('Oro\Bundle\ApiBundle\Validator\Constraints\HasAdderAndRemover'),
         new AnnotationToAttribute('Oro\Bundle\EntityExtendBundle\Validator\Constraints\Decimal'),
-        new AnnotationToAttribute('Oro\Bundle\EntityExtendBundle\Validator\Constraints\EnumValue'),
+        new AnnotationToAttribute('Oro\Bundle\EntityExtendBundle\Validator\Constraints\EnumOption'),
         new AnnotationToAttribute('Oro\Bundle\EntityExtendBundle\Validator\Constraints\NotPhpKeyword'),
         new AnnotationToAttribute('Oro\Bundle\EntityExtendBundle\Validator\Constraints\NotSqlKeyword'),
         new AnnotationToAttribute('Oro\Bundle\EntityExtendBundle\Validator\Constraints\UniqueEnumName'),
