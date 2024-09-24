@@ -27,6 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 class AddUserTypeCheckWhileAuthRector extends AbstractScopeAwareRector
 {
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -48,6 +49,7 @@ class AddUserTypeCheckWhileAuthRector extends AbstractScopeAwareRector
         );
     }
 
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [If_::class];
@@ -56,6 +58,7 @@ class AddUserTypeCheckWhileAuthRector extends AbstractScopeAwareRector
     /**
      * @param If_ $node
      */
+    #[\Override]
     public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
         $classReflection = $scope->getClassReflection();

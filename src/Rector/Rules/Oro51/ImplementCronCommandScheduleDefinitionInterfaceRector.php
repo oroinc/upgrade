@@ -32,6 +32,7 @@ final class ImplementCronCommandScheduleDefinitionInterfaceRector extends Abstra
      */
     private const METHOD_NAME = 'getDefaultDefinition';
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -65,6 +66,7 @@ final class ImplementCronCommandScheduleDefinitionInterfaceRector extends Abstra
     /**
      * @return array<class-string<Node>>
      */
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -73,6 +75,7 @@ final class ImplementCronCommandScheduleDefinitionInterfaceRector extends Abstra
     /**
      * @param Class_ $node
      */
+    #[\Override]
     public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
         $classReflection = $scope->getClassReflection();

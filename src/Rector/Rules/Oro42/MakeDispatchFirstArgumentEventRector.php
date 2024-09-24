@@ -44,6 +44,7 @@ final class MakeDispatchFirstArgumentEventRector extends AbstractRector
     ) {
     }
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Make event object a first argument of dispatch() method, event name as second', [new CodeSample(
@@ -76,6 +77,7 @@ CODE_SAMPLE
     /**
      * @return array<class-string<Node>>
      */
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -84,6 +86,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall $node
      */
+    #[\Override]
     public function refactor(Node $node): ?Node
     {
         if ($this->shouldSkip($node)) {

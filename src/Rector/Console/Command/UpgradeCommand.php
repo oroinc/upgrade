@@ -39,6 +39,7 @@ class UpgradeCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -129,6 +130,7 @@ HELP
         parent::configure();
     }
 
+    #[\Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->input = $input;
@@ -141,6 +143,7 @@ HELP
     /**
      * @throws \Throwable
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Stage 1: Perform all needed checkups

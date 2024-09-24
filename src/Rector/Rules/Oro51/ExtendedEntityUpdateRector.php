@@ -46,6 +46,7 @@ class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
     ) {
     }
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -54,6 +55,7 @@ class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
         );
     }
 
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -62,6 +64,7 @@ class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
     /**
      * @param Class_ $node
      */
+    #[\Override]
     public function refactorWithScope(Node $node, Scope $scope)
     {
         if (!$node->extends instanceof Name) {

@@ -43,6 +43,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractRe
     private ApplicationFileProcessor $applicationFileProcessor;
     private ?string $inputFilePath = null;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -50,6 +51,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractRe
         $this->dynamicSourceLocatorProvider = $this->make(DynamicSourceLocatorProvider::class);
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         // Clear temporary file
@@ -58,6 +60,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractRe
         }
     }
 
+    #[\Override]
     protected function doTestFile(string $fixtureFilePath): void
     {
         // prepare input file contents and expected file output contents

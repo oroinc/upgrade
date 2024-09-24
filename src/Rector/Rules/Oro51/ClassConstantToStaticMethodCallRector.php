@@ -17,6 +17,7 @@ class ClassConstantToStaticMethodCallRector extends AbstractScopeAwareRector imp
 {
     private array $oldToNewConstants = [];
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -34,11 +35,13 @@ class ClassConstantToStaticMethodCallRector extends AbstractScopeAwareRector imp
         );
     }
 
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [ClassConstFetch::class];
     }
 
+    #[\Override]
     public function refactorWithScope(Node $node, Scope $scope)
     {
         foreach ($this->oldToNewConstants as $oldConstant => $newClassWithMethod) {
@@ -67,6 +70,7 @@ class ClassConstantToStaticMethodCallRector extends AbstractScopeAwareRector imp
         return null;
     }
 
+    #[\Override]
     public function configure(array $configuration): void
     {
         $this->oldToNewConstants = $configuration;

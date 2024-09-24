@@ -18,6 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 class RenameValueNormalizerUtilMethodIfTrowsExceptionRector extends AbstractRector
 {
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -50,6 +51,7 @@ class RenameValueNormalizerUtilMethodIfTrowsExceptionRector extends AbstractRect
     /**
      * @return array<class-string<Node>>
      */
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [StaticCall::class];
@@ -58,6 +60,7 @@ class RenameValueNormalizerUtilMethodIfTrowsExceptionRector extends AbstractRect
     /**
      * @param StaticCall $node
      */
+    #[\Override]
     public function refactor(Node $node): ?Node
     {
         if (!$this->isObjectType($node->class, new ObjectType(ValueNormalizerUtil::class))) {

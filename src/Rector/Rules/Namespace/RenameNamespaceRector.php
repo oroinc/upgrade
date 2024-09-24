@@ -66,6 +66,7 @@ final class RenameNamespaceRector extends AbstractRector implements Configurable
         $this->docBlockNamespaceRenamer = $docBlockNamespaceRenamer;
     }
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -80,11 +81,13 @@ final class RenameNamespaceRector extends AbstractRector implements Configurable
         );
     }
 
+    #[\Override]
     public function getNodeTypes(): array
     {
         return array_merge([Namespace_::class, Use_::class, Name::class], self::ONLY_CHANGE_DOCBLOCK_NODE);
     }
 
+    #[\Override]
     public function configure(array $configuration): void
     {
         Assert::allStringNotEmpty(\array_keys($configuration));
@@ -97,6 +100,7 @@ final class RenameNamespaceRector extends AbstractRector implements Configurable
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
+    #[\Override]
     public function refactor(Node $node): ?Node
     {
         if (in_array(get_class($node), self::ONLY_CHANGE_DOCBLOCK_NODE, true)) {

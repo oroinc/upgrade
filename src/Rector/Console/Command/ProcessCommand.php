@@ -59,6 +59,7 @@ class ProcessCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->setName('process');
@@ -67,6 +68,7 @@ class ProcessCommand extends Command
         parent::configure();
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // missing config? add it :)
@@ -101,6 +103,7 @@ class ProcessCommand extends Command
         return $this->resolveReturnCode($processResult, $configuration);
     }
 
+    #[\Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $application = $this->getApplication();

@@ -14,6 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 class TopicClassConstantUsageToTopicNameRector extends AbstractScopeAwareRector
 {
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -31,11 +32,13 @@ class TopicClassConstantUsageToTopicNameRector extends AbstractScopeAwareRector
         );
     }
 
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [ClassConstFetch::class];
     }
 
+    #[\Override]
     public function refactorWithScope(Node $node, Scope $scope)
     {
         $type = $node->class->toString();

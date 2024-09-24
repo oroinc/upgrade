@@ -18,6 +18,7 @@ final class MinimizeAnnotationRector extends AbstractRector implements Configura
 {
     private array $annotationsToMinimize = [];
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -101,11 +102,13 @@ CODE_SAMPLE
         );
     }
 
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [Class_::class, Property::class, ClassMethod::class];
     }
 
+    #[\Override]
     public function refactor(Node $node): ?Node
     {
         if (!$node->getDocComment()) {
@@ -131,6 +134,7 @@ CODE_SAMPLE
         return $node;
     }
 
+    #[\Override]
     public function configure(array $configuration): void
     {
         $this->annotationsToMinimize = $configuration;

@@ -45,6 +45,7 @@ final class RootNodeTreeBuilderRector extends AbstractRector
     ) {
     }
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -69,11 +70,13 @@ CODE_SAMPLE
         );
     }
 
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [StmtsAwareInterface::class];
     }
 
+    #[\Override]
     public function refactor(Node $node): ?Node
     {
         if ($node->stmts === null) {

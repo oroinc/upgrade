@@ -51,6 +51,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/oro-60/customer-portal.php');
     $rectorConfig->import(__DIR__ . '/oro-60/platform.php');
 
+    $rectorConfig->import(__DIR__ . '/oro-60/add_override_attribute.php');
+
     // Apply property/method signatures rules
     SignatureConfigurator::configure($rectorConfig);
 };

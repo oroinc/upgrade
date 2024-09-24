@@ -27,6 +27,7 @@ class GenerateTopicClassesRector extends AbstractRector
     ) {
     }
 
+    #[\Override]
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -89,9 +90,7 @@ class GenerateTopicClassesRector extends AbstractRector
         );
     }
 
-    /**
-     * @inheritDoc
-     */
+    #[\Override]
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -100,6 +99,7 @@ class GenerateTopicClassesRector extends AbstractRector
     /**
      * @param Class_ $node
      */
+    #[\Override]
     public function refactor(Node $node)
     {
         if (!$node->namespacedName) {
