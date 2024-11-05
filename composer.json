@@ -3,6 +3,12 @@
   "description": "The Oro Source Code Upgrade Toolkit",
   "homepage": "https://github.com/oroinc/upgrade",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Oro, Inc",
+      "homepage": "https://oroinc.com/"
+    }
+  ],
   "keywords": [
     "OroPlatform",
     "OroCommerce",
@@ -12,12 +18,6 @@
   ],
   "bin": [
     "bin/upgrade-toolkit"
-  ],
-  "authors": [
-    {
-      "name": "Oro, Inc",
-      "homepage": "http://www.oroinc.com"
-    }
   ],
   "require": {
     "phpstan/phpstan": "1.10.57",
