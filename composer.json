@@ -2,7 +2,6 @@
   "name": "oro/upgrade-toolkit",
   "description": "The Oro Source Code Upgrade Toolkit",
   "homepage": "https://github.com/oroinc/upgrade",
-  "license": "MIT",
   "keywords": [
     "OroPlatform",
     "OroCommerce",
@@ -10,10 +9,11 @@
     "upgrade",
     "update"
   ],
+  "license": "MIT",
   "authors": [
     {
       "name": "Oro, Inc",
-      "homepage": "http://www.oroinc.com"
+      "homepage": "https://oroinc.com"
     }
   ],
   "require": {
