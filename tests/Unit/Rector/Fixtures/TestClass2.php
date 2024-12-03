@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\UpgradeToolkit\Tests\Unit\Fixtures;
+namespace Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures;
 
 class TestClass2
 {

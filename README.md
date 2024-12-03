@@ -14,7 +14,7 @@ Installation
 composer require oro/upgrade-toolkit:dev-master --dev
 ```
 
-Suggested workflow
+Suggested Workflow
 ------------------
 
 1. Analyze your code with and review suggested changes:
@@ -29,9 +29,9 @@ php bin/upgrade-toolkit --dry-run
 php bin/upgrade-toolkit --clear-cache
 ```
 
-3. Fix Code Style. Use IDE build-in solutions (E.G.: “Code > Reformat Code” in PhpStorm)
+3. Fix Code Style. Use IDE build-in solutions (e.g., “Code > Reformat Code” in PhpStorm),
 
-    or run Php-CS-Fixer
+   or run Php-CS-Fixer
    
 ```bash
 php bin/php-cs-fixer fix src --verbose --config=vendor/oro/platform/build/.php-cs-fixer.php
@@ -55,25 +55,42 @@ php bin/upgrade-toolkit
 ```
 In most cases, the command can be used without any options.
 
-If additional adjustments are needed - run the command with the `--help` option to get details
+If additional adjustments are needed, run the command with the `--help` option.
 
 ```bash
 php bin/upgrade-toolkit --help
 ```
--------
-Rector rule sets are still available to run separately:
+
+You can run rector rule sets separately by executing the following command:
+
 ```bash
 bin/rector process src --config vendor/oro/upgrade-toolkit/sets/oro-51.php
 ```
 
-Replace src with the path to your source directory, if not src/, and oro-51.php with the desired upgrade set (oro-51.php or oro-60.php).
+If your source directory is not src/, replace `src` with the path to it and update `oro-51.php` with the desired upgrade set (either `oro-51.php` or `oro-60.php`).
 
-You can add --dry-run to the bin/rector command to verify the results without actually making any changes.
+To verify the results without making any changes, add the `--dry-run` option to the `bin/rector` command.
+
+You can also process the .yml files to run separately:
+```bash
+php bin/upgrade-toolkit yml:fix
+```
+In this case, the recommended workflow is as follows:
+
+1. Check and verify results without making any changes first:
+```bash
+   php bin/upgrade-toolkit yml:fix --dry-run
+```
+
+2. Apply changes:
+```bash
+   php bin/upgrade-toolkit yml:fix
+```
 
 Testing
 -------
 
-To run tests
+To run tests, use the following command:
 
 ```bash
 php bin/phpunit --testsuite upgrade-toolkit --configuration vendor/oro/upgrade-toolkit/phpunit.xml.dist

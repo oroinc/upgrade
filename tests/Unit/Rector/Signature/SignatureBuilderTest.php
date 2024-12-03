@@ -37,70 +37,70 @@ class SignatureBuilderTest extends TestCase
             ],
             [
                 [
-                    'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass1',
-                    'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
-                    'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass3',
+                    'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass1',
+                    'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
+                    'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass3',
                 ],
                 [
                     SignatureConfig::PROPERTY_TYPES => [
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass1',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass1',
                             'id',
                             'int|null',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
                             'uuid',
                             'string',
                         ],
                     ],
                     SignatureConfig::METHOD_RETURN_TYPES => [
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass1',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass1',
                             'getId',
                             'int|null',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass1',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass1',
                             'setId',
                             'void',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
                             'getUuid',
                             'string',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
                             'getValue',
                             'int',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
                             'setUuid',
                             'void',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
                             'setValue',
                             'void',
                         ],
                     ],
                     SignatureConfig::METHOD_PARAM_TYPES => [
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass1',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass1',
                             'setId',
                             0,
                             'int|null',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
                             'setUuid',
                             0,
                             'string',
                         ],
                         [
-                            'Oro\UpgradeToolkit\Tests\Unit\Fixtures\TestClass2',
+                            'Oro\UpgradeToolkit\Tests\Unit\Rector\Fixtures\TestClass2',
                             'setValue',
                             0,
                             'int',

@@ -1,0 +1,9 @@
+search:
+    Oro\UpgradeToolkit\Test\User:
+        alias:                          oro_tst_user
+        route:
+            name:                       oro_tst_user_view
+    Oro\UpgradeToolkit\Test\Product:
+        alias:                          oro_tst_product
+        route:
+            name:                       oro_tst_product_view

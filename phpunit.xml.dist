@@ -26,7 +26,7 @@
     <testsuites>
         <testsuite name="upgrade-toolkit">
             <directory>tests</directory>
-            <directory suffix=".php">tests/Unit/Fixtures</directory>
+            <directory suffix=".php">tests/Unit/Rector/Fixtures</directory>
         </testsuite>
     </testsuites>
 </phpunit>

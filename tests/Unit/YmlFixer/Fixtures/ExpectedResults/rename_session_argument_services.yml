@@ -1,0 +1,23 @@
+services:
+    upgrade.toolkit.test.service:
+        class: Oro\UpgradeToolkit\Tests\SomeTestServiceClass
+        arguments:
+            - '@request_stack.flash_bag'
+            - '@oro_entity_extend.enum_value_provider'
+            - '@request_stack'
+            - '@oro_entity_extend.enum_value_provider'
+            - '@request_stack.flash_bag'
+        calls:
+            - [setTestEnumValueProvider, [ '@oro_entity_extend.enum_value_provider' ]]
+
+    upgrade.toolkit.another.test.service:
+        arguments:
+            - '@test_service'
+        parent: oro.data.cache
+        calls:
+            - [ setNamespace, [ test_namespace ] ]
+
+    upgrade.toolkit.tagged.test.service:
+        parent: test_service
+        tags:
+            - { name: test_tag, priority: 50 }

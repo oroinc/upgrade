@@ -1,0 +1,8 @@
+# Processing of Keys that contain integers
+root:
+    key1:
+        200: Ok
+        404: Not Found
+    key2:
+        status_200: Ok
+        Status404: 'Not Found'

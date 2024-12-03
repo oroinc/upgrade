@@ -21,7 +21,8 @@
   ],
   "require": {
     "phpstan/phpstan": "1.10.57",
-    "rector/rector": "1.0.3"
+    "rector/rector": "1.0.3",
+    "symfony/maker-bundle": "^v1.52.0"
   },
   "autoload": {
     "psr-4": {

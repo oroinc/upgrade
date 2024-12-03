@@ -10,6 +10,7 @@ use Oro\UpgradeToolkit\Rector\Signature\SignatureBuilder;
 use Oro\UpgradeToolkit\Rector\Signature\SourceListManipulator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -27,11 +28,12 @@ use Symfony\Component\VarExporter\VarExporter;
 class UpgradeCommand extends Command
 {
     private const BASE_PATH = '.';
+    private const ORO_VERSIONS = [42,51,60];
 
-    private array $oroVersions = [];
     private string $composerConfigFile;
     private string $projectRoot;
     private InputInterface $input;
+    private OutputInterface $output;
     private SymfonyStyle $io;
 
     public function __construct()
@@ -43,13 +45,6 @@ class UpgradeCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption(
-                CommandOption::ORO_VERSIONS,
-                null,
-                InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
-                'Oro versions list',
-                '42,51,60'
-            )
             ->addOption(CommandOption::COMPOSER_CONFIG, null, InputArgument::OPTIONAL, 'Composer config filename', 'composer.json')
             ->addOption(CommandOption::SOURCE, null, InputArgument::OPTIONAL, 'Directory to be processed', 'src')
             ->addOption(CommandOption::DRY_RUN, null, InputOption::VALUE_NONE, 'Only see the diff of changes, do not save them to files')
@@ -65,16 +60,6 @@ It doesn’t upgrade YAML, Twig, JS, or SCSS.
 In most cases, the command can be used without any options.
 
   <info>php %command.full_name%</info>
-
-The <info>--oro-versions</info> option can be used to specify the oro versions list needed upgrade to:
-By default, inspections related to v4.2 and higher will be applied.
-
-    <info>php %command.full_name% --oro-versions=51</info>
-    will apply inspections related to the Oro v5.1
-    
-    <info>php %command.full_name% --oro-versions=51,60</info>
-    will apply inspections related to Oro versions in provided order.
-    First - for v5.1, and after that v6.0
 
 The <info>--composer-config</info> option can be used to specify composer configuration file name:
 It can be usefully when the composer config name is different from 'composer.json'
@@ -119,7 +104,6 @@ HELP
         );
 
         $this
-            ->addUsage('--oro-versions=<versions>')
             ->addUsage('--composer-config=<composer.json>')
             ->addUsage('--source=<sourceroot>')
             ->addUsage('--dry-run')
@@ -134,9 +118,9 @@ HELP
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->input = $input;
+        $this->output = $output;
         $this->io = new SymfonyStyle($input, $output);
         $this->projectRoot = realpath(self::BASE_PATH);
-        $this->oroVersions = explode(',', $this->input->getOption(CommandOption::ORO_VERSIONS));
         $this->composerConfigFile = $this->input->getOption(CommandOption::COMPOSER_CONFIG);
     }
 
@@ -187,8 +171,11 @@ HELP
         // Stage 3: Apply Rector inspections
         $this->io->title('Starting Rector inspections … ');
         $this->runRector();
-        // Stage 4: Delete tmp files. Provide hints/reports
+        // Stage 4: Delete tmp files.
         $this->deleteSignatureFile();
+        // Stage 5: Run .yml fixer
+        $this->runYmlFixer();
+        // Provide hints/reports
         $this->showFinalMessage();
 
         return Command::SUCCESS;
@@ -198,7 +185,7 @@ HELP
     {
         $rector = new RectorRunner($this->projectRoot);
 
-        foreach ($this->oroVersions as $oroVersion) {
+        foreach (self::ORO_VERSIONS as $oroVersion) {
             $configPath = $this->projectRoot . sprintf('/vendor/oro/upgrade-toolkit/sets/oro-%s.php', $oroVersion);
 
             if (!file_exists($configPath)) {
@@ -233,6 +220,40 @@ HELP
                     ]
                 );
             }
+        }
+    }
+
+    private function runYmlFixer(): void
+    {
+        $this->io->title('Starting to process .yml files …');
+
+        $parameters = [
+            '--source' => $this->input->getOption(CommandOption::SOURCE),
+        ];
+        !$this->input->getOption(CommandOption::DRY_RUN) || ($parameters['--' . CommandOption::DRY_RUN] = true);
+        !$this->input->getOption(CommandOption::DEBUG) || ($parameters['--' . CommandOption::DEBUG] = true);
+
+        $application = $this->getApplication();
+        $ymlFixerCommand = $application->find('yml:fix');
+        $fixerInput = new ArrayInput($parameters);
+        $returnCode = $ymlFixerCommand->run($fixerInput, $this->output);
+
+        if (Command::SUCCESS === $returnCode) {
+            $this->io->info('.yml files processing successfully finished');
+        } else {
+            $this->io->writeln(
+                [
+                    sprintf('<info>.yml files processing finished with errors.</info>', ),
+                    sprintf(
+                        '<info>Check the output bellow to verify the issues and fix needed</info>',
+                    ),
+                    sprintf(
+                        '<info>You can re-run the command with <comment>--%s</comment> option to get more details</info>',
+                        CommandOption::DEBUG
+                    ),
+                    PHP_EOL,
+                ]
+            );
         }
     }
 

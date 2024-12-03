@@ -1,0 +1,22 @@
+processes:
+    definitions:
+        definition1:
+            actions_configuration:
+                -   '@action1':
+                        enum_code: test_status
+                        identifier: test_status.new
+                -   '@action2':
+                        enum_code: test_status
+                        identifier: test_status.new
+                -   '@action3':
+                        enum_code: test_status
+                        identifier: $.TestStatusID
+                -   '@action4':
+                        class: Extend\Entity\EV_Test_Source
+                        where:
+                            and:
+                                - e.name = :name
+                                - NOT IDENTITY(e.test_status) = :targetStatus
+                                - IDENTITY(e.test_status) IN (:statuses)
+                        query_parameters:
+                            date: $.testDate

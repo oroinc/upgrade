@@ -1,0 +1,11 @@
+search:
+    Oro\UpgradeToolkit\Test\User:
+        alias:                          oro_tst_user
+        title_fields:                   [name]
+        route:
+            name:                       oro_tst_user_view
+    Oro\UpgradeToolkit\Test\Product:
+        title_fields:                   [firstName, lastName, email]
+        alias:                          oro_tst_product
+        route:
+            name:                       oro_tst_product_view

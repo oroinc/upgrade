@@ -8,12 +8,16 @@ if ($GLOBALS['_composer_autoload_path']) {
 }
 
 use Oro\UpgradeToolkit\Rector\Console\Command\UpgradeCommand;
+use Oro\UpgradeToolkit\YmlFixer\Command\YmlFixCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application('Upgrade Toolkit');
 
 $upgradeCommand = new UpgradeCommand();
 $application->add($upgradeCommand);
+
+$ymlFixCommand = new YmlFixCommand();
+$application->add($ymlFixCommand);
 
 $application->setDefaultCommand($upgradeCommand->getName());
 

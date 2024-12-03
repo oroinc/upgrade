@@ -11,6 +11,32 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 return static function (RectorConfig $rectorConfig): void {
     // v4.1
 
+    // The interface Oro\Bundle\ActivityBundle\Entity\Manager\ActivityEntityDeleteHandlerInterface
+    // was removed.
+    // Use Oro\Bundle\ActivityBundle\Handler\ActivityEntityDeleteHandlerExtensionInterface instead.
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Oro\Bundle\ActivityBundle\Entity\Manager\ActivityEntityDeleteHandlerInterface'
+        => 'Oro\Bundle\ActivityBundle\Handler\ActivityEntityDeleteHandlerExtensionInterface'
+    ]);
+
+    // The class Oro\Bundle\ApiBundle\Request\ApiActions
+    // was renamed to Oro\Bundle\ApiBundle\Request\ApiAction.
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Oro\Bundle\ApiBundle\Request\ApiActions' => 'Oro\Bundle\ApiBundle\Request\ApiAction'
+    ]);
+
+    // The constant NORMALIZE_RESULT_GROUP was removed
+    // from Oro\Bundle\ApiBundle\Processor\NormalizeResultActionProcessor
+    // Use NORMALIZE_RESULT constant from Oro\Bundle\ApiBundle\Request\ApiActionGroup instead.
+    $rectorConfig->ruleWithConfiguration(RenameClassConstFetchRector::class, [
+        new RenameClassAndConstFetch(
+            'Oro\Bundle\ApiBundle\Processor\NormalizeResultActionProcessor',
+            'NORMALIZE_RESULT_GROUP',
+            'Oro\Bundle\ApiBundle\Request\ApiActionGroup',
+            'NORMALIZE_RESULT'
+        ),
+    ]);
+
     // The following classes were moved from Oro\Bundle\ApiBundle\Config namespace
     // to Oro\Bundle\ApiBundle\Config\Extension:
     // ConfigExtensionInterface
@@ -171,6 +197,14 @@ return static function (RectorConfig $rectorConfig): void {
     // Use Symfony\Component\Security\Core\Exception\AccessDeniedException instead.
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
         'Oro\Bundle\SecurityBundle\Exception\ForbiddenException' => 'Symfony\Component\Security\Core\Exception\AccessDeniedException',
+    ]);
+
+    // The interface Oro\Bundle\SoapBundle\Handler\DeleteHandlerInterface
+    // was replaced with Oro\Bundle\EntityBundle\Handler\EntityDeleteHandlerInterface
+    // and Oro\Bundle\EntityBundle\Handler\EntityDeleteHandlerExtensionInterface.
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Oro\Bundle\SoapBundle\Handler\DeleteHandlerInterface'
+        => 'Oro\Bundle\EntityBundle\Handler\EntityDeleteHandlerExtensionInterface',
     ]);
 
     //The constant SCOPE_KEY in Oro\Bundle\UserBundle\Provider\ScopeUserCriteriaProvider was replaced with USER.

@@ -3,6 +3,7 @@
 use Rector\Config\RectorConfig;
 use Rector\Removing\Rector\Class_\RemoveTraitUseRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
+use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -26,6 +27,19 @@ return static function (RectorConfig $rectorConfig): void {
             'Oro\Bundle\ShippingBundle\Entity\Repository\ProductShippingOptionsRepository',
             'findByProductsAndUnits',
             'findIndexedByProductsAndUnits'
+        )
+    ]);
+
+    // Method
+    // Oro\Bundle\PaymentBundle\ExpressionLanguage\DecoratedProductLineItemFactory::createLineItemWithDecoratedProductByLineItem()
+    // is removed, use
+    // Oro\Bundle\PaymentBundle\ExpressionLanguage\DecoratedProductLineItemFactory::createPaymentLineItemWithDecoratedProduct()
+    // instead.
+    $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
+        new MethodCallRename(
+            'Oro\Bundle\PaymentBundle\ExpressionLanguage\DecoratedProductLineItemFactory',
+            'createLineItemWithDecoratedProductByLineItem',
+            'createPaymentLineItemWithDecoratedProduct'
         )
     ]);
 
@@ -72,5 +86,19 @@ return static function (RectorConfig $rectorConfig): void {
             'deleteDisabledItemsByShoppingList',
             'deleteNotAllowedLineItemsFromShoppingList'
         ),
+    ]);
+
+    // Removed Oro\Bundle\WebsiteSearchBundle\Event\WebsiteSearchMappingEvent event class
+    // and used Oro\Bundle\SearchBundle\Event\SearchMappingCollectEvent class instead of.
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Oro\Bundle\WebsiteSearchBundle\Event\WebsiteSearchMappingEvent'
+        => 'Oro\Bundle\SearchBundle\Event\SearchMappingCollectEvent',
+    ]);
+
+    // Removed Oro\Bundle\WebsiteSearchBundle\Provider\WebsiteSearchMappingProvider and
+    // used \Oro\Bundle\SearchBundle\Provider\SearchMappingProvider class instead of.
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Oro\Bundle\WebsiteSearchBundle\Provider\WebsiteSearchMappingProvider'
+        => 'Oro\Bundle\SearchBundle\Provider\SearchMappingProvider',
     ]);
 };

@@ -70,4 +70,33 @@ return static function (RectorConfig $rectorConfig): void {
             'setExtraLargeImage'
         ),
     ]);
+
+    // Removed \Oro\Bundle\OrderBundle\EventListener\Order\MatchingPriceEventListener,
+    // its responsibility is fulfilled by \Oro\Bundle\OrderBundle\Form\Type\EventListener\SubtotalSubscriber.
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Oro\Bundle\OrderBundle\EventListener\Order\MatchingPriceEventListener'
+        => 'Oro\Bundle\OrderBundle\Form\Type\EventListener\SubtotalSubscriber'
+    ]);
+    // Removed \Oro\Bundle\OrderBundle\EventListener\Order\TierPriceEventListener,
+    // its responsibility is fulfilled by \Oro\Bundle\OrderBundle\EventListener\Order\OrderLineItemTierPricesEventListener
+    // now that adds both tier prices for simple products and for product kits.
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Oro\Bundle\OrderBundle\EventListener\Order\TierPriceEventListener'
+        => 'Oro\Bundle\OrderBundle\EventListener\Order\OrderLineItemTierPricesEventListener'
+    ]);
+    // Removed getMatchingPrices, fillMatchingPrices methods
+    // from \Oro\Bundle\OrderBundle\Pricing\PriceMatcher,
+    // use addMatchingPrices instead.
+    $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
+        new MethodCallRename(
+            'Oro\Bundle\OrderBundle\Pricing\PriceMatcher',
+            'getMatchingPrices',
+            'addMatchingPrices'
+        ),
+        new MethodCallRename(
+            'Oro\Bundle\OrderBundle\Pricing\PriceMatcher',
+            'fillMatchingPrices',
+            'addMatchingPrices'
+        ),
+    ]);
 };

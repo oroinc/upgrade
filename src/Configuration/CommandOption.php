@@ -7,7 +7,6 @@ namespace Oro\UpgradeToolkit\Configuration;
  */
 final class CommandOption
 {
-    public const ORO_VERSIONS = 'oro-versions';
     public const COMPOSER_CONFIG = 'composer-config';
     public const SOURCE = 'source';
     public const DRY_RUN = 'dry-run';

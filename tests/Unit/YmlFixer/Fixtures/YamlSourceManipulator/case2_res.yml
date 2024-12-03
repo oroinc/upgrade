@@ -1,0 +1,4 @@
+# Change the sequenced array values
+root:
+    key1:
+        - [value1, [NEWvalue2]]

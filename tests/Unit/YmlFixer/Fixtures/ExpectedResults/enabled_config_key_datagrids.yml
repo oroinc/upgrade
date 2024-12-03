@@ -1,0 +1,56 @@
+datagrids:
+    test-user-grid:
+        source:
+            query:
+                select:
+                    - ts.name as testStatus
+                    - testUser.fullName
+                    - !!binary VVBQRVIoCiAgICBDQVNFIFdIRU4gcHJvZHVjdC50eXBlID0gJ2tpdCcKICAgIFRIRU4gCiAgICAgICAgQ09OQ0FUX1dTKAogICAgICAgICAgICAnHicsCiAgICAgICAgICAgICcnLAogICAgICAgICAgICBHUk9VUF9DT05DQVQoRElTVElOQ1QgcHJvZHVjdC5za3UgU0VQQVJBVE9SICceJyksCiAgICAgICAgICAgIEdST1VQX0NPTkNBVChraXRJdGVtTGluZUl0ZW1Qcm9kdWN0LnNrdSBTRVBBUkFUT1IgJx4nKSwKICAgICAgICAgICAgJycKICAgICAgICApCiAgICBFTFNFCiAgICAgICAgQ09OQ0FUX1dTKAogICAgICAgICAgICAnHicsCiAgICAgICAgICAgICcnLAogICAgICAgICAgICBHUk9VUF9DT05DQVQocHJvZHVjdC5za3UgU0VQQVJBVE9SICceJyksCiAgICAgICAgICAgICcnCiAgICAgICAgKQogICAgRU5ECikgYXMgY29tcG9zZWRTa3UK
+                join:
+                    left:
+                        -
+                            join: testRequest.test_user_id
+                            alias: testuserId
+                        -
+                            join: testUser.test_status
+                            alias: ts
+                where:
+                    and:
+                        - 'IDENTITY(testRequest.test_status) IS NULL OR IDENTITY(testRequest.test_status) <> :testStatus'
+        columns:
+            fullName:
+                renderable: false
+            testStatus:
+                label: 'Test Status Label'
+        filters:
+            columns:
+                testStatus:
+                    type: enum
+                    data_name: ts.id
+        sorters:
+            columns:
+                testStatus:
+                    data_name: ts.id
+
+    test-products-grid:
+        source:
+            acl_resource: test_acl_call
+        options:
+            skip_acl_check: true
+        columns:
+            testProductName:
+                label: 'TestProductName'
+                renderable: true
+            testInventoryStatus:
+                label: 'TestInventory'
+                frontend_type: select
+                choices: '@oro_entity_extend.enum_value_provider->getEnumChoicesByCode(''prod_inventory_status'')'
+            enabled:
+                label: 'TestEnabledColumn'
+                renderable: false
+        sorters:
+            columns:
+                testProductName:
+                    name: "%oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC"
+            default:
+                testInventoryStatus: '%oro_datagrid.extension.orm_sorter.class%::DIRECTION_ASC'

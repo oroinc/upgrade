@@ -40,7 +40,7 @@ class RectorRunner
             $parameters
         );
 
-        $rectorProcess = new Process($command);
+        $rectorProcess = new Process(command: $command, timeout: null);
         $io->writeln(sprintf('<info>Running %s … </info>', $rectorProcess->getCommandLine()));
         $rectorProcess->run(
             function ($type, $buffer) use ($io) {

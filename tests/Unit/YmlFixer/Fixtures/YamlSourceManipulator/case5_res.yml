@@ -1,0 +1,4 @@
+# Multiline values processing
+root:
+    key1: "NEW \n multi-line \n value"
+    key2: One-line value

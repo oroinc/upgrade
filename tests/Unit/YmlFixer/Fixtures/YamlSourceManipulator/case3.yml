@@ -1,0 +1,6 @@
+# !php/const keys and values processing
+root:
+    key1:
+        - !php/const Oro\Test\Class::TEST_CONST
+    key2:
+        !php/const Oro\Test\Class1::TEST_CONST: value
