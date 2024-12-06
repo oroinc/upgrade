@@ -1,11 +1,6 @@
 # The Oro Source Code Upgrade Toolkit
 
-A command line helper that facilitates upgrading the source code of the Oro application:
- * From version 4.0 to 4.2
- * From version 5.0 to 5.1
- * From version 5.1 to 6.0
- * From version 4.0 to 6.0
- * From version 5.0 to 6.0
+A command line tool that simplifies upgrading Oro application source code from versions 4.0, 4.1, 4.2, 5.0, and 5.1 to version 6.0.
 
 Installation
 ------------
@@ -29,17 +24,13 @@ php bin/upgrade-toolkit --dry-run
 php bin/upgrade-toolkit --clear-cache
 ```
 
-3. Fix Code Style. Use IDE build-in solutions (e.g., “Code > Reformat Code” in PhpStorm),
-
-   or run Php-CS-Fixer
+3. Fix Code Style. Use IDE build-in solutions (e.g., “Code > Reformat Code” in PhpStorm), or run Php-CS-Fixer and PHP_CodeSniffer
    
 ```bash
+# Run Php-CS-Fixer 
 php bin/php-cs-fixer fix src --verbose --config=vendor/oro/platform/build/.php-cs-fixer.php
-```
 
-and PHP_CodeSniffer
-
-```bash
+# Run PHP_CodeSniffer
 php bin/phpcbf src/ -p --encoding=utf-8 --extensions=php --standard=vendor/oro/platform/build/Oro/phpcs.xml
 ```
 
