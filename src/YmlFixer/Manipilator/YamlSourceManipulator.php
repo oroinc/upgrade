@@ -1123,7 +1123,7 @@ class YamlSourceManipulator
         --$this->depth;
     }
 
-    private function getCurrentIndentation(int $override = null): string
+    private function getCurrentIndentation(?int $override = null): string
     {
         $indent = $override ?? $this->indentationForDepths[$this->depth];
 
@@ -1358,7 +1358,7 @@ class YamlSourceManipulator
         $this->indentationForDepths[$this->depth] += $this->getPreferredIndentationSize();
     }
 
-    private function isEOF(int $position = null)
+    private function isEOF(?int $position = null)
     {
         $position = null === $position ? $this->currentPosition : $position;
 
@@ -1480,7 +1480,7 @@ class YamlSourceManipulator
      * Usually an empty line needs to be prepended to this result before
      * adding to the content.
      */
-    private function indentMultilineYamlArray(string $yaml, int $indentOverride = null): string
+    private function indentMultilineYamlArray(string $yaml, ?int $indentOverride = null): string
     {
         // Fix the indent for the last element in sequenced array
         if ($this->depth > 1 && $this->indentationForDepths[$this->depth] < $this->indentationForDepths[$this->depth - 1]) {
