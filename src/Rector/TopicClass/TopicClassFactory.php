@@ -40,7 +40,7 @@ class TopicClassFactory
             'getName',
             [
                 'flags' => Class_::MODIFIER_PUBLIC | Class_::MODIFIER_STATIC,
-                'returnType' => 'string',
+                'returnType' => new Identifier('string'),
                 'stmts' => [
                     new Return_(new String_($value))
                 ]
@@ -57,7 +57,7 @@ class TopicClassFactory
             'getDescription',
             [
                 'flags' => Class_::MODIFIER_PUBLIC | Class_::MODIFIER_STATIC,
-                'returnType' => 'string',
+                'returnType' => new Identifier('string'),
                 'stmts' => [
                     $return
                 ]
@@ -74,7 +74,7 @@ class TopicClassFactory
             'configureMessageBody',
             [
                 'flags' => Class_::MODIFIER_PUBLIC,
-                'returnType' => 'void',
+                'returnType' => new Identifier('void'),
                 'params' => [
                     new Param(
                         new Variable('resolver'),

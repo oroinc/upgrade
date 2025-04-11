@@ -31,7 +31,6 @@ use Rector\Symfony\Symfony43\Rector\MethodCall\ConvertRenderTemplateShortNotatio
 use Rector\Symfony\Symfony43\Rector\MethodCall\GetCurrencyBundleMethodCallsToIntlRector;
 use Rector\Symfony\Symfony43\Rector\MethodCall\WebTestCaseAssertIsSuccessfulRector;
 use Rector\Symfony\Symfony43\Rector\MethodCall\WebTestCaseAssertResponseCodeRector;
-use Rector\Symfony\Symfony43\Rector\MethodCall\WebTestCaseAssertSelectorTextContainsRector;
 use Rector\Symfony\Symfony43\Rector\StmtsAwareInterface\TwigBundleFilesystemLoaderToTwigRector;
 
 # https://github.com/symfony/symfony/blob/4.4/UPGRADE-4.3.md
@@ -41,7 +40,9 @@ return static function (RectorConfig $rectorConfig): void {
         [
             WebTestCaseAssertIsSuccessfulRector::class,
             WebTestCaseAssertResponseCodeRector::class,
-            WebTestCaseAssertSelectorTextContainsRector::class,
+            // Deprecated since Rector 1.1.2 and removed further
+            // https://github.com/rectorphp/rector-symfony/pull/621
+            // WebTestCaseAssertSelectorTextContainsRector::class,
             TwigBundleFilesystemLoaderToTwigRector::class,
             MakeDispatchFirstArgumentEventRector::class,
             GetCurrencyBundleMethodCallsToIntlRector::class,

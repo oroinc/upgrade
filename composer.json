@@ -20,9 +20,10 @@
     "bin/upgrade-toolkit"
   ],
   "require": {
-    "phpstan/phpstan": "1.10.57",
-    "rector/rector": "1.0.3",
-    "symfony/maker-bundle": "^v1.52.0"
+    "phpstan/phpstan": "2.1.11",
+    "rector/rector": "2.0.11",
+    "symfony/maker-bundle": "^v1.52.0",
+    "nette/utils": "^3.2.9 || ^4.0"
   },
   "autoload": {
     "psr-4": {
@@ -35,7 +36,7 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^10.2"
+    "phpunit/phpunit": "~9.5.27 || ^10.2"
   },
   "config": {
     "allow-plugins": {

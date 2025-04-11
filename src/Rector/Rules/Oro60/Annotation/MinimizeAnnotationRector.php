@@ -11,96 +11,10 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class MinimizeAnnotationRector extends AbstractRector implements ConfigurableRectorInterface
 {
     private array $annotationsToMinimize = [];
-
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Minimizes multiline annotation into one line excluding whitespaces, tabs, etc',
-            [new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
-/**
- * Represents some class.
- *
- * @Config(
- *      defaultValues={
- *          "dataaudit"={
- *              "auditable"=true
- *
- *          },
- *          "slug"={
- *              "source"="titles"
- *          }
- *     }
- * )
- */
-class SomeClass
-{
-    /**
-    * @ConfigField(
-    *      defaultValues={
-    *          "dataaudit"={
-    *              "auditable"=true
-    *          }
-    *      }
-    * )
-    */
-    public function run()
-    {
-        return 'STRING';
-    }
-}
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-/**
- * Represents some class.
- *
- * @Config(defaultValues={"dataaudit"={"auditable"=true},"slug"={"source"="titles"}})
- */
-class SomeClass
-{
-    /**
-    * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
-    */
-    public function run()
-    {
-        return 'STRING';
-    }
-}
-CODE_SAMPLE
-                ,
-                [
-                    '/**
- * Represents some class.
- *
- * @Config(
- *      defaultValues={
- *          "dataaudit"={
- *              "auditable"=true
- *
- *          },
- *          "slug"={
- *              "source"="titles"
- *          }
- *     }
- * )
- */'
-                    => '/**
- * Represents some class.
- *
- * @Config(defaultValues={"dataaudit"={"auditable"=true},"slug"={"source"="titles"}})
- */',
-                                ]
-            )]
-        );
-    }
 
     #[\Override]
     public function getNodeTypes(): array

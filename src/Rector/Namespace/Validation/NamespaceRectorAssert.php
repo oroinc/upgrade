@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Oro\UpgradeToolkit\Rector\Namespace\Validation;
 
 use Rector\Util\StringUtils;
-use RectorPrefix202403\Webmozart\Assert\InvalidArgumentException;
+use RectorPrefix202503\Webmozart\Assert\InvalidArgumentException;
 
 /**
  * Modified copy of \Rector\Core\Validation\RectorAssert, Rector v0.16.0

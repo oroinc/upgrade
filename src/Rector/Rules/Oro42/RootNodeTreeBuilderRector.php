@@ -14,8 +14,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Contract\PhpParser\Node\StmtsAwareInterface;
 use Rector\PhpParser\Node\BetterNodeFinder;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://github.com/symfony/symfony/pull/27476
@@ -43,31 +41,6 @@ final class RootNodeTreeBuilderRector extends AbstractRector
     public function __construct(
         private readonly BetterNodeFinder $betterNodeFinder
     ) {
-    }
-
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Changes TreeBuilder with root() call to constructor passed root and getRootNode() call',
-            [new CodeSample(
-                <<<'CODE_SAMPLE'
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-
-$treeBuilder = new TreeBuilder();
-$rootNode = $treeBuilder->root('acme_root');
-$rootNode->someCall();
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-
-$treeBuilder = new TreeBuilder('acme_root');
-$rootNode = $treeBuilder->getRootNode();
-$rootNode->someCall();
-CODE_SAMPLE
-            )]
-        );
     }
 
     #[\Override]

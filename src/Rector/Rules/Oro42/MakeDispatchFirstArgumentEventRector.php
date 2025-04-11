@@ -14,8 +14,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://symfony.com/blog/new-in-symfony-4-3-simpler-event-dispatching
@@ -42,36 +40,6 @@ final class MakeDispatchFirstArgumentEventRector extends AbstractRector
         private readonly StringTypeAnalyzer $stringTypeAnalyzer,
         private readonly ValueResolver $valueResolver,
     ) {
-    }
-
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Make event object a first argument of dispatch() method, event name as second', [new CodeSample(
-            <<<'CODE_SAMPLE'
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-
-class SomeClass
-{
-    public function run(EventDispatcherInterface $eventDispatcher)
-    {
-        $eventDispatcher->dispatch('event_name', new Event());
-    }
-}
-CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-
-class SomeClass
-{
-    public function run(EventDispatcherInterface $eventDispatcher)
-    {
-        $eventDispatcher->dispatch(new Event(), 'event_name');
-    }
-}
-CODE_SAMPLE
-        )]);
     }
 
     /**

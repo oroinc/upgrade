@@ -19,36 +19,12 @@ use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\If_;
-use PHPStan\Analyser\Scope;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-class AddUserTypeCheckWhileAuthRector extends AbstractScopeAwareRector
+class AddUserTypeCheckWhileAuthRector extends AbstractRector
 {
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Changed implementation of anonymous_customer_user authentication in controllers. To check whether the user is authorized, it is not enough to check whether the user is absent in the token, it is also worth checking whether this user is not a customer visitor (CustomerVisitor::class).',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                    if ($this->getUser()) {
-                        # implementation
-                    }
-                    CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                    if ($this->getUser() instanceof AbstractUser) {
-                        # implementation
-                    }
-                    CODE_SAMPLE
-                )
-            ]
-        );
-    }
-
     #[\Override]
     public function getNodeTypes(): array
     {
@@ -59,8 +35,9 @@ class AddUserTypeCheckWhileAuthRector extends AbstractScopeAwareRector
      * @param If_ $node
      */
     #[\Override]
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
 
         if (is_null($classReflection)) {

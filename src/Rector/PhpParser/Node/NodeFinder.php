@@ -2,9 +2,9 @@
 
 namespace Oro\UpgradeToolkit\Rector\PhpParser\Node;
 
+use Oro\UpgradeToolkit\Rector\PhpParser\AttributeKey;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpParser\Node\BetterNodeFinder;
 
 /**

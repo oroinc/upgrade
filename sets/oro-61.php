@@ -1,6 +1,7 @@
 <?php
 
 use Oro\Bundle\EntityExtendBundle\Tools\ExtendHelper;
+use Oro\UpgradeToolkit\Rector\Signature\SignatureConfigurator;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
@@ -43,4 +44,7 @@ return static function (RectorConfig $rectorConfig): void {
             'outdatedExtendExtension'
         )
     ]);
+
+    // Apply property/method signatures rules
+    SignatureConfigurator::configure($rectorConfig);
 };

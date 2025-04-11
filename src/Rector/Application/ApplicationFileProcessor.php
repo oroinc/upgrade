@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Oro\UpgradeToolkit\Rector\Application;
 
 use Rector\Application\FileProcessor;
+use Rector\Application\Provider\CurrentFileProvider;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Configuration\Option;
 use Rector\Configuration\Parameter\SimpleParameterProvider;
 use Rector\Configuration\VendorMissAnalyseGuard;
+use Rector\FileSystem\FilesFinder;
 use Rector\Parallel\Application\ParallelFileProcessor;
-use Rector\Provider\CurrentFileProvider;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Rector\Util\ArrayParametersMerger;
 use Rector\ValueObject\Application\File;
@@ -19,13 +20,12 @@ use Rector\ValueObject\Error\SystemError;
 use Rector\ValueObject\FileProcessResult;
 use Rector\ValueObject\ProcessResult;
 use Rector\ValueObject\Reporting\FileDiff;
-use Rector\ValueObjectFactory\Application\FileFactory;
-use RectorPrefix202403\Nette\Utils\FileSystem as UtilsFileSystem;
-use RectorPrefix202403\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix202403\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix202403\Symplify\EasyParallel\CpuCoreCountProvider;
-use RectorPrefix202403\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
-use RectorPrefix202403\Symplify\EasyParallel\ScheduleFactory;
+use RectorPrefix202503\Nette\Utils\FileSystem as UtilsFileSystem;
+use RectorPrefix202503\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix202503\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix202503\Symplify\EasyParallel\CpuCoreCountProvider;
+use RectorPrefix202503\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use RectorPrefix202503\Symplify\EasyParallel\ScheduleFactory;
 use Throwable;
 
 /**
@@ -62,7 +62,7 @@ class ApplicationFileProcessor
      */
     public function __construct(
         private readonly SymfonyStyle $symfonyStyle,
-        private readonly FileFactory $fileFactory,
+        private readonly FilesFinder $fileFactory,
         private readonly ParallelFileProcessor $parallelFileProcessor,
         private readonly ScheduleFactory $scheduleFactory,
         private readonly CpuCoreCountProvider $cpuCoreCountProvider,

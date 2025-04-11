@@ -6,34 +6,14 @@ namespace Oro\UpgradeToolkit\Rector\Rules\Oro51;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Rector\AbstractScopeAwareRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 
-class ClassConstantToStaticMethodCallRector extends AbstractScopeAwareRector implements ConfigurableRectorInterface
+class ClassConstantToStaticMethodCallRector extends AbstractRector implements ConfigurableRectorInterface
 {
     private array $oldToNewConstants = [];
-
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Replace class constant by static method call',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                    $this->send(\Acme\Bundle\DemoBundle\Async\Topics::SEND_EMAIL, []);
-                    CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                    $this->send(\Acme\Bundle\DemoBundle\Async\Topic\SendEmailTopic::getName(), []);
-                    CODE_SAMPLE
-                )
-            ]
-        );
-    }
 
     #[\Override]
     public function getNodeTypes(): array
@@ -42,8 +22,9 @@ class ClassConstantToStaticMethodCallRector extends AbstractScopeAwareRector imp
     }
 
     #[\Override]
-    public function refactorWithScope(Node $node, Scope $scope)
+    public function refactor(Node $node)
     {
+        $scope = ScopeFetcher::fetch($node);
         foreach ($this->oldToNewConstants as $oldConstant => $newClassWithMethod) {
             [$oldConstantClass, $oldConstantName] = explode('::', $oldConstant);
             [$newClass, $newMethod] = explode('::', $newClassWithMethod);

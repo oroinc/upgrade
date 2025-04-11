@@ -5,7 +5,7 @@ namespace Oro\UpgradeToolkit\Rector\Application;
 use Nette\Utils\FileSystem;
 use Rector\Console\Style\RectorStyle;
 use Rector\ValueObject\Configuration;
-use RectorPrefix202403\Webmozart\Assert\Assert;
+use RectorPrefix202503\Webmozart\Assert\Assert;
 
 /**
  * Removes listed files

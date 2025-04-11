@@ -15,8 +15,6 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 class GenerateTopicClassesRector extends AbstractRector
 {
@@ -25,69 +23,6 @@ class GenerateTopicClassesRector extends AbstractRector
         private DeletedFilesProcessor $deletedFilesProcessor,
         private TopicClassFactory $topicClassFactory = new TopicClassFactory(),
     ) {
-    }
-
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Generate topic classes',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                    namespace App\Async\Topics;
-
-                    final class Topics
-                    {
-                        public const FIRST = 'first';
-                        public const SECOND = 'second';
-                    }
-
-                    CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                    // new file: "app/Async/FirstTopic.php"
-                    namespace App\Async\Topics;
-
-                    final class FirstTopic extends \Oro\Component\MessageQueue\Topic\AbstractTopic
-                    {
-                        public static function getName(): string
-                        {
-                            return 'first';
-                        }
-                        public static function getDescription(): string
-                        {
-                            // TODO: Implement getDescription() method.
-                            return '';
-                        }
-                        public function configureMessageBody(\Symfony\Component\OptionsResolver\OptionsResolver $resolver): void
-                        {
-                            // TODO: Implement configureMessageBody() method.
-                        }
-                    }
-
-                    // new file: "app/Async/SecondTopic.php"
-                    namespace App\Async\Topics;
-
-                    final class SecondTopic extends \Oro\Component\MessageQueue\Topic\AbstractTopic
-                    {
-                        public static function getName(): string
-                        {
-                            return 'second';
-                        }
-                        public static function getDescription(): string
-                        {
-                            // TODO: Implement getDescription() method.
-                            return '';
-                        }
-                        public function configureMessageBody(\Symfony\Component\OptionsResolver\OptionsResolver $resolver): void
-                        {
-                            // TODO: Implement configureMessageBody() method.
-                        }
-                    }
-                    CODE_SAMPLE
-                )
-            ]
-        );
     }
 
     #[\Override]

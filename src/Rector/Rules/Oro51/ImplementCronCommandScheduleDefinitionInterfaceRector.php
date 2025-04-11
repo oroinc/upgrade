@@ -9,13 +9,11 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use Rector\Rector\AbstractScopeAwareRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 
-final class ImplementCronCommandScheduleDefinitionInterfaceRector extends AbstractScopeAwareRector
+final class ImplementCronCommandScheduleDefinitionInterfaceRector extends AbstractRector
 {
     /**
      * @var string
@@ -32,37 +30,6 @@ final class ImplementCronCommandScheduleDefinitionInterfaceRector extends Abstra
      */
     private const METHOD_NAME = 'getDefaultDefinition';
 
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Add `CronCommandScheduleDefinitionInterface` interface to Command::class implementations with `getDefaultDefinition()` method',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                    class SomeClass extends \Symfony\Component\Console\Command\Command
-                    {
-                        public function getDefaultDefinition()
-                        {
-                            return '* * * * * ? *';
-                        }
-                    }
-                    CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
-                    class SomeClass extends \Symfony\Component\Console\Command\Command implements \Oro\Bundle\CronBundle\Command\CronCommandScheduleDefinitionInterface
-                    {
-                        public function getDefaultDefinition(): string
-                        {
-                            return '* * * * * ? *';
-                        }
-                    }
-                    CODE_SAMPLE
-                )
-            ]
-        );
-    }
-
     /**
      * @return array<class-string<Node>>
      */
@@ -76,8 +43,9 @@ final class ImplementCronCommandScheduleDefinitionInterfaceRector extends Abstra
      * @param Class_ $node
      */
     #[\Override]
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof ClassReflection) {
             return null;

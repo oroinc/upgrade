@@ -7,6 +7,7 @@ namespace Oro\UpgradeToolkit\Rector\Rules\Namespace;
 use Oro\UpgradeToolkit\Rector\Namespace\NamespaceMatcher;
 use Oro\UpgradeToolkit\Rector\Namespace\PhpDoc\NodeAnalyzer\DocBlockNamespaceRenamer;
 use Oro\UpgradeToolkit\Rector\Namespace\ValueObject\RenamedNamespace;
+use Oro\UpgradeToolkit\Rector\PhpParser\AttributeKey;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
@@ -20,11 +21,8 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Rector\AbstractRector;
-use RectorPrefix202403\Webmozart\Assert\Assert;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix202503\Webmozart\Assert\Assert;
 
 /**
  * Modified copy of \Rector\Renaming\Rector\Namespace_\RenameNamespaceRector, Rector v0.16.0
@@ -64,21 +62,6 @@ final class RenameNamespaceRector extends AbstractRector implements Configurable
     ) {
         $this->namespaceMatcher = $namespaceMatcher;
         $this->docBlockNamespaceRenamer = $docBlockNamespaceRenamer;
-    }
-
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Replaces old namespace by new one.',
-            [
-                new ConfiguredCodeSample(
-                    '$someObject = new SomeOldNamespace\\SomeClass;',
-                    '$someObject = new SomeNewNamespace\\SomeClass;',
-                    ['SomeOldNamespace' => 'SomeNewNamespace']
-                )
-            ]
-        );
     }
 
     #[\Override]

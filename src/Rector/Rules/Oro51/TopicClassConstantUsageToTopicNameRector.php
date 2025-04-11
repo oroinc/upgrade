@@ -7,31 +7,12 @@ namespace Oro\UpgradeToolkit\Rector\Rules\Oro51;
 use Oro\UpgradeToolkit\Rector\TopicClass\TopicClassNameGenerator;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PHPStan\Analyser\Scope;
-use Rector\Rector\AbstractScopeAwareRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\ObjectType;
+use Rector\Rector\AbstractRector;
 
-class TopicClassConstantUsageToTopicNameRector extends AbstractScopeAwareRector
+class TopicClassConstantUsageToTopicNameRector extends AbstractRector
 {
-    #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Replace class Topics constant reference with *Topic::getName() call',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                    $this->send(\Acme\Bundle\DemoBundle\Async\Topics::SEND_EMAIL, []);
-                    CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                    $this->send(\Acme\Bundle\DemoBundle\Async\Topic\SendEmailTopic::getName(), []);
-                    CODE_SAMPLE
-                )
-            ]
-        );
-    }
-
     #[\Override]
     public function getNodeTypes(): array
     {
@@ -39,9 +20,27 @@ class TopicClassConstantUsageToTopicNameRector extends AbstractScopeAwareRector
     }
 
     #[\Override]
-    public function refactorWithScope(Node $node, Scope $scope)
+    public function refactor(Node $node)
     {
-        $type = $node->class->toString();
+        $classExpr = $node->class;
+
+        // \SomeClass::CONST
+        if ($classExpr instanceof Node\Name) {
+            $type = $classExpr->toString();
+        }
+        // $var::CONST
+        elseif ($classExpr instanceof Variable) {
+            $type = $this->nodeTypeResolver->getType($classExpr);
+
+            if ($type instanceof ObjectType) {
+                $type = $type->getClassName();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
         if (!\str_ends_with($type, '\\Async\\Topics')) {
             return null;
         }

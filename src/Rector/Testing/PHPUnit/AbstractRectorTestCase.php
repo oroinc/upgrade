@@ -14,8 +14,8 @@ use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\Dy
 use Rector\Testing\Fixture\FixtureFileUpdater;
 use Rector\Testing\Fixture\FixtureSplitter;
 use Rector\Testing\PHPUnit\ValueObject\RectorTestResult;
-use RectorPrefix202403\Nette\Utils\FileSystem;
-use RectorPrefix202403\Nette\Utils\Strings;
+use RectorPrefix202503\Nette\Utils\FileSystem;
+use RectorPrefix202503\Nette\Utils\Strings;
 
 /**
  * Modification of

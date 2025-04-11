@@ -17,7 +17,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Use_;
-use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Reflection\ClassReflection;
@@ -26,15 +25,15 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\Enum\ObjectReference;
 use Rector\PhpParser\AstResolver;
 use Rector\PhpParser\Node\BetterNodeFinder;
+use Rector\PHPStan\ScopeFetcher;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\Rector\AbstractRector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Oro\Tests\Rector\Rules\Oro51\ExtendedEntityUpdateRector\ExtendedEntityUpdateRectorTest
  */
-class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
+class ExtendedEntityUpdateRector extends AbstractRector
 {
     public function __construct(
         private ClassInsertManipulator $classInsertManipulator,
@@ -47,15 +46,6 @@ class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
     }
 
     #[\Override]
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Updates extended entities to use new trait and interface instead of a model class extend',
-            []
-        );
-    }
-
-    #[\Override]
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -65,8 +55,9 @@ class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
      * @param Class_ $node
      */
     #[\Override]
-    public function refactorWithScope(Node $node, Scope $scope)
+    public function refactor(Node $node)
     {
+        $scope = ScopeFetcher::fetch($node);
         if (!$node->extends instanceof Name) {
             return null;
         }
@@ -138,7 +129,7 @@ class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
         }
     }
 
-    private function updateSelfDocBlockType(TypeNode $type, string $modelClassName): TypeNode
+    private function updateSelfDocBlockType(?TypeNode $type, string $modelClassName): ?TypeNode
     {
         if ($type instanceof IdentifierTypeNode && $type->name === $modelClassName) {
             return new IdentifierTypeNode(ObjectReference::SELF);
@@ -177,7 +168,7 @@ class ExtendedEntityUpdateRector extends AbstractScopeAwareRector
     /**
      * If parent class has extends, move it to the top
      */
-    private function moveModelExtendsToTheTop(Scope $scope, Class_ $node): void
+    private function moveModelExtendsToTheTop(\PHPStan\Analyser\Scope $scope, Class_ $node): void
     {
         $modelParentClass = $scope->getClassReflection()->getParentClass()->getParentClass();
         if ($modelParentClass instanceof ClassReflection) {
