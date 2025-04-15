@@ -9,23 +9,23 @@ return static function (RectorConfig $rectorConfig): void {
     // Transform custom annotations to attributes
     $rectorConfig->ruleWithConfiguration(AnnotationToAttributeRector::class, [
         // Config Annotations
-        new AnnotationToAttribute('Config'),
-        new AnnotationToAttribute('ConfigField'),
+        new AnnotationToAttribute('Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config'),
+        new AnnotationToAttribute('Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField'),
         // Acl Annotations
-        new AnnotationToAttribute('Acl'),
-        new AnnotationToAttribute('AclAncestor'),
-        new AnnotationToAttribute('CsrfProtection'),
+        new AnnotationToAttribute('Oro\Bundle\SecurityBundle\Attribute\Acl'),
+        new AnnotationToAttribute('Oro\Bundle\SecurityBundle\Attribute\AclAncestor'),
+        new AnnotationToAttribute('Oro\Bundle\SecurityBundle\Attribute\CsrfProtection'),
         // Title Template Annotations
-        new AnnotationToAttribute('TitleTemplate'),
+        new AnnotationToAttribute('Oro\Bundle\NavigationBundle\Attribute\TitleTemplate'),
         // Layout Annotations
-        new AnnotationToAttribute('Layout'),
+        new AnnotationToAttribute('Oro\Bundle\LayoutBundle\Attribute\Layout'),
         // Discriminator Value Annotations
-        new AnnotationToAttribute('DiscriminatorValue'),
+        new AnnotationToAttribute('Oro\Bundle\EntityExtendBundle\Attribute\ORM\DiscriminatorValue'),
         // Help  Annotations
-        new AnnotationToAttribute('Help'),
+        new AnnotationToAttribute('Oro\Bundle\HelpBundle\Attribute\Help'),
         // Demo Data Annotations
-        new AnnotationToAttribute('NamePrefix'),
-        new AnnotationToAttribute('RouteResource'),
+        new AnnotationToAttribute('Oro\Bundle\DemoDataCRMProBundle\Fake\NamePrefix'),
+        new AnnotationToAttribute('Oro\Bundle\DemoDataCRMProBundle\Fake\RouteResource'),
     ]);
 
     // Change namespaces.
