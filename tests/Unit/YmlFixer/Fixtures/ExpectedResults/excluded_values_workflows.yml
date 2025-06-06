@@ -1,0 +1,20 @@
+workflows:
+    test_flow:
+        transition_definitions:
+            test_definition:
+                actions:
+                    -   '@request_enum_entity':
+                            enum_code: test_status
+                            identifier: 'paused'
+                            attribute: $test.status
+            one_more_test_definition:
+                form_options:
+                    attribute_fields:
+                        status:
+                            options:
+                                enum_code: test_status
+                                excluded_values:
+                                    - test_status.won
+                                    - test_status.lost
+                                    - test_status.paused
+                        probability: ~

@@ -1104,6 +1104,21 @@ class YamlSourceManipulator
                     ++$indentation;
                 }
 
+                // Modification
+                // Fixed the indentation issue of the new second element after the new first element
+                // in multiline arrays like:
+                // root:
+                //     - 'new value 1'
+                //     - 'new value 2'
+                //     ...
+                if (
+                    0 < $indentation
+                    &&  0 !== ($indentation % 4)
+                    && $indentation < $this->indentationForDepths[($this->depth - 1)]
+                ) {
+                    $indentation = $this->indentationForDepths[($this->depth - 1)] + 4;
+                }
+
                 $newIndentation = $indentation;
             }
         }

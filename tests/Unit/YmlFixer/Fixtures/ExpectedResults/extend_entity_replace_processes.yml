@@ -13,6 +13,7 @@ processes:
                         identifier: $.TestStatusID
                 -   '@action4':
                         class: Oro\Bundle\EntityExtendBundle\Entity\EnumOption
+                        identifier: 'open'
                         where:
                             and:
                                 - e.name = :name

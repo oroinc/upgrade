@@ -46,23 +46,50 @@ class ProcessesEnumIdentifierFixer implements YmlFixerInterface
     private function replaceIdentifiersValues(array &$array): void
     {
         foreach ($array as &$value) {
-            if (is_array($value)) {
-                if (array_key_exists(Keys::ENUM_CODE, $value) && array_key_exists(Keys::IDENTIFIER, $value)) {
-                    $enumCode = $value[Keys::ENUM_CODE];
-                    $identifier = $value[Keys::IDENTIFIER];
-
-                    $newIdentifier = $enumCode . "." . $identifier;
-                    // Ensure that replacement is needed
-                    if ($newIdentifier !== $identifier
-                        && !str_contains($identifier, '.')
-                        && !str_contains($identifier, '$')
-                    ) {
-                        $value[Keys::IDENTIFIER] = $newIdentifier;
-                    }
-                } else {
-                    $this->replaceIdentifiersValues($value);
-                }
+            if (!is_array($value)) {
+                continue;
             }
+
+            if (array_key_exists(Keys::ENUM_CODE, $value) && array_key_exists(Keys::IDENTIFIER, $value)) {
+                $this->replaceEnumCodeIdentifier($value);
+                continue;
+            }
+
+            if (array_key_exists(Keys::CLASS_KEY, $value) && array_key_exists(Keys::IDENTIFIER, $value)) {
+                $this->replaceClassIdentifier($value);
+                continue;
+            }
+
+            $this->replaceIdentifiersValues($value); // Recurse
         }
+    }
+
+    private function replaceEnumCodeIdentifier(array &$value): void
+    {
+        $newIdentifier = $value[Keys::ENUM_CODE] . '.' . $value[Keys::IDENTIFIER];
+
+        if ($this->isReplacementNeeded($value[Keys::IDENTIFIER], $newIdentifier)) {
+            $value[Keys::IDENTIFIER] = $newIdentifier;
+        }
+    }
+
+    private function replaceClassIdentifier(array &$value): void
+    {
+        $class = $value[Keys::CLASS_KEY];
+        if (!str_contains($class, 'Extend\Entity\EV_')) {
+            return;
+        }
+
+        $enumCode = str_replace('Extend\Entity\EV_', '', $class);
+        $newIdentifier = strtolower($enumCode) . '.' . $value[Keys::IDENTIFIER];
+
+        if ($this->isReplacementNeeded($value[Keys::IDENTIFIER], $newIdentifier)) {
+            $value[Keys::IDENTIFIER] = $newIdentifier;
+        }
+    }
+
+    private function isReplacementNeeded(string $old, string $new): bool
+    {
+        return $old !== $new && !str_contains($old, '.') && !str_contains($old, '$');
     }
 }

@@ -47,4 +47,7 @@ final class YmlConfigKeys
     public const ACTIONS_CONFIG = 'actions_configuration';
     public const ACTIONS = 'actions';
     public const IDENTIFIER = 'identifier';
+
+    public const WORKFLOWS = 'workflows';
+    public const EXCLUDED_VALUES = 'excluded_values';
 }

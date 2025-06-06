@@ -13,6 +13,7 @@ processes:
                         identifier: $.TestStatusID
                 -   '@action4':
                         class: Extend\Entity\EV_Test_Source
+                        identifier: 'open'
                         where:
                             and:
                                 - e.name = :name

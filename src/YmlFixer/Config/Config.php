@@ -18,6 +18,8 @@ use Oro\UpgradeToolkit\YmlFixer\Rules\Services\RenameServiceFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Services\RenameSessionServiceArgumentFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Services\ServicesNamespaceCallsToCachePoolTagsFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Services\ServiceTagsPriorityFixer;
+use Oro\UpgradeToolkit\YmlFixer\Rules\Workflows\WorkflowsEnumIdentifierFixer;
+use Oro\UpgradeToolkit\YmlFixer\Rules\Workflows\WorkflowsExcludedValuesFixer;
 use Oro\UpgradeToolkit\YmlFixer\Visitor\YmlFileVisitor;
 
 /**
@@ -42,8 +44,10 @@ final class Config
             RenameSessionServiceArgumentFixer::class,
             RenameEnumValueProviderServiceArgumentFixer::class,
             ProcessesIdentityReplaceFixer::class,
-            ProcessesExtendEntityReplaceFixer::class,
             ProcessesEnumIdentifierFixer::class,
+            ProcessesExtendEntityReplaceFixer::class,
+            WorkflowsEnumIdentifierFixer::class,
+            WorkflowsExcludedValuesFixer::class,
         ];
     }
 
