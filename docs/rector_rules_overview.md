@@ -10,6 +10,8 @@
 
 - [Oro 6.1](#oro-61)
 
+- [Oro 7.0](#oro-70)
+
 - [Namespace](#namespace)
 
 <br>
@@ -375,6 +377,31 @@ class SomeFixture extends AbstractFixture
 +    {
 +        return [\Oro\Bundle\TranslationBundle\Migrations\Data\ORM\LoadLanguageData::class];
 +    }
+}
+```
+
+<br>
+
+## Oro 7.0
+
+## ReplaceGetDefaultNameWithAttributeNameValueRector
+
+Replaces deprecated ```Command::getDefaultName()``` usage with a literal string from the ```#[AsCommand]``` attribute.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro70\Console\ReplaceGetDefaultNameWithAttributeNameValueRector`](../src/Rector/Rules/Oro70/Console/ReplaceGetDefaultNameWithAttributeNameValueRector.php)
+
+```diff
+class SomeService
+{
+    public function getCommandName(UpgradeCommand $command): ?string
+    {
+-        if (UpgradeCommand::getDefaultName() === $command->getName()) {
+-            return UpgradeCommand::getDefaultName();
++        if ('upgrade' === $command->getName()) {
++            return 'upgrade';
+
+        return null;
+    }
 }
 ```
 

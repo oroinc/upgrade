@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Oro\UpgradeToolkit\Rector\Application;
 
+use Nette\Utils\FileSystem as UtilsFileSystem;
 use Rector\Application\FileProcessor;
 use Rector\Application\Provider\CurrentFileProvider;
 use Rector\Caching\Detector\ChangedFilesDetector;
@@ -20,12 +21,11 @@ use Rector\ValueObject\Error\SystemError;
 use Rector\ValueObject\FileProcessResult;
 use Rector\ValueObject\ProcessResult;
 use Rector\ValueObject\Reporting\FileDiff;
-use RectorPrefix202503\Nette\Utils\FileSystem as UtilsFileSystem;
-use RectorPrefix202503\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix202503\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix202503\Symplify\EasyParallel\CpuCoreCountProvider;
-use RectorPrefix202503\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
-use RectorPrefix202503\Symplify\EasyParallel\ScheduleFactory;
+use RectorPrefix202507\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix202507\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix202507\Symplify\EasyParallel\CpuCoreCountProvider;
+use RectorPrefix202507\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use RectorPrefix202507\Symplify\EasyParallel\ScheduleFactory;
 use Throwable;
 
 /**

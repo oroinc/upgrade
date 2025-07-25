@@ -1,0 +1,21 @@
+first_test_route:
+    resource:     "@OroTestBundle/Controller"
+    type:         annotation
+    prefix:       /first-test-route
+
+api_test_route:
+    path: '/api/rest/{version}/test/{id}'
+    methods: [GET]
+    defaults:
+        _controller: 'Oro\Bundle\TestBundle\Controller\Api\Rest\TestController::getAction'
+        _format: json
+        version: latest
+    requirements:
+        id: \d+
+        _format: json
+        version: latest|v1
+
+second_test_route:
+    resource:     "@OroTestBundle/Controller/TestController.php"
+    type:         annotation
+    prefix:       /second-test-route

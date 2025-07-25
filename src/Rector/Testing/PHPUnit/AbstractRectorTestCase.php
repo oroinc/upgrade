@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Oro\UpgradeToolkit\Rector\Testing\PHPUnit;
 
+use Nette\Utils\FileSystem;
+use Nette\Utils\Strings;
 use Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor;
 use PHPUnit\Framework\ExpectationFailedException;
 use Rector\Configuration\ConfigurationFactory;
@@ -14,8 +16,6 @@ use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\Dy
 use Rector\Testing\Fixture\FixtureFileUpdater;
 use Rector\Testing\Fixture\FixtureSplitter;
 use Rector\Testing\PHPUnit\ValueObject\RectorTestResult;
-use RectorPrefix202503\Nette\Utils\FileSystem;
-use RectorPrefix202503\Nette\Utils\Strings;
 
 /**
  * Modification of
@@ -61,7 +61,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractRe
     }
 
     #[\Override]
-    protected function doTestFile(string $fixtureFilePath): void
+    protected function doTestFile(string $fixtureFilePath, bool $includeFixtureDirectoryAsSource = \false): void
     {
         // prepare input file contents and expected file output contents
         $fixtureFileContents = FileSystem::read($fixtureFilePath);

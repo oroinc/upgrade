@@ -22,7 +22,7 @@ use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
-use RectorPrefix202503\Webmozart\Assert\Assert;
+use RectorPrefix202507\Webmozart\Assert\Assert;
 
 /**
  * Modified copy of \Rector\Renaming\Rector\Namespace_\RenameNamespaceRector, Rector v0.16.0

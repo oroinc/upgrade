@@ -20,8 +20,8 @@
     "bin/upgrade-toolkit"
   ],
   "require": {
-    "phpstan/phpstan": "2.1.11",
-    "rector/rector": "2.0.11",
+    "phpstan/phpstan": "2.1.18",
+    "rector/rector": "2.1.2",
     "symfony/maker-bundle": "^v1.52.0",
     "nette/utils": "^3.2.9 || ^4.0"
   },

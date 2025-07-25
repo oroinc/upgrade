@@ -12,7 +12,9 @@ use Oro\UpgradeToolkit\YmlFixer\Rules\DumpedThemes\DataGrid\DataGridQueryFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Processes\ProcessesEnumIdentifierFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Processes\ProcessesExtendEntityReplaceFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Processes\ProcessesIdentityReplaceFixer;
+use Oro\UpgradeToolkit\YmlFixer\Rules\Routing\RoutingTypeFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Search\RemoveTitleFieldsFromSearchYamlFixer;
+use Oro\UpgradeToolkit\YmlFixer\Rules\Services\RenameClassFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Services\RenameEnumValueProviderServiceArgumentFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Services\RenameServiceFixer;
 use Oro\UpgradeToolkit\YmlFixer\Rules\Services\RenameSessionServiceArgumentFixer;
@@ -31,6 +33,7 @@ final class Config
     {
         return [
             RenameServiceFixer::class,
+            RenameClassFixer::class,
             ServicesNamespaceCallsToCachePoolTagsFixer::class,
             ServiceTagsPriorityFixer::class,
             SortersDirectionFixer::class,
@@ -48,6 +51,7 @@ final class Config
             ProcessesExtendEntityReplaceFixer::class,
             WorkflowsEnumIdentifierFixer::class,
             WorkflowsExcludedValuesFixer::class,
+            RoutingTypeFixer::class,
         ];
     }
 
