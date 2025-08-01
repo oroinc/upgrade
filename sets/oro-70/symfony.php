@@ -3,7 +3,9 @@
 use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
 use Oro\UpgradeToolkit\Rector\Rules\Oro70\Console\ReplaceGetDefaultNameWithAttributeNameValueRector;
 use Rector\Config\RectorConfig;
+use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Symfony\Symfony61\Rector\Class_\CommandConfigureToAttributeRector;
 use Rector\Symfony\Symfony61\Rector\Class_\CommandPropertyToAttributeRector;
 
@@ -31,5 +33,16 @@ return static function (RectorConfig $rectorConfig): void {
         => 'Symfony\\Component\\Validator\\Constraints\\ExpressionSyntax',
         'Symfony\\Component\\Validator\\Constraints\\ExpressionLanguageSyntaxValidator'
         => 'Symfony\\Component\\Validator\\Constraints\\ExpressionSyntaxValidator',
+    ]);
+
+    // deprecation.INFO: User Deprecated: Since symfony/serializer 6.3:
+    // The "Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer::hasCacheableSupportsMethod()" method is deprecated
+    // implement "Oro\Bundle\CacheBundle\Serializer\Normalizer\GetSetMethodNormalizer::getSupportedTypes()" instead.
+    $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
+        new MethodCallRename(
+            'Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer',
+            'hasCacheableSupportsMethod',
+            'getSupportedTypes'
+        ),
     ]);
 };
