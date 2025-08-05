@@ -87,7 +87,7 @@ class ProcessCommand extends Command
         $paths = $configuration->getPaths();
         // 1. add files and directories to static locator
         $this->dynamicSourceLocatorDecorator->addPaths($paths);
-        if ($this->dynamicSourceLocatorDecorator->isPathsEmpty()) {
+        if ($this->dynamicSourceLocatorDecorator->arePathsEmpty()) {
             $this->symfonyStyle->error('The given paths do not match any files');
             return ExitCode::FAILURE;
         }
