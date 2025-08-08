@@ -14,6 +14,8 @@
 
 - [Namespace](#namespace)
 
+- [Renaming](#Renaming)
+
 <br>
 
 ## Oro 4.2
@@ -382,6 +384,38 @@ class SomeFixture extends AbstractFixture
 
 <br>
 
+## ReplaceExtendExtensionAwareTraitRector
+
+Replaces the usage of `ExtendExtensionAwareTrait` with `OutdatedExtendExtensionAwareTrait` in migration classes implementing `Oro\Bundle\MigrationBundle\Migration\Migration`. Also removes related properties and methods.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro61\Enum\ReplaceExtendExtensionAwareTraitRector`](../src/Rector/Rules/Oro61/Enum/ReplaceExtendExtensionAwareTraitRector.php)
+
+```diff
+ use Oro\Bundle\EntityExtendBundle\Migration\Extension\ExtendExtensionAwareTrait;
++use Oro\Bundle\EntityExtendBundle\Migration\Extension\OutdatedExtendExtensionAwareTrait;
+ use Oro\Bundle\MigrationBundle\Migration\Migration;
+
+ class SomeMigration implements Migration
+ {
+-    use ExtendExtensionAwareTrait;
+-
+-    private $extendExtension;
+-
+-    public function setExtendExtension(ExtendExtension $extendExtension)
+-    {
+-        $this->extendExtension = $extendExtension;
+-    }
++    use OutdatedExtendExtensionAwareTrait;
+
+     public function up(Schema $schema, QueryBag $queries)
+     {
+         // migration logic
+     }
+ }
+```
+
+<br>
+
 ## Oro 7.0
 
 ## ReplaceGetDefaultNameWithAttributeNameValueRector
@@ -420,6 +454,53 @@ Replaces the old namespace with a new one.
 ```diff
 -$someObject = new SomeOldNamespace\SomeClass;
 +$someObject = new SomeNewNamespace\SomeClass;
+```
+
+<br>
+
+## Renaming
+
+## OroRenameClassRector
+
+Replaces defined classes by new ones with the ability to specify target classes. Modified version of the standard RenameClassRector.
+
+:wrench: **configure it!**
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Renaming\Name\OroRenameClassRector`](../src/Rector/Rules/Renaming/Name/OroRenameClassRector.php)
+
+```diff
+ use OldClass;
+
+ class SomeClass
+ {
+-    public function run(OldClass $oldClass)
++    public function run(NewClass $newClass)
+     {
+-        return new OldClass();
++        return new NewClass();
+     }
+ }
+```
+
+<br>
+
+## OroRenamePropertyRector
+
+Replaces defined old properties by new ones with the ability to specify target classes. Modified version of the standard RenamePropertyRector.
+
+:wrench: **configure it!**
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Renaming\PropertyFetch\OroRenamePropertyRector`](../src/Rector/Rules/Renaming/PropertyFetch/OroRenamePropertyRector.php)
+
+```diff
+ class SomeClass
+ {
+     public function run()
+     {
+-        return $this->oldProperty;
++        return $this->newProperty;
+     }
+ }
 ```
 
 <br>

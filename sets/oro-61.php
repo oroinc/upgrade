@@ -9,10 +9,8 @@ use Oro\UpgradeToolkit\Rector\Signature\SignatureConfigurator;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use Rector\Renaming\ValueObject\RenameProperty;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -62,7 +60,7 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     // Class Oro\Bundle\EntityExtendBundle\Provider\EnumValueProvider was removed.
-    //Use Oro\Bundle\EntityExtendBundle\Provider\EnumOptionsProvider instead.
+    // Use Oro\Bundle\EntityExtendBundle\Provider\EnumOptionsProvider instead.
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
         'Oro\Bundle\EntityExtendBundle\Provider\EnumValueProvider'
         => 'Oro\Bundle\EntityExtendBundle\Provider\EnumOptionsProvider'
@@ -86,23 +84,7 @@ return static function (RectorConfig $rectorConfig): void {
         ),
     ]);
 
-    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
-        'Oro\Bundle\EntityExtendBundle\Migration\Extension\ExtendExtensionAwareInterface'
-        => 'Oro\Bundle\EntityExtendBundle\Migration\Extension\OutdatedExtendExtensionAwareInterface'
-    ]);
-
-    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
-        'Oro\Bundle\EntityExtendBundle\Migration\Extension\ExtendExtensionAwareTrait'
-        => 'Oro\Bundle\EntityExtendBundle\Migration\Extension\OutdatedExtendExtensionAwareTrait'
-    ]);
-
-    $rectorConfig->ruleWithConfiguration(RenamePropertyRector::class, [
-        new RenameProperty(
-            'Oro\Bundle\MigrationBundle\Migration\Migration',
-            'extendExtension',
-            'outdatedExtendExtension'
-        )
-    ]);
+    $rectorConfig->import(__DIR__ . '/oro-61/migrations.php');
 
     // Apply property/method signatures rules
     SignatureConfigurator::configure($rectorConfig);
