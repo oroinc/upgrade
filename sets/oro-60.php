@@ -10,7 +10,7 @@ use Rector\Symfony\Set\SymfonySetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/skip-list.php');
-    $rectorConfig->import(__DIR__ . '/oro-60/minimize-annotations.php');
+    $rectorConfig->import(__DIR__ . '/oro-60/preprocess-annotations.php');
     $rectorConfig->import(__DIR__ . '/oro-60/oro-attributes.php');
     $rectorConfig->import(__DIR__ . '/oro-60/oro-constraint-annotations-to-attributes.php');
 
@@ -26,6 +26,7 @@ return static function (RectorConfig $rectorConfig): void {
         SensiolabsSetList::ANNOTATIONS_TO_ATTRIBUTES,
         FOSRestSetList::ANNOTATIONS_TO_ATTRIBUTES
     ]);
+    $rectorConfig->import(__DIR__ . '/oro-60/doctrine.php');
 
     // Replace Session usage to RequestStack
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [

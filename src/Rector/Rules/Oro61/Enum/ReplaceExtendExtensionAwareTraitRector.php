@@ -24,6 +24,7 @@ use Rector\Rector\AbstractRector;
 final class ReplaceExtendExtensionAwareTraitRector extends AbstractRector
 {
     private const MIGRATION_INTERFACE = 'Oro\\Bundle\\MigrationBundle\\Migration\\Migration';
+    private const INSTALLATION_INTERFACE = 'Oro\\Bundle\\MigrationBundle\\Migration\\Installation';
 
     public function getNodeTypes(): array
     {
@@ -47,9 +48,14 @@ final class ReplaceExtendExtensionAwareTraitRector extends AbstractRector
         }
 
         $isImplementInterface = false;
-        foreach ($classReflection->getImmediateInterfaces() as $interface) {
+        foreach ($classReflection->getInterfaces() as $interface) {
             if (self::MIGRATION_INTERFACE === $interface->getName()) {
                 $isImplementInterface = true;
+            }
+            // Installers should be skipped
+            if (self::INSTALLATION_INTERFACE === $interface->getName()) {
+                $isImplementInterface = false;
+                break;
             }
         }
 
@@ -90,8 +96,8 @@ final class ReplaceExtendExtensionAwareTraitRector extends AbstractRector
             }
 
             if ($stmt instanceof Property) {
-                // Remove private property $extendExtension
-                if ($stmt->isPrivate() && $this->shouldRemoveProperty($stmt)) {
+                // Remove property $extendExtension
+                if (($stmt->isPrivate() || $stmt->isProtected()) && $this->shouldRemoveProperty($stmt)) {
                     unset($node->stmts[$key]);
                     $isStmtChanged = true;
                 }
