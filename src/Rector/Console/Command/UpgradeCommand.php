@@ -48,7 +48,7 @@ class UpgradeCommand extends Command
             ->addOption(CommandOption::COMPOSER_CONFIG, null, InputArgument::OPTIONAL, 'Composer config filename', 'composer.json')
             ->addOption(CommandOption::SOURCE, null, InputArgument::OPTIONAL, 'Directory to be processed', 'src')
             ->addOption(CommandOption::DRY_RUN, null, InputOption::VALUE_NONE, 'Only see the diff of changes, do not save them to files')
-            ->addOption(CommandOption::CLEAR_CACHE, null, InputOption::VALUE_NONE, 'Clear unchanged files cache')
+            ->addOption(CommandOption::USE_CACHE, null, InputOption::VALUE_NONE, 'Use unchanged files cache')
             ->addOption(CommandOption::DEBUG, null, InputOption::VALUE_NONE, 'Display debug output')
             ->addOption(CommandOption::XDEBUG, null, InputOption::VALUE_NONE, 'Display xdebug output');
         // @codingStandardsIgnoreStart
@@ -78,9 +78,9 @@ The <info>--dry-run</info> option can be used to list the diff of changes withou
 
     <info>php %command.full_name% --dry-run</info>
 
-The <info>--clear-cache</info> option can be used to clear unchanged files cache:
+The <info>--use-cache</info> option can be used to use unchanged files cache:
 
-    <info>php %command.full_name% --clear-cache</info>
+    <info>php %command.full_name% --use-cache</info>
 
 The <info>--debug</info> option is used to display debug output:
 
@@ -98,7 +98,7 @@ Please see below an example with the most common usage flow:
  
  2. Apply changes
 
-    <info>php %command.full_name% --clear-cache</info>
+    <info>php %command.full_name%</info>
 
 HELP
         );
@@ -107,7 +107,7 @@ HELP
             ->addUsage('--composer-config=<composer.json>')
             ->addUsage('--source=<sourceroot>')
             ->addUsage('--dry-run')
-            ->addUsage('--clear-cache')
+            ->addUsage('--use-cache')
             ->addUsage('--debug')
             ->addUsage('--xdebug');
         // @codingStandardsIgnoreEnd
@@ -202,7 +202,7 @@ HELP
                 $this->input->getOption(CommandOption::SOURCE),
                 '--config=' . $configPath,
             ];
-            !$this->input->getOption(CommandOption::CLEAR_CACHE) ?: $parameters[] = '--clear-cache';
+            $this->input->getOption(CommandOption::USE_CACHE) ?: $parameters[] = '--clear-cache';
             !$this->input->getOption(CommandOption::DRY_RUN) ?: $parameters[] = '--dry-run';
             !$this->input->getOption(CommandOption::DEBUG) ?: $parameters[] = '--debug';
             !$this->input->getOption(CommandOption::XDEBUG) ?: $parameters[] = '--xdebug';
@@ -375,8 +375,8 @@ PHP;
                         CommandOption::DRY_RUN
                     ),
                     sprintf(
-                        '<info>To apply the results re-run the command with the <comment>--%s</comment> option</info>',
-                        CommandOption::CLEAR_CACHE
+                        '<info>To apply the results re-run the command without the <comment>--%s</comment> option</info>',
+                        CommandOption::DRY_RUN
                     ),
                 ]
             );
@@ -388,8 +388,8 @@ PHP;
                     // To Do: Change the link after the updated doc will be ready
                     'Visit <comment>https://doc.oroinc.com/backend/setup/upgrade-to-new-version/</comment> for more information.</info>',
                     sprintf(
-                        '<info>Otherwise fix the issues and re-run the command with <comment>--%s</comment> option</info>',
-                        CommandOption::CLEAR_CACHE
+                        '<info>Otherwise fix the issues and re-run the command without <comment>--%s</comment> option</info>',
+                        CommandOption::DRY_RUN
                     )
                 ]
             );

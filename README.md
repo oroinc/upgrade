@@ -21,7 +21,7 @@ php bin/upgrade-toolkit --dry-run
 2. Apply suggested changes:
 
 ```bash
-php bin/upgrade-toolkit --clear-cache
+php bin/upgrade-toolkit
 ```
 
 3. Fix Code Style. Use IDE build-in solutions (e.g., “Code > Reformat Code” in PhpStorm), or run Php-CS-Fixer and PHP_CodeSniffer
