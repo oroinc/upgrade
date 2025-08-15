@@ -6,10 +6,14 @@ use Nette\Utils\FileSystem;
 use Oro\UpgradeToolkit\Configuration\CommandOption;
 use Oro\UpgradeToolkit\Configuration\SignatureConfig;
 use Oro\UpgradeToolkit\Rector\Rector\RectorRunner;
+use Oro\UpgradeToolkit\Rector\Signature\CoverageScoreCounter;
 use Oro\UpgradeToolkit\Rector\Signature\SignatureBuilder;
 use Oro\UpgradeToolkit\Rector\Signature\SourceListManipulator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableCell;
+use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -148,6 +152,7 @@ HELP
         );
 
         $parentClasses = $sourceListManipulator->getParentClassesList();
+        $this->getExpectedCoverageReport();
 
         // Stage 2: Generate signatures dump to the tmp file
         $this->io->writeln('<info>Generating signatures dump … </info>');
@@ -396,5 +401,61 @@ PHP;
         }
 
         $this->io->writeln($message);
+    }
+
+    private function getExpectedCoverageReport(): void
+    {
+        $coverageReport = CoverageScoreCounter::getCoverageReport();
+        if (null !== $coverageReport) {
+            $table = new Table($this->io);
+            $table->setHeaders(
+                [
+                    new TableCell('Signature Generation Expected Coverage Report', ['colspan' => 2])
+                ]
+            );
+
+            $rows = [
+                ['Score', ($coverageReport['coverage_score'] . "%")],
+                new TableSeparator(),
+                ['Child Classes Detected', $coverageReport['extended_classes_count']],
+                ['Parents in Autoload Detected(Vendor Directory)', $coverageReport['autoloaded_parent_classes_count']],
+                ['Total Classes Checked', $coverageReport['total_classes_checked']],
+            ];
+
+            if (!empty(CoverageScoreCounter::$nonAutoloadedParentClassesList)) {
+                $rows = array_merge(
+                    $rows,
+                    [
+                        new TableSeparator(),
+                        [new TableCell(
+                            'The next classes will not be processed because parent classes are not autoloaded'
+                            . ' or placed in the source directory',
+                            ['colspan' => 2],
+                        )],
+                        new TableSeparator(),
+                        ['Child', 'Parent'],
+                        new TableSeparator(),
+                    ],
+                    CoverageScoreCounter::$nonAutoloadedParentClassesList
+                );
+            }
+
+            $table->setRows($rows);
+            $table->render();
+
+            if (CoverageScoreCounter::MINIMUM_COVERAGE_LEVEL > $coverageReport['coverage_score']) {
+                $this->io->warning(
+                    [
+                        sprintf('Coverage Score is lower than %s percent.', CoverageScoreCounter::MINIMUM_COVERAGE_LEVEL),
+                        'Check the autoload configuration to improve the score',
+                        'and the impact of inspections based on the signature dump.',
+                    ]
+                );
+            }
+
+            return;
+        }
+
+        $this->io->warning('Cannot calculate the Signature Generation Expected Coverage Report');
     }
 }
