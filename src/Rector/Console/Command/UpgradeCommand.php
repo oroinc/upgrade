@@ -24,6 +24,9 @@ use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 use Symfony\Component\VarExporter\VarExporter;
 
+/**
+ * Applies needed inspections to upgrade the source code to the required Oro version
+ */
 #[AsCommand(
     name: 'upgrade',
     description: 'Applies needed inspections to upgrade the source code to the required Oro version',
@@ -45,17 +48,50 @@ class UpgradeCommand extends Command
         parent::__construct();
     }
 
+    /** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
     #[\Override]
     protected function configure(): void
     {
         $this
-            ->addOption(CommandOption::COMPOSER_CONFIG, null, InputArgument::OPTIONAL, 'Composer config filename', 'composer.json')
-            ->addOption(CommandOption::SOURCE, null, InputArgument::OPTIONAL, 'Directory to be processed', 'src')
-            ->addOption(CommandOption::DRY_RUN, null, InputOption::VALUE_NONE, 'Only see the diff of changes, do not save them to files')
-            ->addOption(CommandOption::USE_CACHE, null, InputOption::VALUE_NONE, 'Use unchanged files cache')
-            ->addOption(CommandOption::DEBUG, null, InputOption::VALUE_NONE, 'Display debug output')
-            ->addOption(CommandOption::XDEBUG, null, InputOption::VALUE_NONE, 'Display xdebug output');
-        // @codingStandardsIgnoreStart
+            ->addOption(
+                CommandOption::COMPOSER_CONFIG,
+                null,
+                InputArgument::OPTIONAL,
+                'Composer config filename',
+                'composer.json'
+            )
+            ->addOption(
+                CommandOption::SOURCE,
+                null,
+                InputArgument::OPTIONAL,
+                'Directory to be processed',
+                'src'
+            )
+            ->addOption(
+                CommandOption::DRY_RUN,
+                null,
+                InputOption::VALUE_NONE,
+                'Only see the diff of changes, do not save them to files'
+            )
+            ->addOption(
+                CommandOption::USE_CACHE,
+                null,
+                InputOption::VALUE_NONE,
+                'Use unchanged files cache'
+            )
+            ->addOption(
+                CommandOption::DEBUG,
+                null,
+                InputOption::VALUE_NONE,
+                'Display debug output'
+            )
+            ->addOption(
+                CommandOption::XDEBUG,
+                null,
+                InputOption::VALUE_NONE,
+                'Display xdebug output'
+            )
+        ;
         $this->setHelp(
             <<<'HELP'
 The <info>%command.name%</info> command is the application upgrade tool. 
@@ -114,7 +150,6 @@ HELP
             ->addUsage('--use-cache')
             ->addUsage('--debug')
             ->addUsage('--xdebug');
-        // @codingStandardsIgnoreEnd
         parent::configure();
     }
 
@@ -246,19 +281,17 @@ HELP
         if (Command::SUCCESS === $returnCode) {
             $this->io->info('.yml files processing successfully finished');
         } else {
-            $this->io->writeln(
-                [
-                    sprintf('<info>.yml files processing finished with errors.</info>', ),
-                    sprintf(
-                        '<info>Check the output bellow to verify the issues and fix needed</info>',
-                    ),
-                    sprintf(
-                        '<info>You can re-run the command with <comment>--%s</comment> option to get more details</info>',
-                        CommandOption::DEBUG
-                    ),
-                    PHP_EOL,
-                ]
-            );
+            $this->io->writeln([
+                sprintf('<info>.yml files processing finished with errors.</info>'),
+                sprintf(
+                    '<info>Check the output bellow to verify the issues and fix needed</info>',
+                ),
+                sprintf(
+                    '<info>You can re-run the command with <comment>--%s</comment> option to get more details</info>',
+                    CommandOption::DEBUG
+                ),
+                PHP_EOL,
+            ]);
         }
     }
 
@@ -380,7 +413,8 @@ PHP;
                         CommandOption::DRY_RUN
                     ),
                     sprintf(
-                        '<info>To apply the results re-run the command without the <comment>--%s</comment> option</info>',
+                        '<info>To apply the results re-run the command'
+                        . ' without the <comment>--%s</comment> option</info>',
                         CommandOption::DRY_RUN
                     ),
                 ]
@@ -391,9 +425,11 @@ PHP;
                 [
                     '<info>Ensure that applied changes are relevant and proceed with upgrade.',
                     // To Do: Change the link after the updated doc will be ready
-                    'Visit <comment>https://doc.oroinc.com/backend/setup/upgrade-to-new-version/</comment> for more information.</info>',
+                    'Visit <comment>https://doc.oroinc.com/backend/setup/upgrade-to-new-version/</comment>'
+                    . ' for more information.</info>',
                     sprintf(
-                        '<info>Otherwise fix the issues and re-run the command without <comment>--%s</comment> option</info>',
+                        '<info>Otherwise fix the issues and re-run the command'
+                        . ' without <comment>--%s</comment> option</info>',
                         CommandOption::DRY_RUN
                     )
                 ]
@@ -446,7 +482,10 @@ PHP;
             if (CoverageScoreCounter::MINIMUM_COVERAGE_LEVEL > $coverageReport['coverage_score']) {
                 $this->io->warning(
                     [
-                        sprintf('Coverage Score is lower than %s percent.', CoverageScoreCounter::MINIMUM_COVERAGE_LEVEL),
+                        sprintf(
+                            'Coverage Score is lower than %s percent.',
+                            CoverageScoreCounter::MINIMUM_COVERAGE_LEVEL
+                        ),
                         'Check the autoload configuration to improve the score',
                         'and the impact of inspections based on the signature dump.',
                     ]

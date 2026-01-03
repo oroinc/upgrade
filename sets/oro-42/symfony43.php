@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Modified copy of symfony43 set, Rector v1.0.3
  *

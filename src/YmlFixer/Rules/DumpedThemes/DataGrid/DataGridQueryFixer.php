@@ -145,7 +145,7 @@ class DataGridQueryFixer implements YmlFixerInterface
                     $choices = "@oro_entity_extend.enum_options_provider->getEnumChoicesByCode('$enumCode')";
                     $config[Keys::DATAGRIDS][$datagrid][Keys::COLUMNS][$columnKeyOld][Keys::CHOICES] = $choices;
 
-                    // @codingStandardsIgnoreStart
+                    // phpcs:disable
                     if (array_key_exists(Keys::DATA_NAME, $config[Keys::DATAGRIDS][$datagrid][Keys::COLUMNS][$columnKeyOld])) {
                         $config[Keys::DATAGRIDS][$datagrid][Keys::COLUMNS][$columnKeyOld][Keys::DATA_NAME] = $columnKeyNew;
                     }
@@ -231,7 +231,7 @@ class DataGridQueryFixer implements YmlFixerInterface
                 $config[Keys::DATAGRIDS][$datagrid][Keys::SORTERS][Keys::COLUMNS] = $newColumns;
             }
         }
-        // @codingStandardsIgnoreEnd
+        // phpcs:enable
     }
 
     private function isSelectProcessable(array $config, string $datagrid): bool

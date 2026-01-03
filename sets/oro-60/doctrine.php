@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Modified copy of doctrine set, Rector v2.1.2
  * Defined more strict configuration to cover some edge-cases for doctrine annotations

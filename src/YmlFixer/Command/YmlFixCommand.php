@@ -41,10 +41,14 @@ class YmlFixCommand extends Command
 
     protected function configure(): void
     {
-        // @codingStandardsIgnoreStart
         $this
             ->addOption(CommandOption::SOURCE, null, InputArgument::OPTIONAL, 'Directory to be processed', 'src')
-            ->addOption(CommandOption::DRY_RUN, null, InputOption::VALUE_NONE, 'Only see the diff of changes, do not save them to files')
+            ->addOption(
+                CommandOption::DRY_RUN,
+                null,
+                InputOption::VALUE_NONE,
+                'Only see the diff of changes, do not save them to files'
+            )
             ->addOption(CommandOption::DEBUG, null, InputOption::VALUE_NONE, 'Display debug output');
 
         $this->setHelp(
@@ -87,7 +91,7 @@ HELP
             ->addUsage('--source=<sourceroot>')
             ->addUsage('--dry-run')
             ->addUsage('--debug');
-        // @codingStandardsIgnoreEnd
+
         parent::configure();
     }
 

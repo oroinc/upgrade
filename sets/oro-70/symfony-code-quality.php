@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Modified copy of symfony-code-quality set, Rector v2.1.2
  * (Removed rules used in previous sets)

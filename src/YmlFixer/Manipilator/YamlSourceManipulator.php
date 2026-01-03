@@ -10,6 +10,8 @@ use Symfony\Component\Yaml\Tag\TaggedValue;
 use Symfony\Component\Yaml\Yaml;
 
 /**
+ * phpcs:ignoreFile
+ *
  * Modified copy of \Symfony\Bundle\MakerBundle\Util\YamlSourceManipulator, Symfony MakerBundle package
  *
  * Copyright (c) 2004-2020 Fabien Potencier
@@ -41,7 +43,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlSourceManipulator
 {
-    // @codingStandardsIgnoreStart
     public const EMPTY_LINE_PLACEHOLDER_VALUE = '__EMPTY_LINE__';
     public const COMMENT_PLACEHOLDER_VALUE = '__COMMENT__';
 
@@ -1013,7 +1014,7 @@ class YamlSourceManipulator
                     && $value = $this->getValueByPath($this->currentData, $this->currentPath)
                 ) {
                     $tmpOffset = $offset;
-                    while(empty($match)) {
+                    while (empty($match)) {
                         $tmpOffset -= strlen($value);
                         if ($tmpOffset > 0) {
                             preg_match($pattern, $this->contents, $match, \PREG_OFFSET_CAPTURE, $tmpOffset);
@@ -1543,7 +1544,6 @@ class YamlSourceManipulator
     {
         return \is_string($value) && str_contains($value, "\n");
     }
-    // @codingStandardsIgnoreEnd
 
     private function parse(string $input, int $flags = 0): mixed
     {
