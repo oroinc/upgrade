@@ -5,7 +5,7 @@ namespace Oro\Tests\Rector\Rules\Oro42\RootNodeTreeBuilderRector;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-class RootNodeTreeBuilderRectorTest  extends AbstractRectorTestCase
+class RootNodeTreeBuilderRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData

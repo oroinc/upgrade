@@ -5,7 +5,7 @@ namespace Oro\Tests\Rector\Rules\Oro42\MakeDispatchFirstArgumentEventRector;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-class MakeDispatchFirstArgumentEventRectorTest  extends AbstractRectorTestCase
+class MakeDispatchFirstArgumentEventRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData
