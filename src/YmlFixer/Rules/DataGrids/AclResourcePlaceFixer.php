@@ -19,7 +19,8 @@ class AclResourcePlaceFixer implements YmlFixerInterface
         }
 
         foreach ($config[Keys::DATAGRIDS] as $key => $datagrid) {
-            if (is_array($datagrid)
+            if (
+                is_array($datagrid)
                 && array_key_exists(Keys::SOURCE, $datagrid)
                 && array_key_exists(Keys::ACL_RESOURCE, $datagrid[Keys::SOURCE])
             ) {

@@ -16,7 +16,8 @@ class ProcessesEnumIdentifierFixer implements YmlFixerInterface
     {
         if ($this->isProcessable($config)) {
             foreach ($config[Keys::PROCESSES][Keys::DEFINITIONS] as $definitionKey => $definition) {
-                if (is_array($definition)
+                if (
+                    is_array($definition)
                     && array_key_exists(Keys::ACTIONS_CONFIG, $definition)
                     && is_array($definition[Keys::ACTIONS_CONFIG])
                 ) {

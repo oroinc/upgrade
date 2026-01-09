@@ -25,12 +25,14 @@ class ServiceTagsPriorityFixer implements YmlFixerInterface
         }
 
         foreach ($config[Keys::SERVICES] as $serviceName => $serviceDef) {
-            if (is_array($serviceDef)
+            if (
+                is_array($serviceDef)
                 && array_key_exists(Keys::TAGS, $serviceDef)
                 && is_array($serviceDef[Keys::TAGS])
             ) {
                 foreach ($serviceDef[Keys::TAGS] as $tagKey => $tagDef) {
-                    if (is_array($tagDef)
+                    if (
+                        is_array($tagDef)
                         && array_key_exists(Keys::PRIORITY, $tagDef)
                         && in_array($tagDef[Keys::NAME], $this->config())
                     ) {

@@ -71,7 +71,8 @@ class DataGridQueryFixer implements YmlFixerInterface
             $joins = $config[Keys::DATAGRIDS][$datagrid][Keys::SOURCE][Keys::QUERY][Keys::JOIN];
             foreach ($joins as $key => $subJoins) {
                 foreach ($subJoins as $subJoinKey => $subJoin) {
-                    if (array_key_exists(Keys::ALIAS, $subJoin)
+                    if (
+                        array_key_exists(Keys::ALIAS, $subJoin)
                         && $subJoin[Keys::JOIN] === $joinField
                     ) {
                         $alias = $subJoin[Keys::ALIAS];

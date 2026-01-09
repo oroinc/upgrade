@@ -217,7 +217,8 @@ HELP
         $changesCount = 0;
         $errorsCount = 0;
         array_map(function ($ymlDefinition) use (&$changesCount, &$errorsCount) {
-            if ($ymlDefinition->isUpdated()
+            if (
+                $ymlDefinition->isUpdated()
                 && empty($ymlDefinition->getErrors())
                 && $ymlDefinition->getStringDefinition() !== $ymlDefinition->getUpdatedStringDefinition()
             ) {

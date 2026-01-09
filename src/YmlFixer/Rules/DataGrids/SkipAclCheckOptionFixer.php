@@ -19,7 +19,8 @@ class SkipAclCheckOptionFixer implements YmlFixerInterface
         }
 
         foreach ($config[Keys::DATAGRIDS] as $key => $datagrid) {
-            if (is_array($datagrid)
+            if (
+                is_array($datagrid)
                 && array_key_exists(Keys::OPTIONS, $datagrid)
                 && array_key_exists(Keys::SKIP_ACL_CHECK, $datagrid[Keys::OPTIONS])
             ) {
