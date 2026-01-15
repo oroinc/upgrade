@@ -555,3 +555,26 @@ Replaces defined old properties by new ones with the ability to specify target c
 ```
 
 <br>
+
+## AttributeNamedArgRenameRector
+
+Renames named arguments in PHP attributes using a configurable mapping.
+
+:wrench: **configure it!**
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Renaming\Attribute\AttributeNamedArgRenameRector`](../src/Rector/Rules/Renaming/Attribute/AttributeNamedArgRenameRector.php)
+
+```diff
+-#[SomeAttribute(old_arg_name: 'value')]
++#[SomeAttribute(newArgName: 'value')]
+ class SomeClass
+ {
+-    #[SomeAttribute(old_arg_name: 'value')]
++    #[SomeAttribute(newArgName: 'value')]
+     public function run()
+     {
+     }
+ }
+```
+
+<br>

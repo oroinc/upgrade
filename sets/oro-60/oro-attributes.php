@@ -1,6 +1,8 @@
 <?php
 
+use Oro\UpgradeToolkit\Rector\Renaming\ValueObject\RenameAttributeNamedArg;
 use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
+use Oro\UpgradeToolkit\Rector\Rules\Renaming\Attribute\AttributeNamedArgRenameRector;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
@@ -140,4 +142,24 @@ return static function (RectorConfig $rectorConfig): void {
         'Oro\Bundle\EntityExtendBundle\Annotation\ORM' => 'Oro\Bundle\EntityExtendBundle\Attribute\ORM',
         'Oro\Bundle\HelpBundle\Annotation' => 'Oro\Bundle\HelpBundle\Attribute',
     ]);
+
+    // Rename attribute named arguments from snake_case to camelCase
+    $rectorConfig->ruleWithConfiguration(
+        AttributeNamedArgRenameRector::class,
+        [
+            // Acl Attributes
+            new RenameAttributeNamedArg(
+                tag: 'Acl',
+                attributeClass: 'Oro\Bundle\SecurityBundle\Attribute\Acl',
+                oldArgName: 'ignore_class_acl',
+                newArgName: 'ignoreClassAcl'
+            ),
+            new RenameAttributeNamedArg(
+                tag: 'Acl',
+                attributeClass: 'Oro\Bundle\SecurityBundle\Attribute\Acl',
+                oldArgName: 'group_name',
+                newArgName: 'groupName'
+            ),
+        ]
+    );
 };
