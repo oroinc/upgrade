@@ -16,6 +16,8 @@
 
 - [Renaming](#Renaming)
 
+- [MethodCall](#methodcall)
+
 <br>
 
 ## Oro 4.2
@@ -492,6 +494,125 @@ class SomeService
 
 <br>
 
+## AddressValidationActionParamConverterAttributeToMapEntityAttributeRector
+
+Replaces ```#[ParamConverter]``` attributes with ```#[MapEntity]``` in addressValidationAction methods of AddressValidation controllers, converting them to method parameters.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\ParamConverter\AddressValidationActionParamConverterAttributeToMapEntityAttributeRector`](../src/Rector/Rules/Oro70/FrameworkExtraBundle/ParamConverter/AddressValidationActionParamConverterAttributeToMapEntityAttributeRector.php)
+
+```diff
+ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+ use Oro\Bundle\CustomerBundle\Entity\Customer;
+
+ class AddressValidationController extends AbstractAddressValidationController
+ {
+-    #[ParamConverter("customer", class: Customer::class, options: ["mapping" => ["customerId" => "id"]])]
+-    public function addressValidationAction(Request $request): Response|array
++    public function addressValidationAction(
++        Request $request,
++        #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(mapping: ["customerId" => "id"])]
++        \Oro\Bundle\CustomerBundle\Entity\Customer|null $customer = null
++    ): Response|array
+     {
+         return [];
+     }
+ }
+```
+
+<br>
+
+## OroParamConverterAttributeToMapEntityAttributeRector
+
+Replaces ```#[ParamConverter]``` attributes with ```#[MapEntity]``` in Oro platform controller methods.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\ParamConverter\OroParamConverterAttributeToMapEntityAttributeRector`](../src/Rector/Rules/Oro70/FrameworkExtraBundle/ParamConverter/OroParamConverterAttributeToMapEntityAttributeRector.php)
+
+```diff
+ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
+ class ProductController extends AbstractController
+ {
+-    #[ParamConverter('product', class: Product::class, options: ['mapping' => ['product_id' => 'id']])]
+-    public function showAction(Product $product): array
++    public function showAction(
++        #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(mapping: ['product_id' => 'id'])]
++        Product $product
++    ): array
+     {
+         return [];
+     }
+ }
+```
+
+<br>
+
+## TemplateAttributeArrayToArgsRector
+
+Converts Template attribute constructor calls from array syntax to arguments syntax.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\Template\TemplateAttributeArrayToArgsRector`](../src/Rector/Rules/Oro70/FrameworkExtraBundle/Template/TemplateAttributeArrayToArgsRector.php)
+
+```diff
+ use Symfony\Bridge\Twig\Attribute\Template;
+
+ class TestController
+ {
+     public function indexAction()
+     {
+-        return new Template(['template' => '@TestBundle/Default/test.html.twig']);
++        return new Template('@TestBundle/Default/test.html.twig');
+     }
+ }
+```
+
+<br>
+
+## TemplateAttributeTemplateArgumentRector
+
+Adds template argument with generated template path to Template attributes that don't have explicit template specified.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\Template\TemplateAttributeTemplateArgumentRector`](../src/Rector/Rules/Oro70/FrameworkExtraBundle/Template/TemplateAttributeTemplateArgumentRector.php)
+
+```diff
+ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+ class ProductController extends AbstractController
+ {
+-    #[Template]
+-    public function listAction(): array
++    #[Template('@OroProduct/Product/list.html.twig')]
++    public function listAction(): array
+     {
+         return [];
+     }
+ }
+```
+
+<br>
+
+## TemplateAttributeSetterToConstructorRector
+
+Converts Template attribute creation with setter method calls to constructor with arguments.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\Template\TemplateAttributeSetterToConstructorRector`](../src/Rector/Rules/Oro70/FrameworkExtraBundle/Template/TemplateAttributeSetterToConstructorRector.php)
+
+```diff
+ use Symfony\Bridge\Twig\Attribute\Template;
+
+ class TestController
+ {
+     public function indexAction()
+     {
+-        $template = new Template();
+-        $template->setTemplate('@TestBundle/Default/test.html.twig');
+-        return $template;
++        $template = new Template('@TestBundle/Default/test.html.twig');
++        return $template;
+     }
+ }
+```
+<br>
+
 ## Namespace
 
 ## RenameNamespaceRector
@@ -573,6 +694,35 @@ Renames named arguments in PHP attributes using a configurable mapping.
 +    #[SomeAttribute(newArgName: 'value')]
      public function run()
      {
+     }
+ }
+```
+
+<br>
+
+## MethodCall
+
+## OroMethodCallToPropertyFetchRector
+
+Transforms method calls to property fetch or property assignment. When method has no arguments, converts to property fetch. When method has arguments, converts to property assignment.
+
+:wrench: **configure it!**
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\MethodCall\OroMethodCallToPropertyFetchRector`](../src/Rector/Rules/MethodCall/OroMethodCallToPropertyFetchRector.php)
+
+```diff
+ use Oro\UpgradeToolkit\Tests\Template;
+
+ class TestsClass
+ {
+     public function testMethod()
+     {
+         $template = new Template();
+
+-        $templateValue = $template->getTemplate();
+-        $template->setTemplate('some-template');
++        $templateValue = $template->template;
++        $template->template = 'some-template';
      }
  }
 ```
