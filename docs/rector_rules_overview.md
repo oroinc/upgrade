@@ -728,3 +728,21 @@ Transforms method calls to property fetch or property assignment. When method ha
 ```
 
 <br>
+
+## RemoveReflectionSetAccessibleCallsRector
+
+Remove Reflection::setAccessible() calls.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\MethodCall\RemoveReflectionSetAccessibleCallsRector`](../src/Rector/Rules/MethodCall/RemoveReflectionSetAccessibleCallsRector.php)
+
+```diff
+ $reflectionProperty = new ReflectionProperty($object, 'property');
+-$reflectionProperty->setAccessible(true);
+ $value = $reflectionProperty->getValue($object);
+
+ $reflectionMethod = new ReflectionMethod($object, 'method');
+-$reflectionMethod->setAccessible(false);
+ $reflectionMethod->invoke($object);
+```
+
+<br>

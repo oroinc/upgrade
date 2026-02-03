@@ -7,6 +7,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/skip-list.php');
     $rectorConfig->import(__DIR__ . '/oro-70/symfony.php');
     $rectorConfig->import(__DIR__ . '/oro-70/remove-sensio-framework-extra-bundle.php');
+    $rectorConfig->import(__DIR__ . '/oro-70/remove-set-accessible-calls.php');
 
     // Use Oro\Component\Testing\Logger\TestLogger
     // instead of removed Psr\Log\Test\TestLogger

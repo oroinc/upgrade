@@ -127,7 +127,6 @@ final class SignatureConfigurator
 
         // write private property
         $typesReflectionProperty = new ReflectionProperty($type, 'types');
-        $typesReflectionProperty->setAccessible(true);
         $typesReflectionProperty->setValue($type, $normalizedTypes);
 
         return $type;
