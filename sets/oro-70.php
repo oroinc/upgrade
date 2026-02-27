@@ -1,5 +1,6 @@
 <?php
 
+use Oro\UpgradeToolkit\Rector\Signature\SignatureConfigurator;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Symfony\Set\SymfonySetList;
@@ -51,4 +52,6 @@ return static function (RectorConfig $rectorConfig): void {
         'Symfony\\Component\\DependencyInjection\\ContainerAwareTrait'
         => 'Oro\\Component\\DependencyInjection\\ContainerAwareTrait',
     ]);
+
+    SignatureConfigurator::configure($rectorConfig);
 };

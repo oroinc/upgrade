@@ -36,7 +36,7 @@ use Symfony\Component\VarExporter\VarExporter;
 class UpgradeCommand extends Command
 {
     private const BASE_PATH = '.';
-    private const ORO_VERSIONS = [42, 51, 60, 61];
+    private const ORO_VERSIONS = [42, 51, 60, 61, 70];
 
     private string $composerConfigFile;
     private string $projectRoot;

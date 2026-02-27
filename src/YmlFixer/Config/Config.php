@@ -34,7 +34,7 @@ final class Config
         return [
             RenameServiceFixer::class,
             // Uncomment when the oro-70 ruleset will be finalized
-            // RenameClassFixer::class,
+             RenameClassFixer::class,
             ServicesNamespaceCallsToCachePoolTagsFixer::class,
             ServiceTagsPriorityFixer::class,
             SortersDirectionFixer::class,
@@ -53,7 +53,7 @@ final class Config
             WorkflowsEnumIdentifierFixer::class,
             WorkflowsExcludedValuesFixer::class,
             // Uncomment when the oro-70 ruleset will be finalized
-            // RoutingTypeFixer::class,
+             RoutingTypeFixer::class,
         ];
     }
 
