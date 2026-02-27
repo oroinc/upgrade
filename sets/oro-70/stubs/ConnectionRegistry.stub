@@ -1,0 +1,11 @@
+<?php
+
+namespace Doctrine\Persistence;
+
+interface ConnectionRegistry
+{
+    /**
+     * @return \Doctrine\DBAL\Connection
+     */
+    public function getConnection(?string $name = null);
+}

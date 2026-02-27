@@ -1,5 +1,6 @@
 <?php
 
+use Oro\UpgradeToolkit\Rector\MethodCall\ValueObject\MethodCallToPropertyFetch;
 use Oro\UpgradeToolkit\Rector\Rules\MethodCall\OroMethodCallToPropertyFetchRector;
 use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
 use Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\ParamConverter\AddressValidationActionParamConverterAttributeToMapEntityAttributeRector;
@@ -9,8 +10,6 @@ use Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\Template\Template
 use Oro\UpgradeToolkit\Rector\Rules\Oro70\FrameworkExtraBundle\Template\TemplateAttributeTemplateArgumentRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Transform\Rector\MethodCall\MethodCallToPropertyFetchRector;
-use Rector\Transform\ValueObject\MethodCallToPropertyFetch;
 
 /**
  * Rule set to simplify the removal of the sensio/framework-extra-bundle
@@ -26,7 +25,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(TemplateAttributeArrayToArgsRector::class);
     $rectorConfig->rule(TemplateAttributeTemplateArgumentRector::class);
 
-    $rectorConfig->ruleWithConfiguration(MethodCallToPropertyFetchRector::class, [
+    $rectorConfig->ruleWithConfiguration(OroMethodCallToPropertyFetchRector::class, [
         new MethodCallToPropertyFetch(
             'Symfony\Bridge\Twig\Attribute\Template',
             'getTemplate',

@@ -13,4 +13,6 @@ final class CommandOption
     public const USE_CACHE = 'use-cache';
     public const DEBUG = 'debug';
     public const XDEBUG = 'xdebug';
+    public const WRAPPED_COMMAND = 'wrapped-command';
+    public const CLEAR_TMP = 'clear-tmp';
 }

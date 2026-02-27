@@ -26,7 +26,7 @@ use Rector\Rector\AbstractRector;
 use Rector\Reflection\ReflectionResolver;
 use Rector\Renaming\Contract\MethodCallRenameInterface;
 use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
-use RectorPrefix202507\Webmozart\Assert\Assert;
+use RectorPrefix202602\Webmozart\Assert\Assert;
 
 /**
  * Modified copy of \Rector\Renaming\Rector\MethodCall\RenameMethodRector, Rector v2.1.2

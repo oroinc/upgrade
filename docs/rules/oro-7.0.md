@@ -252,3 +252,23 @@ Adds getSupportedTypes method to classes implementing serializer normalizer inte
 +    }
  }
 ```
+
+<br>
+
+## MoveDefaultDescriptionToAsCommandAttributeRector
+
+Moves $defaultDescription property value into existing #[AsCommand] attribute's description argument.
+
+- class: [`Oro\UpgradeToolkit\Rector\Rules\Oro70\Console\MoveDefaultDescriptionToAsCommandAttributeRector`](../../src/Rector/Rules/Oro70/Console/MoveDefaultDescriptionToAsCommandAttributeRector.php)
+
+```diff
+-#[AsCommand(name: 'app:my-command')]
+-class MyCommand extends Command {
+-    protected static $defaultDescription = 'My description';
+-}
++#[AsCommand(name: 'app:my-command', description: 'My description')]
++class MyCommand extends Command {
++}
+```
+
+<br>

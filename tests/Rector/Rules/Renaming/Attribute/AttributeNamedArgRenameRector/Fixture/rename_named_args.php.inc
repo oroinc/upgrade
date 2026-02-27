@@ -33,12 +33,17 @@ use Oro\Bundle\SecurityBundle\Attribute\Acl;
 
 class TestController
 {
-    #[\Oro\Bundle\SecurityBundle\Attribute\Acl(id: 'oro_customer_view', type: 'entity', permission: 'VIEW', groupName: 'commerce')]
+    #[Acl(
+        id: 'oro_customer_view',
+        type: 'entity',
+        permission: 'VIEW',
+        groupName: 'commerce'
+    )]
     public function viewAction()
     {
     }
 
-    #[\Oro\Bundle\SecurityBundle\Attribute\Acl('oro_customer_update', groupName: 'commerce')]
+    #[Acl('oro_customer_update', groupName: 'commerce')]
     public function updateAction()
     {
     }

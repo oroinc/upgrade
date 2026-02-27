@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Oro\UpgradeToolkit\Rector\Application;
+namespace Oro\UpgradeToolkit\Rector\Testing;
 
 use Nette\Utils\FileSystem as UtilsFileSystem;
+use Oro\UpgradeToolkit\Rector\Application\AddedFilesProcessor;
+use Oro\UpgradeToolkit\Rector\Application\DeletedFilesProcessor;
 use Rector\Application\FileProcessor;
 use Rector\Application\Provider\CurrentFileProvider;
 use Rector\Caching\Detector\ChangedFilesDetector;
@@ -21,11 +23,11 @@ use Rector\ValueObject\Error\SystemError;
 use Rector\ValueObject\FileProcessResult;
 use Rector\ValueObject\ProcessResult;
 use Rector\ValueObject\Reporting\FileDiff;
-use RectorPrefix202507\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix202507\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix202507\Symplify\EasyParallel\CpuCoreCountProvider;
-use RectorPrefix202507\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
-use RectorPrefix202507\Symplify\EasyParallel\ScheduleFactory;
+use RectorPrefix202602\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix202602\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix202602\Symplify\EasyParallel\CpuCoreCountProvider;
+use RectorPrefix202602\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use RectorPrefix202602\Symplify\EasyParallel\ScheduleFactory;
 use Throwable;
 
 /**
@@ -93,7 +95,7 @@ class ApplicationFileProcessor
         }
         // no files found
         if ($filePaths === []) {
-            return new ProcessResult([], []);
+            return new ProcessResult([], [], 0);
         }
         $this->configureCustomErrorHandler();
         /**
@@ -151,6 +153,7 @@ class ApplicationFileProcessor
         $systemErrors = [];
         /** @var FileDiff[] $fileDiffs */
         $fileDiffs = [];
+        $totalChanged = 0;
         foreach ($filePaths as $filePath) {
             if ($preFileCallback !== null) {
                 $preFileCallback($filePath);
@@ -167,6 +170,9 @@ class ApplicationFileProcessor
                 if (\is_callable($postFileCallback)) {
                     $postFileCallback(1);
                 }
+                if ($fileProcessResult->hasChanged()) {
+                    ++$totalChanged;
+                }
             } catch (Throwable $throwable) {
                 $this->changedFilesDetector->invalidateFile($filePath);
                 if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
@@ -175,7 +181,7 @@ class ApplicationFileProcessor
                 $systemErrors[] = $this->resolveSystemError($throwable, $filePath);
             }
         }
-        return new ProcessResult($systemErrors, $fileDiffs);
+        return new ProcessResult($systemErrors, $fileDiffs, $totalChanged);
     }
 
     private function processFile(File $file, Configuration $configuration): FileProcessResult

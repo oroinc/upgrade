@@ -4,8 +4,6 @@ use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Symfony\Set\FOSRestSetList;
-use Rector\Symfony\Set\SensiolabsSetList;
 use Rector\Symfony\Set\SymfonySetList;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -23,9 +21,10 @@ return static function (RectorConfig $rectorConfig): void {
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
         DoctrineSetList::GEDMO_ANNOTATIONS_TO_ATTRIBUTES,
         SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SensiolabsSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        FOSRestSetList::ANNOTATIONS_TO_ATTRIBUTES
     ]);
+    $rectorConfig->import(__DIR__ . '/oro-60/sensiolabs/annotations-to-attributes.php');
+    $rectorConfig->import(__DIR__ . '/oro-60/fosrest/annotations-to-attributes.php');
+
     $rectorConfig->import(__DIR__ . '/oro-60/doctrine.php');
 
     // Replace Session usage to RequestStack

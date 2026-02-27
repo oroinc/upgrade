@@ -22,6 +22,10 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Renaming\ValueObject\RenameClassConstFetch;
 
 return static function (RectorConfig $rectorConfig): void {
+    // Help Rector resolve ManagerRegistry::getConnection() as Doctrine\DBAL\Connection
+    // so that RenameMethodRector rules fire on chained calls like $doctrine->getConnection()->getWrappedConnection()
+    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan-for-rector.neon');
+
     // PDO constants are no longer part of DBAL API
     // Use Doctrine\DBAL\ParameterType instead
     $rectorConfig->ruleWithConfiguration(RenameClassConstFetchRector::class, [
@@ -247,6 +251,22 @@ return static function (RectorConfig $rectorConfig): void {
             newMethod: 'getPrimaryKey',
             chainedMethods: ['getColumns']
         ),
+    ]);
+
+    // DBAL Connection method renames (deprecated in DBAL 2.x, removed in 4.x)
+    $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
+        new MethodCallRename('Doctrine\\DBAL\\Connection', 'fetchAll', 'fetchAllAssociative'),
+        new MethodCallRename('Doctrine\\DBAL\\Connection', 'fetchAssoc', 'fetchAssociative'),
+        new MethodCallRename('Doctrine\\DBAL\\Connection', 'fetchArray', 'fetchNumeric'),
+        new MethodCallRename('Doctrine\\DBAL\\Connection', 'fetchColumn', 'fetchOne'),
+    ]);
+
+    // Statement method renames
+    $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
+        new MethodCallRename('Doctrine\\DBAL\\Statement', 'fetchAll', 'fetchAllAssociative'),
+        new MethodCallRename('Doctrine\\DBAL\\Statement', 'fetchAssoc', 'fetchAssociative'),
+        new MethodCallRename('Doctrine\\DBAL\\Statement', 'fetchColumn', 'fetchOne'),
+        new MethodCallRename('Doctrine\\DBAL\\Statement', 'fetch', 'fetchAssociative'),
     ]);
 
     $rectorConfig->rule(AddTypeToSetParameterRector::class);

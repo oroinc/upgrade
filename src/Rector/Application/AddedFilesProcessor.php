@@ -5,16 +5,20 @@ namespace Oro\UpgradeToolkit\Rector\Application;
 use Nette\Utils\FileSystem;
 use Rector\Console\Style\RectorStyle;
 use Rector\ValueObject\Configuration;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Adds listed files
- * @see \Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor
+ * @see \Oro\UpgradeToolkit\Rector\Console\Command\FileOperationsCommand
  */
 class AddedFilesProcessor extends AbstractFilesProcessor
 {
     protected const TMP_FILE = 'FILES_TO_ADD';
 
-    public function __construct(private readonly RectorStyle $rectorStyle)
+    /**
+     * @param RectorStyle|SymfonyStyle|null $io
+     */
+    public function __construct(private $io = null)
     {
         parent::__construct();
     }
@@ -27,7 +31,8 @@ class AddedFilesProcessor extends AbstractFilesProcessor
                 FileSystem::write($filePath, $fileContent);
                 $message = sprintf('File "%s" was added', $filePath);
             }
-            $this->rectorStyle->note($message);
+
+            $this->io?->note($message);
         }
     }
 
@@ -36,7 +41,7 @@ class AddedFilesProcessor extends AbstractFilesProcessor
         $this->writeTmpFile($filePath, $fileContent);
     }
 
-    private function getFilesToAdd(): array
+    public function getFilesToAdd(): array
     {
         return $this->readTmpFile();
     }

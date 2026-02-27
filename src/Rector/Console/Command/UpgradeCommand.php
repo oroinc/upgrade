@@ -4,8 +4,9 @@ namespace Oro\UpgradeToolkit\Rector\Console\Command;
 
 use Nette\Utils\FileSystem;
 use Oro\UpgradeToolkit\Configuration\CommandOption;
+use Oro\UpgradeToolkit\Configuration\RectorCommands;
 use Oro\UpgradeToolkit\Configuration\SignatureConfig;
-use Oro\UpgradeToolkit\Rector\Rector\RectorRunner;
+use Oro\UpgradeToolkit\Rector\Console\CommandRunner\RectorCommandWrapperRunner;
 use Oro\UpgradeToolkit\Rector\Signature\CoverageScoreCounter;
 use Oro\UpgradeToolkit\Rector\Signature\SignatureBuilder;
 use Oro\UpgradeToolkit\Rector\Signature\SourceListManipulator;
@@ -223,7 +224,7 @@ HELP
 
     private function runRector()
     {
-        $rector = new RectorRunner($this->projectRoot);
+        $rectorCommandWrapperRunner = new RectorCommandWrapperRunner($this->projectRoot);
 
         foreach (self::ORO_VERSIONS as $oroVersion) {
             $configPath = $this->projectRoot . sprintf('/vendor/oro/upgrade-toolkit/sets/oro-%s.php', $oroVersion);
@@ -239,6 +240,7 @@ HELP
             }
 
             $parameters = [
+                RectorCommands::PROCESS->value,
                 $this->input->getOption(CommandOption::SOURCE),
                 '--config=' . $configPath,
             ];
@@ -247,7 +249,7 @@ HELP
             !$this->input->getOption(CommandOption::DEBUG) ?: $parameters[] = '--debug';
             !$this->input->getOption(CommandOption::XDEBUG) ?: $parameters[] = '--xdebug';
 
-            $exitCode = $rector->process($parameters, $this->io);
+            $exitCode = $rectorCommandWrapperRunner->runRector($parameters, $this->io);
 
             if (Command::FAILURE === $exitCode) {
                 $this->io->warning(

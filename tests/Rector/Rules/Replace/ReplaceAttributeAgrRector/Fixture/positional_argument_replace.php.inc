@@ -21,7 +21,7 @@ use App\Mocks\Route;
 
 final class PositionalArgumentReplace
 {
-    #[\App\Mocks\Route('new_positional', ['POST'])]
+    #[Route('new_positional', ['POST'])]
     public function action(): void
     {
     }

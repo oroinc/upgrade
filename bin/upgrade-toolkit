@@ -7,6 +7,8 @@ if ($GLOBALS['_composer_autoload_path']) {
     require $GLOBALS['_composer_autoload_path'];
 }
 
+use Oro\UpgradeToolkit\Rector\Console\Command\FileOperationsCommand;
+use Oro\UpgradeToolkit\Rector\Console\Command\RectorCommandWrapper;
 use Oro\UpgradeToolkit\Rector\Console\Command\UpgradeCommand;
 use Oro\UpgradeToolkit\YmlFixer\Command\YmlFixCommand;
 use Symfony\Component\Console\Application;
@@ -14,10 +16,16 @@ use Symfony\Component\Console\Application;
 $application = new Application('Upgrade Toolkit');
 
 $upgradeCommand = new UpgradeCommand();
-$application->add($upgradeCommand);
+$application->addCommand($upgradeCommand);
 
 $ymlFixCommand = new YmlFixCommand();
-$application->add($ymlFixCommand);
+$application->addCommand($ymlFixCommand);
+
+$fileOpsCommand = new FileOperationsCommand();
+$application->addCommand($fileOpsCommand);
+
+$rectorWrapper = new RectorCommandWrapper();
+$application->addCommand($rectorWrapper);
 
 $application->setDefaultCommand($upgradeCommand->getName());
 

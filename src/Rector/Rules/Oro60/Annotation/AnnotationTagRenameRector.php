@@ -13,7 +13,7 @@ use PhpParser\Node\Stmt\Property;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\Rector\AbstractRector;
-use RectorPrefix202507\Webmozart\Assert\Assert;
+use RectorPrefix202602\Webmozart\Assert\Assert;
 
 /**
  * Automates annotation tag renaming in PHP doc blocks using a configurable mapping.

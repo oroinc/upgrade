@@ -54,8 +54,11 @@ php bin/upgrade-toolkit --help
 
 You can run rector rule sets separately by executing the following command:
 
+> **💡** The upgrade-toolkit wrapper ensures that pre- and post-processing capabilities are automatically executed, 
+> maintaining data consistency and applying additional transformations required for the upgrade.
+
 ```bash
-bin/rector process src --config vendor/oro/upgrade-toolkit/sets/oro-51.php
+php bin/upgrade-toolkit rector process src --config vendor/oro/upgrade-toolkit/sets/oro-51.php
 ```
 
 If your source directory is not src/, replace `src` with the path to it and update `oro-51.php` with the desired upgrade set (either `oro-51.php` or `oro-60.php`).

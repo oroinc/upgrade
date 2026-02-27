@@ -12,17 +12,21 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Enum_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
+use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\Trait_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
-use RectorPrefix202507\Webmozart\Assert\Assert;
+use RectorPrefix202602\Webmozart\Assert\Assert;
 
 /**
  * Modified copy of \Rector\Renaming\Rector\Namespace_\RenameNamespaceRector, Rector v0.16.0
@@ -48,7 +52,10 @@ final class RenameNamespaceRector extends AbstractRector implements Configurable
         ClassMethod::class,
         Function_::class,
         Expression::class,
-        ClassLike::class,
+        Class_::class,
+        Interface_::class,
+        Trait_::class,
+        Enum_::class
     ];
 
     private array $oldToNewNamespaces = [];

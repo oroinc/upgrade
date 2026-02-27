@@ -18,7 +18,7 @@ use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
-use RectorPrefix202507\Webmozart\Assert\Assert;
+use RectorPrefix202602\Webmozart\Assert\Assert;
 
 /**
  * Modified copy of \Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector, Rector v2.1.2

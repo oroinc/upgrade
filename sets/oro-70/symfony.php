@@ -1,6 +1,7 @@
 <?php
 
 use Oro\UpgradeToolkit\Rector\Rules\Namespace\RenameNamespaceRector;
+use Oro\UpgradeToolkit\Rector\Rules\Oro70\Console\MoveDefaultDescriptionToAsCommandAttributeRector;
 use Oro\UpgradeToolkit\Rector\Rules\Oro70\Console\ReplaceGetDefaultNameWithAttributeNameValueRector;
 use Oro\UpgradeToolkit\Rector\Rules\Oro70\Form\AddFormWidgetAndHtml5OptionsRector;
 use Oro\UpgradeToolkit\Rector\Rules\Oro70\Serializer\AddGetSupportedTypesMethodRector;
@@ -27,6 +28,7 @@ return static function (RectorConfig $rectorConfig): void {
     // Relying on the static property "$defaultDescription" for setting a command description is deprecated.
     $rectorConfig->rules([CommandConfigureToAttributeRector::class, CommandPropertyToAttributeRector::class]);
     $rectorConfig->rule(ReplaceGetDefaultNameWithAttributeNameValueRector::class);
+    $rectorConfig->rule(MoveDefaultDescriptionToAsCommandAttributeRector::class);
 
     // deprecation.INFO: User Deprecated: Since symfony/validator 6.1:
     // The "Symfony\Component\Validator\Constraints\ExpressionLanguageSyntaxValidator" constraint is deprecated

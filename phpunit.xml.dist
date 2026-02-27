@@ -23,6 +23,11 @@
         enforceTimeLimit="false"
         verbose="false">
 
+    <php>
+        <!-- Reduce deprecation noise -->
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+    </php>
+
     <testsuites>
         <testsuite name="upgrade-toolkit">
             <directory>tests</directory>

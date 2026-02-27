@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace Oro\UpgradeToolkit\Rector\Rules\Renaming\Attribute;
 
@@ -13,7 +13,7 @@ use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeAnalyzer\ArgsAnalyzer;
 use Rector\Rector\AbstractRector;
-use RectorPrefix202507\Webmozart\Assert\Assert;
+use RectorPrefix202602\Webmozart\Assert\Assert;
 
 /**
  * Renames named arguments in PHP attributes using a configurable mapping.

@@ -51,8 +51,10 @@ class SignatureBuilder
         }
 
         echo sprintf('Analyzing %s … ', $class->name);
-        $this->analyzeProperties($class);
-        $this->analyzeMethods($class);
+        if (!$class->isInterface()) {
+            $this->analyzeProperties($class);
+        }
+        $this->analyzeMethods($class, $class->isInterface());
         echo "✓\n";
     }
 
@@ -84,9 +86,13 @@ class SignatureBuilder
      * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    private function analyzeMethods(\ReflectionClass $class): void
+    /**
+     * For interfaces, only record return types (covariant — safe to add to implementing classes).
+     * Skip param types for interfaces because adding param types to a child class when an
+     * intermediate vendor parent doesn't have them violates contravariance and causes fatal errors.
+     */
+    private function analyzeMethods(\ReflectionClass $class, bool $returnTypesOnly = false): void
     {
-        $parentClass = $class->getParentClass() ?: null;
         $methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED);
         usort($methods, fn (\ReflectionMethod $a, \ReflectionMethod $b) => $a->getName() <=> $b->getName());
 
@@ -95,25 +101,18 @@ class SignatureBuilder
                 continue;
             }
 
-            $parentHasMethod = $parentClass?->hasMethod($method->name);
-            $parentMethod = $parentHasMethod ? $parentClass->getMethod($method->name) : null;
-
             $returnType = $this->serializeType($method->getReturnType(), $class->name);
-            if (
-                $returnType &&
-                (!$parentHasMethod || $returnType !== $this->serializeType($parentMethod->getReturnType(), $parentClass->name))
-            ) {
+            if ($returnType) {
                 $this->signatures[SignatureConfig::METHOD_RETURN_TYPES][] = [$class->name, $method->name, $returnType];
             }
 
-            $parentParameters = $parentMethod?->getParameters();
+            if ($returnTypesOnly) {
+                continue;
+            }
 
             foreach ($method->getParameters() as $pos => $parameter) {
                 $type = $this->serializeType($parameter->getType(), $class->name);
-                if (
-                    $type &&
-                    (!isset($parentParameters[$pos]) || $type !== $this->serializeType($parentParameters[$pos]->getType(), $parentClass->name))
-                ) {
+                if ($type) {
                     $this->signatures[SignatureConfig::METHOD_PARAM_TYPES][] = [$class->name, $method->name, $pos, $type];
                 }
             }

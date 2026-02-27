@@ -81,6 +81,13 @@ final class SourceListManipulator
                     $this->trackNonAutoloadedParentClass($class, $parentClassName);
                 }
             }
+
+            // Also collect vendor interfaces implemented by src/ classes
+            foreach ($this->extractInterfaceNames($class) as $interfaceName) {
+                if ($this->isVendorClass($interfaceName)) {
+                    $parentClasses[] = $interfaceName;
+                }
+            }
         }
 
         return array_unique($parentClasses);
@@ -129,6 +136,21 @@ final class SourceListManipulator
         $parentClass = $reflection->getParentClass();
 
         return $parentClass ? $parentClass->getName() : null;
+    }
+
+    private function extractInterfaceNames(string $class): array
+    {
+        if (!$this->reflectionProvider->hasClass($class)) {
+            return [];
+        }
+
+        $reflection = $this->reflectionProvider->getClass($class);
+        $interfaces = [];
+        foreach ($reflection->getNativeReflection()->getInterfaceNames() as $interfaceName) {
+            $interfaces[] = $interfaceName;
+        }
+
+        return $interfaces;
     }
 
     private function getSourceRoots(): ?array

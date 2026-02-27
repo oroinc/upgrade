@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace Oro\UpgradeToolkit\Rector\Rules\Oro42;
 
@@ -11,7 +11,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
-use Rector\Contract\PhpParser\Node\StmtsAwareInterface;
+use Rector\PhpParser\Enum\NodeGroup;
 use Rector\PhpParser\Node\BetterNodeFinder;
 use Rector\Rector\AbstractRector;
 
@@ -46,7 +46,7 @@ final class RootNodeTreeBuilderRector extends AbstractRector
     #[\Override]
     public function getNodeTypes(): array
     {
-        return [StmtsAwareInterface::class];
+        return NodeGroup::STMTS_AWARE;
     }
 
     #[\Override]
@@ -76,7 +76,6 @@ final class RootNodeTreeBuilderRector extends AbstractRector
                 continue;
             }
 
-            /** @var StmtsAwareInterface $node */
             $rootMethodCallNode = $this->getRootMethodCallNode($node);
             if (!$rootMethodCallNode instanceof MethodCall) {
                 return null;
@@ -91,7 +90,7 @@ final class RootNodeTreeBuilderRector extends AbstractRector
         return null;
     }
 
-    private function getRootMethodCallNode(StmtsAwareInterface $stmtsAware): ?Node
+    private function getRootMethodCallNode(Node $stmtsAware): ?Node
     {
         $methodCalls = $this->betterNodeFinder->findInstanceOf($stmtsAware, MethodCall::class);
         foreach ($methodCalls as $methodCall) {

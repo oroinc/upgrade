@@ -23,6 +23,7 @@ use PHPStan\Reflection\ClassReflection;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\Enum\ObjectReference;
+use Rector\Exception\ShouldNotHappenException;
 use Rector\PhpParser\AstResolver;
 use Rector\PhpParser\Node\BetterNodeFinder;
 use Rector\PHPStan\ScopeFetcher;
@@ -53,6 +54,7 @@ class ExtendedEntityUpdateRector extends AbstractRector
 
     /**
      * @param Class_ $node
+     * @throws ShouldNotHappenException
      */
     #[\Override]
     public function refactor(Node $node)
@@ -66,7 +68,15 @@ class ExtendedEntityUpdateRector extends AbstractRector
             return null;
         }
 
-        $parentClassFile = $scope->getClassReflection()->getParentClass()->getFileName();
+        $parentClassFile = $scope->getClassReflection()?->getParentClass()?->getFileName();
+        if (!$parentClassFile) {
+            throw new ShouldNotHappenException(
+                sprintf(
+                    'ExtendedEntityUpdateRector: Cannot detect parent class. ' .
+                    'Check composer autoload and try again'
+                )
+            );
+        }
 
         $node->extends = null;
         $this->moveModelExtendsToTheTop($scope, $node);

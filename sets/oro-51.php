@@ -16,13 +16,6 @@ use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 
 return static function (RectorConfig $rectorConfig): void {
-    // Bind custom Process Command class instead of default
-    // to inject custom file processors into the Rector`s flow
-    $rectorConfig->bind(
-        \Rector\Console\Command\ProcessCommand::class,
-        \Oro\UpgradeToolkit\Rector\Console\Command\ProcessCommand::class
-    );
-
     $rectorConfig->import(__DIR__ . '/skip-list.php');
 
     $rectorConfig->sets([

@@ -91,8 +91,12 @@ final class OroParamConverterAttributeToMapEntityAttributeRector extends Abstrac
 
         $optionsIndex = $this->getIndexForOptionsArg($attribute->args);
         $parameterName = $firstArg->value->value;
-        $mappingArg = $attribute->args[$optionsIndex] ?? null;
-        $mappingExpr = $mappingArg instanceof Arg ? $mappingArg->value : null;
+
+        $mappingExpr = null;
+        if ($optionsIndex !== null) {
+            $mappingArg = $attribute->args[$optionsIndex] ?? null;
+            $mappingExpr = $mappingArg instanceof Arg ? $mappingArg->value : null;
+        }
 
         $newArguments = $this->getNewArguments($mappingExpr);
 

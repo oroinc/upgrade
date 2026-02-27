@@ -1,15 +1,15 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace Oro\UpgradeToolkit\Rector\Rules\MethodCall;
 
+use Oro\UpgradeToolkit\Rector\MethodCall\ValueObject\MethodCallToPropertyFetch;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
-use Rector\Transform\ValueObject\MethodCallToPropertyFetch;
-use RectorPrefix202507\Webmozart\Assert\Assert;
+use RectorPrefix202602\Webmozart\Assert\Assert;
 
 /**
  * Modified copy of \Rector\Transform\Rector\MethodCall\MethodCallToPropertyFetchRector, Rector v2.1.2

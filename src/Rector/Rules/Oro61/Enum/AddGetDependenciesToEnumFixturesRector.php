@@ -34,6 +34,9 @@ class AddGetDependenciesToEnumFixturesRector extends AbstractRector
         return [Class_::class];
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function refactor(Node $node): ?Node
     {
         if (!$node instanceof Class_) {
@@ -44,7 +47,7 @@ class AddGetDependenciesToEnumFixturesRector extends AbstractRector
             return null;
         }
 
-        if ($this->getName($node->extends) !== 'Doctrine\Common\DataFixtures\AbstractFixture') {
+        if ($this->getName($node->extends) !== 'Doctrine\\Common\\DataFixtures\\AbstractFixture') {
             return null;
         }
 
@@ -63,9 +66,9 @@ class AddGetDependenciesToEnumFixturesRector extends AbstractRector
 
         foreach ($node->getMethods() as $method) {
             if ('getDependencies' === $this->getName($method)) {
-                $this->ensureDependencyPresent($method);
+                $changed = $this->ensureDependencyPresent($method);
 
-                return $node;
+                return $changed ? $node : null;
             }
         }
 
@@ -135,15 +138,15 @@ PHPDOC));
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    private function ensureDependencyPresent(ClassMethod $method): void
+    private function ensureDependencyPresent(ClassMethod $method): bool
     {
         if ($method->stmts === null || count($method->stmts) === 0) {
-            return;
+            return false;
         }
 
         $stmt = $method->stmts[0];
         if (!$stmt instanceof Return_ || !$stmt->expr instanceof Array_) {
-            return;
+            return false;
         }
 
         $items = $stmt->expr->items;
@@ -155,22 +158,23 @@ PHPDOC));
 
             $value = $item->value;
             if ($value instanceof ClassConstFetch
-                && $value->class instanceof FullyQualified
-                && $value->class->toString() === 'Oro\Bundle\TranslationBundle\Migrations\Data\ORM\LoadLanguageData'
+                && $this->getName($value->class) === 'Oro\\Bundle\\TranslationBundle\\Migrations\\Data\\ORM\\LoadLanguageData'
             ) {
-                return;
+                return false;
             }
         }
 
         $stmt->expr->items[] = new ArrayItem(new ClassConstFetch(
-            new FullyQualified('Oro\Bundle\TranslationBundle\Migrations\Data\ORM\LoadLanguageData'),
+            new FullyQualified('Oro\\Bundle\\TranslationBundle\\Migrations\\Data\\ORM\\LoadLanguageData'),
             'class'
         ));
+
+        $changed = true;
 
         $hasOverride = false;
         foreach ($method->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attr) {
-                if ($attr->name instanceof FullyQualified && $attr->name->toString() === 'Override') {
+                if ($this->getName($attr->name) === 'Override') {
                     $hasOverride = true;
 
                     break 2;
@@ -191,5 +195,7 @@ PHPDOC));
  */
 PHPDOC));
         }
+
+        return $changed;
     }
 }

@@ -5,17 +5,21 @@ namespace Oro\UpgradeToolkit\Rector\Application;
 use Nette\Utils\FileSystem;
 use Rector\Console\Style\RectorStyle;
 use Rector\ValueObject\Configuration;
-use RectorPrefix202507\Webmozart\Assert\Assert;
+use RectorPrefix202602\Webmozart\Assert\Assert;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Removes listed files
- * @see \Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor
+ * @see \Oro\UpgradeToolkit\Rector\Console\Command\FileOperationsCommand
  */
 class DeletedFilesProcessor extends AbstractFilesProcessor
 {
     protected const TMP_FILE = 'FILES_TO_DELETE';
 
-    public function __construct(private readonly RectorStyle $rectorStyle)
+    /**
+     * @param RectorStyle|SymfonyStyle|null $io
+     */
+    public function __construct(private $io = null)
     {
         parent::__construct();
     }
@@ -28,7 +32,8 @@ class DeletedFilesProcessor extends AbstractFilesProcessor
                 FileSystem::delete($filePath);
                 $message = sprintf('File "%s" was deleted', $filePath);
             }
-            $this->rectorStyle->note($message);
+
+            $this->io?->note($message);
         }
     }
 
@@ -38,7 +43,7 @@ class DeletedFilesProcessor extends AbstractFilesProcessor
         $this->writeTmpFile($filePath);
     }
 
-    private function getFilesToDelete(): array
+    public function getFilesToDelete(): array
     {
         return $this->readTmpFile();
     }

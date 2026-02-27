@@ -6,7 +6,7 @@ namespace Oro\UpgradeToolkit\Rector\Testing\PHPUnit;
 
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
-use Oro\UpgradeToolkit\Rector\Application\ApplicationFileProcessor;
+use Oro\UpgradeToolkit\Rector\Testing\ApplicationFileProcessor;
 use PHPUnit\Framework\ExpectationFailedException;
 use Rector\Configuration\ConfigurationFactory;
 use Rector\Configuration\Option;
