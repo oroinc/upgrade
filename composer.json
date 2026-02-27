@@ -17,11 +17,18 @@
     "update"
   ],
   "bin": [
-    "bin/upgrade-toolkit"
+    "bin/upgrade-toolkit",
+    "bin/semadiff",
+    "bin/find-dependents",
+    "bin/class-diff",
+    "bin/report"
   ],
   "require": {
+    "php": ">=8.3",
+    "nikic/php-parser": "^5.0",
     "phpstan/phpstan": "2.1.38",
     "rector/rector": "2.3.6",
+    "symfony/console": "^6.0 || ^7.0",
     "symfony/maker-bundle": "^v1.52.0",
     "nette/utils": "^3.2.9 || ^4.0"
   },

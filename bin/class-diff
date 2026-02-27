@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+if (isset($GLOBALS['_composer_autoload_path'])) {
+    require $GLOBALS['_composer_autoload_path'];
+} elseif (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require __DIR__ . '/../vendor/autoload.php';
+}
+
+use Oro\UpgradeToolkit\Semadiff\Cli\ClassDiffCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application('PHP Semadiff - Class Diff', '1.0.0');
+$application->add(new ClassDiffCommand());
+$application->setDefaultCommand('class-diff', true);
+$application->run();

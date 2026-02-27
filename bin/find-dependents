@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+if (isset($GLOBALS['_composer_autoload_path'])) {
+    require $GLOBALS['_composer_autoload_path'];
+} elseif (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require __DIR__ . '/../vendor/autoload.php';
+}
+
+use Oro\UpgradeToolkit\Semadiff\Cli\FindDependentsCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application('PHP Semadiff - Find Dependents', '1.0.0');
+$application->add(new FindDependentsCommand());
+$application->setDefaultCommand('find-dependents', true);
+$application->run();
