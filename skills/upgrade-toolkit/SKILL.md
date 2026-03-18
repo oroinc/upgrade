@@ -34,7 +34,7 @@ If **any** target has uncommitted changes → **STOP**. Toolkit/cs-fixer/phpcbf 
 ### Step 3 — Install the upgrade toolkit
 
 ```bash
-cd <newApp> && COMPOSER_PROCESS_TIMEOUT=0 <composer-cmd> require oro/upgrade-toolkit:dev-master \
+cd <newApp> && COMPOSER_PROCESS_TIMEOUT=0 <composer-cmd> require oro/upgrade-toolkit:dev-experimental \
   --dev --no-scripts --ignore-platform-reqs --no-ansi 2>&1
 ```
 

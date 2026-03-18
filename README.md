@@ -2,6 +2,21 @@
 
 A command line tool that simplifies upgrading Oro application source code from versions 4.0, 4.1, 4.2, 5.0, 5.1, and 6.0 to version 6.1.
 
+AI-Assisted Upgrade
+--------------------
+
+This repository includes [Claude Code skills](https://github.com/vercel-labs/skills) for AI-assisted Oro application upgrade. Install all skills at once — you'll be prompted to choose the target directory:
+
+```bash
+npx skills add https://github.com/oroinc/upgrade/tree/experimental/skills --all
+```
+
+After installation, customize skill behavior by editing `AGENTS.md` in your project.
+
+The upgrade skills guide you through the full process — from initialization and merge to build fixes and testing. Run `/upgrade-all` to start the orchestrated workflow, or invoke individual steps:
+
+`upgrade-start` · `upgrade-init` · `upgrade-setup` · `upgrade-theme-migration` · `upgrade-merge-upstream` · `upgrade-composer` · `upgrade-changelogs` · `upgrade-patches` · `upgrade-toolkit` · `upgrade-build` · `upgrade-analyze` · `upgrade-test`
+
 Installation
 ------------
 
