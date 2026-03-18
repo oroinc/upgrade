@@ -16,6 +16,8 @@ npx skills add https://github.com/oroinc/upgrade/tree/experimental/skills --all
 
 By default, the orchestrator (`/upgrade-all`) collects all required input upfront, then runs every step autonomously — committing progress after each one — without further prompts. You can change this behavior (e.g., require confirmation between steps) by editing `AGENTS.md` in the upgrade directory.
 
+Recommended model: **Claude Opus 4.6** (frontier-tier). The skills were developed and tested on this model. Using smaller models may produce lower-quality results.
+
 ### Workspace structure
 
 The skills build up the following meta-repository layout:
