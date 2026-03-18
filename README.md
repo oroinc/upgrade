@@ -43,15 +43,18 @@ The upgrade skills guide you through the full process — from initialization an
 
 `upgrade-start` · `upgrade-init` · `upgrade-setup` · `upgrade-theme-migration` · `upgrade-merge-upstream` · `upgrade-composer` · `upgrade-changelogs` · `upgrade-patches` · `upgrade-toolkit` · `upgrade-build` · `upgrade-analyze` · `upgrade-test`
 
-Installation
+Manual Usage
 ------------
+
+The upgrade toolkit can also be used manually as a standalone Composer package, without the AI-assisted workflow.
+
+### Installation
 
 ```bash
 composer require oro/upgrade-toolkit:dev-master --dev
 ```
 
-Suggested Workflow
-------------------
+### Suggested Workflow
 
 1. Analyze your code with and review suggested changes:
 
