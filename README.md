@@ -14,7 +14,7 @@ mkdir my-upgrade && cd my-upgrade
 npx skills add https://github.com/oroinc/upgrade/tree/experimental/skills --all
 ```
 
-After installation, customize skill behavior by editing `AGENTS.md` in the upgrade directory.
+By default, the orchestrator (`/upgrade-all`) collects all required input upfront, then runs every step autonomously — committing progress after each one — without further prompts. You can change this behavior (e.g., require confirmation between steps) by editing `AGENTS.md` in the upgrade directory.
 
 ### Workspace structure
 
