@@ -5,13 +5,39 @@ A command line tool that simplifies upgrading Oro application source code from v
 AI-Assisted Upgrade
 --------------------
 
-This repository includes [Claude Code skills](https://github.com/vercel-labs/skills) for AI-assisted Oro application upgrade. Install all skills at once — you'll be prompted to choose the target directory:
+This repository includes [Claude Code skills](https://github.com/vercel-labs/skills) for AI-assisted Oro application upgrade.
+
+Start by creating an empty directory that will serve as the upgrade meta-repository, then install the skills there:
 
 ```bash
+mkdir my-upgrade && cd my-upgrade
 npx skills add https://github.com/oroinc/upgrade/tree/experimental/skills --all
 ```
 
-After installation, customize skill behavior by editing `AGENTS.md` in your project.
+After installation, customize skill behavior by editing `AGENTS.md` in the upgrade directory.
+
+### Workspace structure
+
+The skills build up the following meta-repository layout:
+
+```
+my-upgrade/                        # AI upgrade workspace root
+├── .ai-upgrade/                   # State & artifacts (gitignored)
+│   ├── config.json                # Workspace configuration (editions, paths, versions)
+│   ├── answers.json               # Pre-collected user decisions
+│   ├── progress.json              # Step-by-step execution tracking
+│   └── ...                        # Reports, diffs, build state
+├── application/
+│   ├── current/                   # Submodule: existing app on your base branch
+│   └── new/                       # Submodule: upgrade target (feature/upgrade-7.0)
+├── packages/                      # Package workspaces for unresolvable dependencies
+├── changelogs/                    # Downloaded & trimmed changelogs per vendor
+└── .gitignore
+```
+
+Each application instance runs in isolated Docker containers with separate databases. The `/upgrade-init` skill clones your repository as submodules, detects the app edition, PHP versions, and config style, then writes `.ai-upgrade/config.json` used by all subsequent steps.
+
+### Available skills
 
 The upgrade skills guide you through the full process — from initialization and merge to build fixes and testing. Run `/upgrade-all` to start the orchestrated workflow, or invoke individual steps:
 
