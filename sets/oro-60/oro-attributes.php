@@ -26,9 +26,6 @@ return static function (RectorConfig $rectorConfig): void {
         new AnnotationToAttribute(tag: 'Oro\Bundle\EntityExtendBundle\Attribute\ORM\DiscriminatorValue'),
         // Help  Annotations
         new AnnotationToAttribute(tag: 'Oro\Bundle\HelpBundle\Attribute\Help'),
-        // Demo Data Annotations
-        new AnnotationToAttribute(tag: 'Oro\Bundle\DemoDataCRMProBundle\Fake\NamePrefix'),
-        new AnnotationToAttribute(tag: 'Oro\Bundle\DemoDataCRMProBundle\Fake\RouteResource'),
     ]);
 
     // Process cases when annotations are defined via fully qualified name
@@ -120,15 +117,6 @@ return static function (RectorConfig $rectorConfig): void {
         new AnnotationToAttribute(
             tag: 'Help',
             attributeClass: 'Oro\Bundle\HelpBundle\Attribute\Help'
-        ),
-        // Demo Data Annotations
-        new AnnotationToAttribute(
-            tag: 'NamePrefix',
-            attributeClass: 'Oro\Bundle\DemoDataCRMProBundle\Fake\NamePrefix'
-        ),
-        new AnnotationToAttribute(
-            tag: 'RouteResource',
-            attributeClass: 'Oro\Bundle\DemoDataCRMProBundle\Fake\RouteResource'
         ),
     ]);
 

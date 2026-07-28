@@ -199,8 +199,6 @@ return static function (RectorConfig $rectorConfig): void {
             'Layout',
             'DiscriminatorValue',
             'Help',
-            'NamePrefix',
-            'RouteResource',
             // Fully Qualified Names Cases
             'Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config',
             'Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField',
@@ -211,8 +209,6 @@ return static function (RectorConfig $rectorConfig): void {
             'Oro\Bundle\LayoutBundle\Annotation\Layout',
             'Oro\Bundle\EntityExtendBundle\Annotation\ORM\DiscriminatorValue',
             'Oro\Bundle\HelpBundle\Annotation\Help',
-            'Oro\Bundle\DemoDataCRMProBundle\Fake\NamePrefix',
-            'Oro\Bundle\DemoDataCRMProBundle\Fake\RouteResource',
          ]
     );
 };
