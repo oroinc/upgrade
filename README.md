@@ -90,7 +90,6 @@ To run tests, use the following command:
 php bin/phpunit --testsuite upgrade-toolkit --configuration vendor/oro/upgrade-toolkit/phpunit.xml.dist
 ```
 
-License
--------
+## License
 
-This bundle is under the MIT license. See the complete license [in the bundle](LICENSE).
+[MIT](LICENSE) Copyright (c) 2026 Oro Inc.
